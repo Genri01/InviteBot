@@ -1,0 +1,9 @@
+.cam_container {
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(239 239 239);
+}

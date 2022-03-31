@@ -1,0 +1,44 @@
+
+ .itemAddAccountWrapper{
+  display: flex;
+  width: 96%;
+  height: 60px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: aliceblue;
+  border-radius: 10px;
+  flex-direction: row;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 7px rgb(46 79 217 / 30%);
+ }
+
+ .inputAddAccountWrapper{
+  display: flex;
+  width: 90%;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+ }
+
+ .inputAddAccount{
+  display: flex;
+  width: 90%;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  padding-left: 10px;
+  color: #4a5aaf;
+  box-shadow: 1px 1px 5px #00000029;
+ }
+
+ .addBtnWrapper {
+  display: flex;
+  width: 10%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1.6%;
+ }
+

@@ -1,0 +1,40 @@
+
+.sideMenuWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: #5d9cec;
+  width: 80px;
+  height: 100%;
+  box-shadow: 0 0 10px rgb(55 52 243 / 50%);
+  position: absolute;
+  top: 0px;
+  left: 0;
+
+}
+
+.sideCatigories {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width:100%;
+  height: 100%;
+  padding-top: 150px;
+}
+
+.tabSide {
+  display: flex;
+  width: 45px;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.tabSide:hover {
+  border: 3px solid #2977dd;
+  border-radius: 12px;
+}

@@ -1,0 +1,83 @@
+.account_screen {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding: 120px 50px 10px 120px;
+}
+
+.activeAcc {
+  display: flex;
+  width: 80%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-right: 30px;
+  box-shadow: 1px 0px 12px rgb(0 0 0 / 20%);
+  border-radius: 12px;
+}
+
+.blockedAcc {
+  display: flex;
+  width: 20%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 1px 0px 12px rgb(0 0 0 / 20%);
+  border-radius: 12px;
+}
+
+.accContainer {
+  display: flex;
+  width: 100%;
+  height: 95%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.titleAcc {
+  display: flex;
+  width: 100%;
+  height: 5%;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: steelblue;
+}
+
+.blockedWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 30px;
+  flex-direction: row;
+  background-color: rgb(249 0 0 / 21%);
+  border-radius: 5px;
+  color: #1827a1;
+}
+
+.orderBlocked {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 10%;
+  height: 100%;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: cursive;
+}
+
+.nameBlocked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 100%;
+}

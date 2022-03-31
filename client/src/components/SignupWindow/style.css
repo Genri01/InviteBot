@@ -1,0 +1,176 @@
+
+.signUpWindowWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 35%;
+  height: 60%;
+  border-radius: 15px;
+  background-color: #f2f7f7;
+}
+
+.signUpImageContainer {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-image: url('../../assets/images/logo.png');
+  background-position: 0px -59px;
+  background-repeat: no-repeat;
+  background-size: 101%;
+}
+
+.signUpTextContainer {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.signUpInfoContainer {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signUpLoginContainer {
+  display: flex;
+  width: 90%;
+  height: 15%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  color: #898683;
+}
+
+.signUpLogin {
+  width: 60%;
+  height: 70%;
+  padding-left: 5px;
+  border-bottom:1px solid gray;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline:none;border-left: none;border-right: none;border-top: none;
+}
+
+.signUpPasswordContainer {
+  display: flex;
+  width: 90%;
+  height: 15%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  color: #898683;
+}
+
+.signUpPasswordReplayContainer {
+  display: flex;
+  width: 90%;
+  height: 15%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  color: #898683;
+}
+
+.passContain {
+  display: flex;
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.signUpPassword {
+  width: 100%;
+  height: 70%;
+  padding-left: 5px;
+  border-bottom:1px solid gray;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline:none;border-left: none;border-right: none;border-top: none;
+}
+
+.signUpPasswordReplay {
+  width: 100%;
+  height: 70%;
+  padding-left: 5px;
+  border-bottom:1px solid gray;
+  background-image:none;
+  background-color:transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline:none;border-left: none;border-right: none;border-top: none;
+}
+
+.signUpMemberContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 20px;
+  color: #7c7c7c;
+}
+
+.signUpBtnContainer {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.signUpBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0681d2;
+  width: 200px;
+  border-radius: 5px;
+  height: 40%;
+  cursor: pointer;
+}
+
+.signUpBtn:hover {
+  background-color: #21c09e;
+  color: #dad6d6;
+}
+
+.signUpBtntext { 
+  color: #fbf4f4;
+}
+
+.signUpErrContainer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.signUpErr { 
+  color: #c04d4d;
+}
+
+.signUpPasswordEye {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}

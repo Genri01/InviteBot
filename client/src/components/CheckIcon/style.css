@@ -1,0 +1,26 @@
+ 
+ .checkWrapper {
+  display: flex;
+  width: 70px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+ }
+ 
+ .checkArrow{
+  display: flex;
+  width: 40%;
+  height: 40%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+ }
+ 
+ .imgSetting{
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5 px;
+ }
