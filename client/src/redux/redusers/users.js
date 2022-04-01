@@ -1,31 +1,21 @@
 import ActionTypes from '../constants';
 
 const initialState = {
-  form_login: '',
-  form_password: '',
-  login: 'admin',
-  password: 'admin',
-  forgot_email: ''
+  user: {},
+  isAuth: false,
 };
 
-export default function admin(state = initialState, action) {
-  switch (action.type) {
-    case ActionTypes.APP_REQUEST_GET_USER:
+export default function users(state = initialState, {type,payload}) {
+  switch (type) {
+    case ActionTypes.USERS_PUT_USER:
       return {
         ...state,
-          login: action.user.login,
-          password: action.user.password
+        user: payload,
       };
-    case ActionTypes.APP_REQUEST_PUT_USER:
+    case ActionTypes.USERS_PUT_ISAUTH:
       return {
         ...state,
-          form_login: action.payload === null ? "" : action.payload.form_login,
-          form_password: action.payload === null ? "" : action.payload.form_password,
-      };
-    case ActionTypes.APP_REQUEST_PUT_MAIL:
-      return {
-        ...state,
-          forgot_email: action.payload,
+        isAuth: payload,
       };
     default:
       return state;

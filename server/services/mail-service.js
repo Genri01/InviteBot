@@ -6,12 +6,12 @@ class MailService {
   async sendAcnivationMail(to , link) {
 
       sendmail({
-        from: `webdev170291@yandex.ru`,
+        from: `aspektpak@yandex.ru`,
         to: `${to}`,
         subject: `Запрос на активацию аккаунта <botinviter.ru>`,
         html:`<div> Для активайии аккаунта пройдите по ссылке <a href=${link}>${link}</a></div>`,
       },async err => {
-        console.log(err,"!@!@err");
+        console.log(err,"@!  ERRORS  !@");
         if(err != null) {
           let errStr = '';
           let code = '';

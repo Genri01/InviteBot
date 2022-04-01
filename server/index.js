@@ -5,29 +5,29 @@ const config = require('config');
 const cors = require('cors');
 const app = express();
 const { Router } = require('express');
-const DbMethods = require('./db/index');
 const axios = require('axios');
-const API = require('./MTProto/index');
-const TGAPI = require ('./bot_TG_API/index');
+const cookieParser = require('cookie-parser');
+
 const VKAPI = require ('./bot_VK_API/index');
-const INST = require ('./bot_INSTA_API/index');
 const SERVER = config.get('Server');
 const PORT = SERVER.port || 4000;
-const cookieParser = require('cookie-parser');
+
 const router = require('./routers/router')
 const errorMiddleware = require('./middelwares/error-middleware');
 
-app.use(function (req, res, next) { // CORSS
-  res.header('Access-Control-Allow-Origin', '*');
-  res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods","GET, POST, PATCH, DELETE, OPTIONS");
-  res.header('Access-Control-Allow-Credentials', true);
-  next();
-},express.json());
-
+// app.use(function (req, res, next) { // CORSS
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.setHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+//   res.setHeader("Access-Control-Allow-Methods","GET, POST, PATCH, DELETE, OPTIONS");
+//   res.header('Access-Control-Allow-Credentials', true);
+//   next();
+// },express.json());
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: config.get('Server.URL.CLIENT')
+}));
 app.use('/api',router);
 app.use(errorMiddleware);
 
@@ -47,25 +47,14 @@ app.listen(SERVER.port,() => {
 
   const totalHeapSize = v8.getHeapStatistics().total_available_size;
   const totalHeapSizeGb = (totalHeapSize / 1024 / 1024 / 1024).toFixed(2);
+
   console.log('TOTAL HEAP SIZE Gb: ', totalHeapSizeGb);
-
-// const instLoginFunction = () => {
-//   const client = new INST({
-//     username: "mihaillpopovprod",
-//     password: "misha07072013"
-//   });
-
-//   const instagramPostPIcture = async () => {
-//     await client.login({username: "mihaillpopovprod",password:"misha07072013"}).then((res) => {console.log(res)})
-//   }
-//   instagramPostPIcture()
-// }
-// instLoginFunction()
-
-  // VKAPI.initialVKListner();
   console.log(`Start server ${SERVER.port} on port`);
   console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
  
+
+
+
   // (async () => {
   //   const user = await getUser();
   

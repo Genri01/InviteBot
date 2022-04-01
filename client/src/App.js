@@ -4,13 +4,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Main from './routes/index';
 import HeaderMenu from './components/HeaderMenu'
-import { change_page, change_header_visible } from './redux/actions/app' 
+import { change_page, change_header_visible } from './redux/actions/app';
+import { checkAuth } from './redux/actions/users'
 
 class App extends React.Component {
   // constructor( props ) {
   //   super( props );
 
   // }
+  componentDidMount() {
+    if(localStorage.getItem('token')) {
+      checkAuth()
+    }
+  }
   render() {
     const { header_visible, page, changePage, changeHeaderVisible } = this.props;
 

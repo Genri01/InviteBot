@@ -24,8 +24,13 @@ class DB {
       }
   }
   
-  async removeInTables() {
-
+  async removeInTables(model,obj) {
+    const mod = await model.destroy({
+      where: {
+        refreshToken: obj
+      }
+    });
+    return mod;
   }
 
   async searchInTables(table,key) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './style.css';
 import { Link } from 'react-router-dom';
 import { change_page, change_header_visible } from '../../redux/actions/app' 
+import { login } from '../../redux/actions/users' 
 class SigninWindow extends React.Component {
 
   constructor( props ){
@@ -12,6 +13,7 @@ class SigninWindow extends React.Component {
     this.state = {
       form_login: '',
       form_password: '',
+      err: false
     }
   }
 
@@ -19,12 +21,14 @@ class SigninWindow extends React.Component {
     const { pass,log,put } = this.props;
     const { form_login,form_password} = this.state;
     if(event.keyCode === 13 ) {
+      console.log('!')
       if(form_login !== log && form_password !== pass) {
         this.setState({ wrong: true });
       }
-      put({form_login,form_password})
+      // put({form_login,form_password})
     }
   }
+
   componentDidMount(){
     document.addEventListener("keydown", this.escFunction, false);
   }
@@ -51,9 +55,7 @@ class SigninWindow extends React.Component {
 
   render() {
     const {    
-      login,
-      password,
-      forgot_email,
+      users,
       changePage,
       changeHeaderVisible
     } = this.props
@@ -61,6 +63,7 @@ class SigninWindow extends React.Component {
     const {
       form_login,
       form_password,
+      err
     } = this.state;
 
 
@@ -86,17 +89,17 @@ class SigninWindow extends React.Component {
             </div>
           </div>
           <div className="signinBtnContainer">
-            <div className="signinBtn">
-            <Link to={`${((login === form_login) && (password === form_password)) ? '/main': '/'}`} >
-              <div onClick={()=>{
-                  if((login === form_login)&&(password === form_password)) {
-                    changePage("main");
-                  }
-                }} className="signinBtntext">Войти</div>
-              </Link>
+            <div onClick={async () => {
+                 let err = await login(form_login,form_password);
+                 if(err) {
+                    this.setState({err: true})
+                 }
+               }} className="signinBtn">
+              <div className="signinBtntext">Войти</div>
             </div>
           </div>
           <div className="signinAutorizationContainer">
+            <div style={{display: err ? "flex": "none"}} className='errorLogin'>Пользователь не найден необходимо:</div> 
               <Link to='/signup' className="signinAutorizeText">Зарегистрироваться</Link>
           </div>
         </div>
@@ -105,18 +108,20 @@ class SigninWindow extends React.Component {
   }
 }
 
+// <Link to={`${((login === form_login) && (password === form_password)) ? '/main': '/'}`} >
+// <div onClick={()=>{
+//     if((login === form_login)&&(password === form_password)) {
+//       changePage("main");
+//     }
+//   }} className="signinBtntext">Войти</div>
+// </Link>
+
 const mapStateToProps = state => {
   const {
-   users : {
-    login,
-    password,
-    forgot_email
-   }
+   users
   } = state;
   return {
-    login,
-    password,
-    forgot_email
+    users
   }
 }
 
