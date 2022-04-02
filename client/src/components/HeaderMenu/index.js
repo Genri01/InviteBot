@@ -2,9 +2,12 @@ import React from 'react';
 import images from '../../assets/images';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { BlockedSlashLinker } from '../../routes/costomNavigation';
+import { useInvalidUrlAccess } from '../../routes/costomNavigation';
 
 
 function HeaderMenu(props) {
+  // useInvalidUrlAccess();
   const { profile, exit }= images;
   const { onClick, userName, visible, page,headerhim} = props;
 

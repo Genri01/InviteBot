@@ -1,82 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SideMenu from '../../components/SideMenu';
 import AccCard from '../../components/AccCard';
 import AddAccount from '../../components/AddAccount';
 import { connect } from 'react-redux';
 import './style.css';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/actions/users';
+import { change_header_visible,change_page } from '../../redux/actions/app';
+import { useInvalidUrlAccess, BlockedSlashLinker } from '../../routes/costomNavigation';
+import { useNavigate } from 'react-router-dom';
 
-class MainScreen extends React.Component {
+function MainScreen () {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      typeScreen:'vk'
-    }
-  }
+  // useInvalidUrlAccess();
 
-  render() {
-    const {
-      typeScreen
-    } = this.state
-    return (
-      <div className="main_screen" >
-        <div className='main_wrapper'>
-          MAIN SCREEN COOMING SOON
-        </div>
-      </div>
-    );
-  }
+  const [typeScreen, setTypeScreen] = useState('vk');
+
+  return (
+    <div className="main_screen" >
+    <div className='main_wrapper'>
+      MAIN SCREEN COOMING SOON
+    </div>
+  </div>
+  );
 }
 
-
-const mapStateToProps = state => {
-  const {
-    accounts_vk
-    // admin:accounts_vk{
-    //   form_login,
-    //   form_password,
-    //   email,
-    //   password,
-    //   login
-    // },
-    // config,
-    // config:{
-    //   oldData: {
-    //     toogle_total_temp,
-    //     total_temp_max,
-    //     total_temp_min,
-    //     site_status_has_block
-    //   }
-    // },
-    // rigs,
-    // rigs: {
-    //   oldData: {
-    //     cardsInfoArr
-    //   }
-    // },
-    // info
-    
-  } = state;
-  return {
-    // rigs,
-    // info,
-    // config,
-    // form_login,
-    // form_password,
-    // email,
-    // password,
-    // login,
-    // toogle_total_temp,
-    // total_temp_max,
-    // total_temp_min,
-    // cardsInfoArr,
-    // site_status_has_block
-  }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-      // fetchGetTempRigs: async url => Promise.resolve(dispatch(appGetConfig(url))),
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(MainScreen);
+export default MainScreen;

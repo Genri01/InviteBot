@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.css';
-
+import { useInvalidUrlAccess, BlockedSlashLinker } from '../../routes/costomNavigation';
 function ForgotWindow() {
+  // useInvalidUrlAccess();
     return (
       <div className="ForgotWindowWrapper">
         <div className="ForgotImageContainer">

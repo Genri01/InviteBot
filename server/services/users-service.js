@@ -46,11 +46,11 @@ class UserService {
     try {
       const condidate = await DB.searchInTables('users',{ email });
       if(!condidate) {
-        throw ApiErr.BadRequest(`Пользователь с ${email} не найден в базе данных`);
+        throw ApiErr.BadRequest(`Пользователь не найден необходимо: `);
       } else {
         const isPassEquals = await bcrypt.compare(password,condidate.password);
         if(!isPassEquals) {
-          throw ApiErr.BadRequest(`Неверный пароль входа`);
+          throw ApiErr.BadRequest(`Неверный пароль повторите ввод: `);
         }
         const userDto = new UserDto(condidate);
         const tokens = tokenService.generateToken({...userDto});
@@ -69,7 +69,7 @@ class UserService {
   async activate (activationLink) {
     const user = await DB.searchInTables('users',{ activationLink });
     if(!user) {
-      throw ApiErr.BadRequest('url is missing from the database or is specified incorrectly [activate::method]');
+      throw ApiErr.BadRequest('Ссылка устарела, зарегистрируйтесь заново');
     }
     await DB.updateModelTables(user,{ isActivated: true });
   }

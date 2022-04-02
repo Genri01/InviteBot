@@ -9,6 +9,8 @@ class UserController  {
   async registration(req,res,next) {
     try {
       const errors = validationResult(res);
+      console.log(errors,"errorsVALID")
+      console.log(validationResult(res),"validationResult(res)")
       if(!errors.isEmpty()) return next(ApiErr.BadRequest('Ошибка при валидации',errors.array()));
       const { email ,password } = req.body
       const userData = await userService.registration(email, password,res);

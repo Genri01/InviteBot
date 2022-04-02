@@ -6,13 +6,12 @@ import Main from './routes/index';
 import HeaderMenu from './components/HeaderMenu'
 import { change_page, change_header_visible } from './redux/actions/app';
 import { checkAuth } from './redux/actions/users'
-
 class App extends React.Component {
   // constructor( props ) {
-  //   super( props );
-
-  // }
-  componentDidMount() {
+    //   super( props );
+    
+    // }
+    componentDidMount() {
     if(localStorage.getItem('token')) {
       checkAuth()
     }
@@ -27,7 +26,7 @@ class App extends React.Component {
     }
     return (
       <div className="App"> 
-        <HeaderMenu headerhim={()=> {console.log("!@!"); changePage("signin") }} userName="Addministrator" visible={header_visible} page={page} onClick={(e) => { changePage(e.target.id); }} />
+        <HeaderMenu headerhim={()=> { changePage("signin") }} userName="Addministrator" visible={header_visible} page={page} onClick={(e) => { changePage(e.target.id); }} />
         <Main />
       </div>
     );
