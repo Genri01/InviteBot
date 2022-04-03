@@ -1,16 +1,29 @@
 {
   "Server": {
     "dbConfig":  {
-      "development":{
+      "production":{
         "username": "gen_user",
         "password": "inbox220322",
         "database": "default_db",
         "host": "92.53.105.38",
         "dialect": "mysql",
         "connectionLimit" : "1000",
-        "connectTimeout"  : "60 * 60 * 1000"   
+        "connectTimeout"  : "60 * 60 * 1000",
+        "api_id":"10237792",
+        "api_hash":"a93f667d13c17159bde2ee0500bb148c",
+        "AccVK":"[{login:+79626339565,pass:misha07072013}]",
+        "AccINST":"[{login:mihaillpopovprod,pass:misha07072013},{login:mihailpopovprod,pass:misha07072013}]"   
       }
     },
-    "port": 4000
+    "port": 4000,
+    "KEYS": {
+      "JWT_SECRET_KEY_ACCESS": "JWT_SECRET_KEY_ACCESS",
+      "JWT_SECRET_KEY_REFRESH": "JWT_SECRET_KEY_REFRESH"
+    },
+    "URL" : {
+      "API" : "http://localhost:4000",
+      "CLIENT" : "http://localhost:3000"
+    }
   }
 }
+

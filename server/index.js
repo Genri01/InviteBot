@@ -37,10 +37,11 @@ app.use('/bot',Router().get('/adminpage',(req,res,next) => {
 }));
 
 if (process.env.NODE_ENV === 'production') {
-  // app.use('/',express.static(path.join(__dirname,'..','client','build')))
-  // app.get('*',(req,res)=>{
-  //   res.sendFile(path.resolve(__dirname,'..','client','build','index.html'))
-  // })
+  console.log(__dirname,"!@$@!$");
+  app.use('/',express.static(path.join(__dirname,'..','client','build')))
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'))
+  })
 }
 
 app.listen(SERVER.port,() => {
@@ -52,9 +53,6 @@ app.listen(SERVER.port,() => {
   console.log(`Start server ${SERVER.port} on port`);
   console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`);
  
-
-
-
   // (async () => {
   //   const user = await getUser();
   
