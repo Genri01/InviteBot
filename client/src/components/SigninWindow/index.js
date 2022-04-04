@@ -48,7 +48,9 @@ var error_timer = ''
                 if(userLogin?.status === 400) {
                   setErrorInpusts(true);
                   setErrorText(userLogin.msg);
-                  setEmail('');
+                  if(userLogin.msg.split(' ')[0] !== 'Неверный') {
+                    setEmail('');
+                  }
                   setPassword('');
                   clearTimeout(error_timer);
                   error_timer = setTimeout(() => {

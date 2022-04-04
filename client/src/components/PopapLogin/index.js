@@ -1,79 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 
+export default function PopapLogin (props) {
 
-class PopapLogin extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.escFunction = this.escFunction.bind(this);
-    this.state = {
-      fogort: false,
-      wrong: false,
-    }
-  }
+  const [social_login,setSocialLogin] = useState('');
+  const [social_password,setSocialPassword] = useState('');
 
-  escFunction(event) {
-    const { pass,log,put } = this.props;
-    const { form_login,form_password} = this.state;
-    if(event.keyCode === 13 ) {
-      if(form_login !== log && form_password !== pass) {
-        this.setState({ wrong: true });
-      }
-      put({form_login,form_password})
-    }
-  }
-  componentDidMount(){
-    document.addEventListener("keydown", this.escFunction, false);
-  }
-  componentWillUnmount(){
-    document.removeEventListener("keydown", this.escFunction, false);
-  }
-
-  handleInputChange(event) {
-
-    const {
-      target: {
-        type,
-        name,
-        checked,
-        value
-      }
-    } = event
-   
-    
-    this.setState({
-      [name]: type === 'checkbox' ? checked : value
-    });
-  }
-  render() {
-    const { onClick,pass,log } = this.props;
-    const { fogort, wrong,form_login,form_password } = this.state;
-    return (
-      <div className="popap">
-        
-        <div style={{marginBottom: '20px', marginTop: '5px', fontSize:'23px'}}>Minerwatcher</div>
-        <div className="windowIn">
-        {fogort && <div className="textpass">for restore your password enter your email address</div>}
-        {fogort && <input onChange={this.handleInputChange} name="formForgot" placeholder="Enter your email"></input>}
-        {fogort && <div onClick={e => {
-          this.setState({ fogort: false });
-          onClick(this.state);
-        }} className="buttonInSend">Send</div>}
-        {wrong && <div className="ErrorPass">Wrong password</div>}
-        {!fogort && <input onChange={this.handleInputChange} name="form_login" placeholder="Login"></input>}
-          {!fogort && <input type="password" onChange={this.handleInputChange} name="form_password" style={{marginBottom: '20px', marginTop: '5px'}} placeholder="Password"></input>}
-          {!fogort && <div onClick={e=>{
-            if(form_login !== log && form_password !== pass) {
-              this.setState({ wrong: true });
-            }
-            onClick(this.state);
-            }} className="buttonIn">Sign In</div>}
-          {!fogort && <div onClick={e => {this.setState({ fogort: true })}} className="forgotPass">forgot password</div>}
+  return (
+    <div className="social_popup_modal">
+      <div className='social_popup_wrapper'>
+        <div className='social_popup_text_container'>Введите данные аккаунта для работы:</div>
+        <div className='social_popup_input_container'>
+          <div className="social_popup_login_container">
+            <div className="social_popup_text" >LOGIN</div>
+            <input onChange={(e) => setSocialLogin(e.target.value)} value={social_login} name="social_login" placeholder='Введите почту' className="social_popup_login" />
+          </div>
+          <div className="social_popup_password_container">
+            <div className="social_popup_text">PASSWORD</div>
+            <input type="password" value={social_password} onChange={(e) => setSocialPassword(e.target.value)} name="social_password" placeholder='Введите пароль' className="social_popup_password" />
+          </div>
+        </div>
+        <div className='social_popup_button_container'>
+            <div className='social_popup_button'>
+              <div className='social_popup_button_text'>Сохранить</div>
+            </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+
 }
 
-export default PopapLogin;

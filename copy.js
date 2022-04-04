@@ -19,12 +19,12 @@ function App () {
     if(localStorage.getItem('token')) {
       checkAuth()
     }
+    if(useSelector(pages.page) === "signin") {
+      dispatch(change_header_visible(false))
+    } else {
+      dispatch(change_header_visible(true))
+    }
   });
-  if(useSelector(pages.page) === "signin") {
-    dispatch(change_header_visible(false))
-  } else {
-    dispatch(change_header_visible(true))
-  }
 
   return (
     <div className="App"> 
@@ -41,48 +41,58 @@ function App () {
   </div>
   );
 }
+export default  App;
+/*
+import './App.css'; 
+import React from 'react';
+import { connect } from 'react-redux';
+import Main from './routes/index';
+import HeaderMenu from './components/HeaderMenu'
+import { change_page, change_header_visible } from './redux/actions/app';
+import { checkAuth } from './redux/actions/users'
+class App extends React.Component {
+    componentDidMount() {
+      const { changeHeaderVisible,  page  } = this.props;
+    if(localStorage.getItem('token')) {
+      checkAuth()
+    }
 
-export default App;
-
-
-
-server {
-  index index.html;
-  server_name botinviter.ru www.botinviter.ru;
-  root /home/inbox/webapps/botinviter.ru/client/build;
-
-  location / {
-          try_files $uri.html $uri $uri/ =404;
+    if(page === "signin") {
+      changeHeaderVisible(false)
+    } else {
+      changeHeaderVisible(true)
+    }
   }
-
-  location ~ /.well-known {
-           allow all;
+  render() {
+    const { header_visible, page, changePage } = this.props;
+    return (
+      <div className="App"> 
+        <HeaderMenu headerhim={()=> { changePage("signin") }} userName="Addministrator" visible={header_visible} page={page} onClick={(e) => { changePage(e.target.id); }} />
+        <Main />
+      </div>
+    );
   }
-listen 443 ssl; # managed by Certbot
-ssl_certificate /etc/letsencrypt/live/botinviter.ru/fullchain.pem; # managed by Certbot
-ssl_certificate_key /etc/letsencrypt/live/botinviter.ru/privkey.pem; # managed by Certbot
-include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
-server {
-if ($host = www.botinviter.ru) {
-  return 301 https://$host$request_uri;
-} # managed by Certbot
-
-if ($host = botinviter.ru) {
-  return 301 https://$host$request_uri;
-} # managed by Certbot
-  listen 80;
-  server_name botinviter.ru www.botinviter.ru;
-return 404; # managed by Certbot
+const mapStateToProps = state => {
+  const {
+    pages: {
+      header_visible,
+      page
+    }
+  } = state;
+  return {
+    header_visible,
+    page
+  }
 }
 
-server {
-if ($host = botinviter.ru) {
-  return 301 https://$host$request_uri;
-} # managed by Certbot
-  listen 89.223.124.38:80;
-  server_name botinviter.ru www.botinviter.ru;
-return 404; # managed by Certbot
+const mapDispatchToProps = dispatch => {
+  return {
+    changePage: (page) => { dispatch(change_page(page)) },
+    changeHeaderVisible: (visible) => { dispatch(change_header_visible(visible)) },
+  }
 }
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
+*/

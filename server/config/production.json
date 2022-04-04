@@ -22,7 +22,8 @@
     },
     "URL" : {
       "API" : "http://localhost:4000",
-      "CLIENT" : "http://localhost:3000"
+      "CLIENT" : "http://localhost:3000",
+      "ACTIVATIOLINK":"http://botinviter.ru:4000"
     }
   }
 }

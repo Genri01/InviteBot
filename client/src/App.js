@@ -1,4 +1,3 @@
-
 import './App.css'; 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,23 +6,20 @@ import HeaderMenu from './components/HeaderMenu'
 import { change_page, change_header_visible } from './redux/actions/app';
 import { checkAuth } from './redux/actions/users'
 class App extends React.Component {
-  // constructor( props ) {
-    //   super( props );
-    
-    // }
     componentDidMount() {
+      const { changeHeaderVisible,  page  } = this.props;
     if(localStorage.getItem('token')) {
       checkAuth()
     }
-  }
-  render() {
-    const { header_visible, page, changePage, changeHeaderVisible } = this.props;
 
     if(page === "signin") {
       changeHeaderVisible(false)
     } else {
       changeHeaderVisible(true)
     }
+  }
+  render() {
+    const { header_visible, page, changePage } = this.props;
     return (
       <div className="App"> 
         <HeaderMenu headerhim={()=> { changePage("signin") }} userName="Addministrator" visible={header_visible} page={page} onClick={(e) => { changePage(e.target.id); }} />
