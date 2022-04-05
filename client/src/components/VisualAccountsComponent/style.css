@@ -1,13 +1,15 @@
-.account_screen {
+.account_wrapper {
   display: flex;
   width: 100%;
-  height: auto;
-  justify-content: center; 
+  height: 100%;
+  /* justify-content: center; */
+  /* align-items: center; */
   flex-direction: row;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  padding: 120px 50px 10px 120px;
 }
 
-.activeAcc {
+.account_active_wrapper {
   display: flex;
   width: 80%;
   height: 100%;
@@ -19,18 +21,21 @@
   border-radius: 12px;
 }
 
-.blockedAcc {
+.account_blocked_wrapper {
   display: flex;
-  width: 20%;
+  width: 18%;
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   box-shadow: 1px 0px 12px rgb(0 0 0 / 20%);
   border-radius: 12px;
+  position: fixed;
+  top: 120px;
+  right: 1%;
 }
 
-.accContainer {
+.account_active_container {
   display: flex;
   width: 100%;
   height: 95%;
@@ -39,21 +44,21 @@
   flex-direction: column;
 }
 
-.titleAcc {
+.account_title {
   display: flex;
   width: 100%;
-  height: 5%;
+  height: 40px;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   color: steelblue;
 }
 
-.blockedWrapper {
+.account_blocked_item {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width:100%;
   height: 30px;
   flex-direction: row;
   background-color: rgb(249 0 0 / 21%);
@@ -61,7 +66,7 @@
   color: #1827a1;
 }
 
-.orderBlocked {
+.account_blocked_oreder {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -72,10 +77,16 @@
   font-family: cursive;
 }
 
-.nameBlocked {
+.account_blocked_name {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 90%;
   height: 100%;
+}
+
+.account_blocked_container {
+  display: flex;
+  width: 90%;
+  height: auto;
 }

@@ -15,8 +15,10 @@ export default function AccountSettingsCopy(props) {
     <div className='account_settings_copy_container'>
       <TitleComponent title="Применить эти настройки к аккаунтам:" />
       <div className='account_settings_left_container'>
-        <div className='account_settings_copy_wrapper'>
-          <div className='item_account_settings'>Аккаунт номер один:</div>
+        <div className='account_settings_item_container'>
+          {
+            children
+          }
         </div>
         <div className='account_settings_copy_btn_padding'>
           <Button icon={images.multicheck} />

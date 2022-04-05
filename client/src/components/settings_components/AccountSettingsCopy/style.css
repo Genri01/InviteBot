@@ -26,16 +26,29 @@
   box-shadow: 1px 1px 5px #00000029;
 }
 
+.account_settings_item_container {
+  display: flex;
+  width: 60%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 1px 0px 12px rgb(0 0 0 / 20%);
+  border-radius: 12px;
+  overflow: scroll;
+}
+
 .account_settings_left_container {
   display: flex;
-  width: 90%;
+  width: 680px;
+  height: 300px;
   align-items: flex-start;
   flex-direction: row;
 }
 
 .row_buttons_account_settings {
   display: flex;
-  width: 100%;
+  width: 400px;
   height: 100px;
   align-items: center;
   justify-content: space-evenly;
