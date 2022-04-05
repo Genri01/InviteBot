@@ -16,14 +16,18 @@ export default function MainSettingsComponent (props) {
   // useInvalidUrlAccess();
 
   const [id_check, setIdCheck] = useState(-1);
-  const [select_option_value, changeOption] = useState("none");
+  const [select_option_value, changeOption] = useState(0);
+  const [select_option_city, changeOptionCity] = useState("0");
+
   const [err, setErrorInpusts] = useState(false);
   const [errText, setErrorText] = useState('Пользователь  не найден в базе данных');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const lable = ["none","vpn","proxy"]
-  console.log(select_option_value)
+
+  const lable_network = ["none","Vpn","Proxy"];
+  const city_proxy = ["","Нидерланды","Сингапур","Великобритания","США"];
+  console.log(select_option_city)
   return (
     <div className="main_settings_wrapper" >
       <MainTitle title_acc={'123121232'} />
@@ -33,27 +37,30 @@ export default function MainSettingsComponent (props) {
       </div>
       <div className='main_settings_anticaptcha_title_container'>
         <TitleComponent title="AntiCaptcha" />
-        <a href="https://anti-captcha.com/ru">anti-captcha.com</a>
+        <a target="parent" href="https://anti-captcha.com/ru">anti-captcha.com</a>
       </div>
       <div className='main_settings_anticaptcha_input_container'>
         <Input placeholder="Ключ учетной записи anti-captcha.com" disabled={true} />
       </div>
-      {/* <ManualSelect optionsState={options_option} onClick={(option) => { changeOption(option) }} title="Настройки сети" styles={{ width: '140px' }}> */}
-      <select onChange={(e) => { changeOption(e.target.value) }}  value={select_option_value} className='manual_select_component_task'>
-        <option value={0}>{'option.label'}</option>
-        <option value={0}>{'optio l'}</option>
-        <option value={0}>{'opt bel'}</option>
-        <option value={0}>{'option.l l'}</option>
-        <option value={0}>{'o l'}</option>
-      </select>
-        {/* <option selected={options_option.value} value="none">Выключены</option>
-        <option selected={options_option.value} value="vpn">VPN</option>
-        <option selected={options_option.value} value="proxy">Proxy</option> */}
-
-      {/* </ManualSelect> */}
+      <ManualSelect optionsState={select_option_value} onClick={(option) => { changeOption(option) }} title="Настройки сети" styles={{ width: '140px' }}>
+        {
+          lable_network.map((item,key) =>( 
+            <option key={key} value={key}>{item}</option>
+          ))
+        }
+      </ManualSelect>
+      {
+          (select_option_value == 1)  &&  <ManualSelect optionsState={select_option_city} onClick={(option) => { changeOptionCity(option) }} title="Настройки сети" styles={{ width: '140px' }}>
+              {
+                city_proxy.map((item,key) =>( 
+                  <option key={key} value={key}>{item}</option>
+                ))
+              }
+            </ManualSelect>
+      }
       <AccountSettingsCopy>
         {
-          lable.map((item,key) =>( <ItemDisplayComponent checked={id_check === key ? true : false} key={key} name='asdas' id={key} onClick={(id) => { setIdCheck(id) }} />))
+          lable_network.map((item,key) =>( <ItemDisplayComponent checked={id_check === key ? true : false} key={key} name='asdas' id={key} onClick={(id) => { setIdCheck(id) }} />))
         }
       </AccountSettingsCopy>
     </div>

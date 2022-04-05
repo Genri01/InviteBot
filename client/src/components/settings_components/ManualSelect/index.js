@@ -11,12 +11,12 @@ import TitleComponent from '../TitleComponent';
 export default function ManualSelect(props) {
 
   const { title , disabled, children, styles, optionsState, onClick } = props
-  const [check,Switching] = useState(false);
+  const [check, Switching] = useState(false);
   return (
     <div className="manual_select_wrapper" >
       <TitleComponent title={title} />
       <div className='manual_select_component_task_wrapper'>
-        <select onChange={(e) => { onClick(e.target.options) }}  value={optionsState} style={styles} className='manual_select_component_task'>
+        <select onChange={(e) => { onClick(e.target.value) }} value={optionsState} style={styles} className='manual_select_component_task'>
           {
             children
           }
