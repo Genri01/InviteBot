@@ -8,9 +8,9 @@ import SelectComponentItem from '../../components/settings_components/SelectComp
 import TitleComponent from '../../components/settings_components/TitleComponent';
 import CountInput from '../../components/settings_components/CountInput';
 import DelayComponent from '../../components/settings_components/DelayComponent';
+import AccountSettingsCopy from '../../components/settings_components/AccountSettingsCopy';
 import RandomizeComponentArea from '../../components/settings_components/RandomizeComponentArea';
 import ManualSelect from '../../components/settings_components/ManualSelect';
-import AccountSettingsCopy from '../AccountSettingsCopy';
 import './style.css';
 
 

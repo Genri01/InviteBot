@@ -16,8 +16,7 @@ import PopapLogin from '../../components/PopapLogin';
 export default function AccountScreen () {
   const type_side_menu = useSelector(side_menu.type_side_menu);
   const newDataAccountVK = useSelector(accounts_vk.newDataAccountVK);
-  //  console.log(type_side_menu.side_menu.type_side_menu) 
-  //  .slide_menu.type_side_menu
+  
   let AccountNetwork = [];
   
   if(newDataAccountVK.acc.length === 0) {
