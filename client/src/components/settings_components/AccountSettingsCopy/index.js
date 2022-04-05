@@ -1,79 +1,38 @@
-import React from 'react';
-import SideMenu from '../../components/SideMenu';
-import AccCard from '../../components/AccCard';
-import AddAccount from '../../components/AddAccount';
-import PopapLogin from '../../components/PopapLogin';
-import { connect } from 'react-redux';
-import {change_side_menu} from '../../redux/actions/app'
+import React, { useState } from 'react';
+import images from '../../../assets/images';
+import Button from '../../Button';
+import TitleComponent from '../TitleComponent';
+
 import './style.css';
 
-class AccountScreen extends React.Component {
 
-  render() {
+export default function AccountSettingsCopy(props) {
 
-    const {
-      changeSideMenu,
-      type_side_menu,
-      accounts_vk: {
-        newDataAccountVK,
-      }
-    } = this.props;
-    let AccountNetwork = [];
-    
-    if(newDataAccountVK.acc.length === 0) {
-       AccountNetwork = []
-    } else {
-       AccountNetwork = type_side_menu === "vk" ? newDataAccountVK.acc : type_side_menu === "inst" ? newDataAccountVK.acc : newDataAccountVK.acc;
-    }
+  const { title , disabled, children } = props
+  const [check,Switching] = useState(false);
 
-
-    return (
-      <div className="account_screen" >
-        {/* <PopapLogin visible_popup={false} /> */}
-        <SideMenu onClick={(e)=>{changeSideMenu(e.target.id)}} typeScreen={type_side_menu} />
-        <div className='activeAcc'>
-          <div className='titleAcc'>Активные:</div>
-          <div className='accContainer'>
-            <AddAccount type={type_side_menu} />
-            {
-              AccountNetwork.map((item,i) => (
-                <AccCard key={i} accinfo={item} id={item.id} name={item.settingsAcc.name} type={type_side_menu} />
-              ))
-            }
-          </div>
+  return (
+    <div className='account_settings_copy_container'>
+      <TitleComponent title="Применить эти настройки к аккаунтам:" />
+      <div className='account_settings_left_container'>
+        <div className='account_settings_copy_wrapper'>
+          <div className='item_account_settings'>Аккаунт номер один:</div>
         </div>
-        <div className='blockedAcc'>
-          <div className='titleAcc'>Заблокированные:</div>
-          <div className='accContainer'>
-            <div className='blockedWrapper'>
-              <div className='orderBlocked'>1</div>
-              <div className='nameBlocked'>vk-inboxwhite</div>
-            </div>
-          </div>
+        <div className='account_settings_copy_btn_padding'>
+          <Button icon={images.multicheck} />
+          <Button icon={images.multiuncheck} />
         </div>
       </div>
-    );
-  }
+      <div className='row_buttons_account_settings'>
+        <div onClick={async () => {}} className="signinBtn">
+          <div onClick={()=>{}} className="signinBtntext">Сформировать</div>
+        </div>
+        <div onClick={async () => {}} className="signinBtn">
+          <div onClick={()=>{}} className="signinBtntext">Отмена</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 
-const mapStateToProps = state => {
-
-  const {
-    accounts_vk,
-    side_menu: {
-      type_side_menu
-    }
-  } = state;
-  return {
-    accounts_vk,
-    type_side_menu
-  }
-}
-const mapDispatchToProps = dispatch => {
-    return {
-      changeSideMenu: item => dispatch(change_side_menu(item)),
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(AccountScreen);

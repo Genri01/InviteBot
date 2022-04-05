@@ -13,6 +13,6 @@ export const accounts_vk = {
   oldDataAccountVK:(state) => state.accounts_vk.oldDataAccountVK,
 }
 
-export const slide_menu = {
-  type_side_menu:(state) => state.slide_menu.type_side_menu,
+export const side_menu = {
+  type_side_menu:(state) => state.side_menu.type_side_menu,
 }
