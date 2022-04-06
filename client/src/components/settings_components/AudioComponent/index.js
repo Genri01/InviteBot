@@ -14,11 +14,15 @@ export default function AudioComponentArea(props) {
 
   return (
     <div className="audio_component_folder_wrapper" >
-      <CheckComponent />
-      <div className='audio_button_wrapper'>
-        <Button icon={images.folder} />
+      <div className='audio_component_left_part'>
+        <CheckComponent />
+        <div className='audio_button_wrapper'>
+          <Button icon={images.folder} />
+        </div>
       </div>
-      <Button icon={images.del} />
+      <div className='audio_component_right_part'>
+        <Button icon={images.del} />
+      </div>
     </div>
   );
 }

@@ -8,12 +8,14 @@ import './style.css';
 
 export default function AccountSettingsCopy(props) {
 
-  const { title , disabled, children } = props
+  const { styles, children } = props
   const [check,Switching] = useState(false);
 
   return (
-    <div className='account_settings_copy_container'>
-      <TitleComponent title="Применить эти настройки к аккаунтам:" />
+    <div style={
+      styles
+    } className='account_settings_copy_container'>
+      <TitleComponent  styles={{marginBottom:'20px'}} title="Применить эти настройки к аккаунтам:" />
       <div className='account_settings_left_container'>
         <div className='account_settings_item_container'>
           {
@@ -27,7 +29,7 @@ export default function AccountSettingsCopy(props) {
       </div>
       <div className='row_buttons_account_settings'>
         <div onClick={async () => {}} className="signinBtn">
-          <div onClick={()=>{}} className="signinBtntext">Сформировать</div>
+          <div onClick={()=>{}} className="signinBtntext">Сохранить</div>
         </div>
         <div onClick={async () => {}} className="signinBtn">
           <div onClick={()=>{}} className="signinBtntext">Отмена</div>

@@ -5,13 +5,12 @@ function CheckIcon(props) {
     const {
       icon,
       onClick,
-      name,
-      id,
-      alt
+      alt,
+      value
     } = props;
     return (
       <div className='checkWrapper'>
-        <input className='checkArrow' name={name} id={id} type='checkbox'></input>  
+        <input name={value.name} onChange={(e) => { onClick({ check: !value.check, name: value.name });}} className='checkArrow' type='checkbox'></input>  
         <img className='imgSetting' src={icon} alt={alt} />
       </div>
     );

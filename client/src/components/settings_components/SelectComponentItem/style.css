@@ -39,3 +39,18 @@
 
 }
 
+
+.select_component_left_part {
+  display: flex;
+  width: 90%;
+  height: 100%;
+  align-items: center;
+ }
+
+ .select_component_rigth_part {
+  display: flex;
+  width: 10%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+ }

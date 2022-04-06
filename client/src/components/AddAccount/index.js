@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import images from '../../assets/images';
 import Button from '../Button';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { accounts_vk } from '../../redux/selectors';
 import './style.css';
 import {
   appGetAccountsVK,
@@ -9,94 +10,61 @@ import {
   appGetAccountsINST
 } from '../../redux/actions/app.js';
 
-class AddAccount extends React.Component {
+export default function AddAccount (props) {
 
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = {
-      nameCard:""
-    }
-  }
+  const { type } = props;
+  const { add } = images;
 
-  handleInputChange(event) {
-
-    const {
-      target: {
-        type,
-        name,
-        checked,
-        value
-      }
-    } = event
-   
-    
-    this.setState({
-      [name]: type === 'checkbox' ? checked : value
-    });
-  }
-
-    render(){
-      const {
-        add,
-      } = images;
-
-      const {
-        handleInputChange,
-        state : { 
-          nameCard
+  const [name_account_card, changeNameCard] = useState('');
+  const newDataAccountVK = useSelector(accounts_vk.newDataAccountVK);
+  const accounts = newDataAccountVK.accounts;
+  const dispatch = useDispatch()
+  const default_account_setting = {
+    id: `${accounts.length + 1}`,
+    main_settings: {
+      name: name_account_card,
+      type_network: type,
+      checkbox_state: { eye: false, img: false },
+      anticapcha: "",
+      network: {
+        vpn: {
+          country:"",
         },
-        props: {
-          type,
-          putAccountsVK,
-          acc
+        proxy: {
+          ip:"",
+          log:"",
+          pass:""
         }
-      } =this;
-
-      const objAcc = {
-        id: `${acc.length + 1}`,
-        settingsAcc: {
-          name:nameCard,
-          visibleSite: false,
-          visibleImg: false,
-          typeAcc: type,
-          anticapcha: "",
-          network: {
-            statusON: true,
-            vpn: {
-              country:"",
-            },
-            proxy: {
-              ip:"",
-              log:"",
-              pass:""
-            }
-          }
-        },
-        tasks: [
-          {shedule: {
+      }
+    },
+    task_settings: {
+      tasks: [
+        {
+          shedule: {
             mode: {
               auto: {
                 days: {
-                  day:["mon","sut"],
+                  day:[],
                   all: false,
                 },
-                startShedule:"timestamp",
-                stopShedule:"timestamp",
+                start_shedule: "timestamp",
+                stop_shedule: "timestamp",
               },
               manual: {
-                stopShedule:"timestamp",
+                stop_shedule: "timestamp",
               },
               task:["autoresponderСonfirmFriends"],
-              errinTG: false
+              error_in_TG: false
             }
-          }},
-          {autoresponderСonfirmFriends: {
-            contGreeting: 0,
+          }
+        },
+        {
+          autoresponderСonfirmFriends: {
+            welcomeCount: 0,
             delay: 30,
             messageSettings: {
               about: true,
-              noanswer: false
+              noanswer: false,
             },
             randomizeText:{
               on:false,
@@ -114,24 +82,26 @@ class AddAccount extends React.Component {
               path:[""],
               random: false,
             },
-          }},
-          {autosecretary: {
+          }
+        },
+        {
+          autosecretary: {
             countAnswer: 0,
             delay: 30,
             oneOption: {
               text: "",
-              randomizeText:{
+              randomizeText: {
                 on:false,
                 text:[""],
                 random: false,
                 username: false
               },
-              linkPhoto:{
+              linkPhoto: {
                 on:false,
                 link:[""],
                 random: false,
               },
-              audio:{
+                audio: {
                 on:false,
                 path:[""],
                 random: false,
@@ -139,7 +109,7 @@ class AddAccount extends React.Component {
             },
             twoOption: {
               text: "",
-              randomizeText:{
+              randomizeText: {
                 on:false,
                 text:[""],
                 random: false,
@@ -175,13 +145,17 @@ class AddAccount extends React.Component {
                 random: false,
               },
             },
-          }},
-          {likingViewingStories:{
+          }
+        },
+        {
+          likingViewingStories:{
             countUser: 0,
             delay:50,
             randdomLike: false
-          }},
-          {autoresponderIncomingRequestsFriends: {
+          }
+        },
+        {
+          autoresponderIncomingRequestsFriends: {
             contGreeting: 0,
             delay: 30,
             likeAva: false,
@@ -206,8 +180,10 @@ class AddAccount extends React.Component {
               path:[""],
               random: false,
             },
-          }},
-          {sendingMessagesUserList: {
+          }
+        },
+        {
+          sendingMessagesUserList: {
             countMessage: 0,
             delay: 30,
             likeAva: false,
@@ -233,15 +209,19 @@ class AddAccount extends React.Component {
               random: false,
             },
             linkList: ["",""]
-          }},
-          {possibleFriends: {
+          }
+        },
+        {
+          possibleFriends: {
             countFrendsReq: 0,
             inRequestMax: 200,
             delay: 30,
             likeAva: false,
             likeWall: false,
-          }},
-          {targetAudienceFromList: {
+          }
+        },
+        {
+          targetAudienceFromList: {
             countFrendsReq: 0,
             inRequestMax: 200,
             delay: 30,
@@ -250,20 +230,26 @@ class AddAccount extends React.Component {
             likeWall:true,
             likeAva:true,
             listLink:["",""]
-          }},
-          {publishingStories: {
+          }
+        },
+        {
+          publishingStories: {
             countPublish: 0,
             delay: 50,
             linkButtonMore:"",
             materialHistory:"",
-          }},
-          {parserTargetAudience: {
+          }
+        },
+        {
+          parserTargetAudience: {
             phrases: [""],
             country:"",
             cityes: "",
             linkUserList:[""]
-          }},
-          {sendMessagesCommunityList: {
+          }
+        },
+        {
+          sendMessagesCommunityList: {
             countСommunities: 0,
             delay:50,
             messageSettings: {
@@ -287,40 +273,26 @@ class AddAccount extends React.Component {
               random: false,
             },
             linkListСommunities: ["",""]
-          }}
-        ]
-      }
-
-      return (
-        <div className="itemAddAccountWrapper">
-          <div className='inputAddAccountWrapper'>
-            <input className='inputAddAccount' onChange={handleInputChange} name="nameCard" placeholder='name' value={nameCard} />
-          </div>
-          <div className='addBtnWrapper'>
-            <Button icon={add} onClick={() => { 
-                acc.push(objAcc)
-              putAccountsVK(acc); this.setState({nameCard:""}) 
-              } } alt='add' />
-          </div>
-        </div>
-      );
-    }
-}
-
-const mapStateToProps = state => {
-
-  const { accounts_vk: { newDataAccountVK: { acc } } } = state
-
-  return {
-    acc
+          }
+        }
+      ],
+      status_tasks: { initial_state: '', previous_launch: '' }
+    },
   }
-}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    putAccountsVK: (data)=>dispatch(appGetAccountsVK(data)),
-  }
+  return (
+    <div className="itemAddAccountWrapper">
+      <div className='inputAddAccountWrapper'>
+        <input className='inputAddAccount' onChange={(e)=>{changeNameCard(e.target.value)}} name="nameCard" placeholder='Введите название нового аккаунта' value={name_account_card} />
+      </div>
+      <div className='addBtnWrapper'>
+        <Button icon={add} onClick={() => { 
+            accounts.push(default_account_setting);
+            dispatch(appGetAccountsVK(accounts));
+            changeNameCard('')
+          } } alt='add' />
+      </div>
+    </div>
+  );
 }
-
-export default connect(mapStateToProps,mapDispatchToProps)(AddAccount);
 

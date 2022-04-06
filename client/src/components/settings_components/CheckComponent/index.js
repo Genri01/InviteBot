@@ -9,8 +9,8 @@ export default function CheckComponent(props) {
   const [check,Switching] = useState(false);
 
   return (
-    <div style={{ pointerEvents: disabled ? 'all' : 'none' }}  className="check_component_wrapper" >
-        <div  style={{ backgroundColor: disabled ? '' : '#ddddddcc' }} onClick={() => { Switching(!check); }} className='check_component_item'>
+    <div style={{ pointerEvents: disabled ? 'none' : 'all' }}  className="check_component_wrapper" >
+        <div  style={{ backgroundColor: disabled ? '#ddddddcc' : '' }} onClick={() => { Switching(!check); }} className='check_component_item'>
          { check && <img src={images.check} alt="check" /> }
         </div>
         {

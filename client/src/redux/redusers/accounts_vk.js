@@ -2,7 +2,7 @@ import ActionTypes from '../constants';
 
 const initialState = {
   oldDataAccountVK: {
-    acc: [
+    accounts: [
       {
         id: 1,
         settingsAcc: {
@@ -242,15 +242,16 @@ const initialState = {
       }
     ]
   },
-  newDataAccountVK: {acc: []},
+  newDataAccountVK: { accounts: [] },
+  dataRegistredVK: { accounts: [] }
 };
-export default function accounts_vk(state = initialState, { type,payload }) {
+export default function accounts_vk(state = initialState, { type, payload }) {
   switch (type) {
     case ActionTypes.APP_REQUEST_GET_ACCOUNTS_VK:
       return {
         ...state,
         newDataAccountVK: {
-          acc: payload
+          accounts: payload
         }
       };
     case ActionTypes.COPY_DATA_ACCOUNTS_VK:

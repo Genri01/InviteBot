@@ -1,7 +1,8 @@
 import ActionTypes from '../constants';
 
 const initialState = {
-  popup_visisble: true
+  popup_visible: false,
+  dataRegistredVK: {}
 };
 
 export default function popup_login(state = initialState, { type, payload }) {
@@ -9,7 +10,14 @@ export default function popup_login(state = initialState, { type, payload }) {
     case ActionTypes.POPUP_LOGIN_VISIBLE:
       return {
         ...state,
-        page: payload,
+        popup_visible: payload,
+      };
+    case ActionTypes.POPUP_LOGIN_DATA_REGISTRATION_VK:
+      return {
+        ...state,
+        dataRegistredVK: {
+          accounts: payload
+        }
       };
     default:
       return state;

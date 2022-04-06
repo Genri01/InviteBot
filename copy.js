@@ -17,7 +17,7 @@ function App () {
   // const navigate = useNavigate()
   useEffect(() => {
     if(localStorage.getItem('token')) {
-      checkAuth()
+      checkAuth(dispatch)
     }
     if(useSelector(pages.page) === "signin") {
       dispatch(change_header_visible(false))

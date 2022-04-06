@@ -3,9 +3,9 @@ import './style.css';
 
 
 export default function TitleComponent(props) {
-  const { title , disabled } = props
+  const { title , disabled, styles, center } = props
   return (
-    <div style={{ pointerEvents: !disabled ? 'all' : 'none', color: disabled ? null : 'gray' }} className="title_component_wrapper" >
+    <div style={{ pointerEvents: disabled ? 'all' : 'none', color: disabled ? 'gray' : null, ...styles}} className={`title_component_wrapper ${center ? 'title_center' : ''}`} >
         <div className='title_component_text'>
           {
             title

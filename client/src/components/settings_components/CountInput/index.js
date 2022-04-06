@@ -15,7 +15,7 @@ export default function CountInput(props) {
 
   return (
     <div className="count_input_wrapper" >
-      <TitleComponent title="sddfsd" />
+      <TitleComponent title={title} />
       <InputNumber />
     </div>
   );

@@ -3,6 +3,11 @@ export const users = {
   isAuth:(state) => state.users.isAuth,
 }
 
+export const popup_login = {
+  popup_visible:(state) => state.popup_login.popup_visible,
+  dataRegistredVK:(state) => state.popup_login.dataRegistredVK,
+}
+
 export const pages = {
   page:(state) => state.pages.page,
   header_visible:(state) => state.pages.header_visible,

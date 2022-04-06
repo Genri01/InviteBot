@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { popup_save_data,change_visible_popup } from '../../redux/actions/users'
+
 import './style.css';
 
-export default function PopapLogin (props) {
+export default function PopapLogin () {
 
   const [social_login,setSocialLogin] = useState('');
   const [social_password,setSocialPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   return (
     <div className="social_popup_modal">
@@ -21,7 +26,13 @@ export default function PopapLogin (props) {
           </div>
         </div>
         <div className='social_popup_button_container'>
-            <div className='social_popup_button'>
+            <div onClick={async () => { 
+              const response = await popup_save_data(social_login,social_password,dispatch);
+              if (response != 401) {
+                console.log(response);
+                dispatch(change_visible_popup(false));
+              }
+             }}  className='social_popup_button'>
               <div className='social_popup_button_text'>Сохранить</div>
             </div>
         </div>

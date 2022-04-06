@@ -5,6 +5,7 @@ import accounts_tg from './accounts_tg';
 import accounts_inst from './accounts_inst';
 import pages from './pages';
 import side_menu from './side_menu';
+import popup_login from './popup_login';
 
 const rootReducer = combineReducers({
   users,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   accounts_tg,
   accounts_inst,
   pages,
-  side_menu
+  side_menu,
+  popup_login
 });
 
 export default rootReducer;

@@ -28,18 +28,22 @@ export default function SelectComponentItem(props) {
   ]
   return (
     <div className="select_component_item_wrapper" >
-      <CheckComponent />
-      <div className='select_number_item'>1</div>
-      <div className='select_component_task_wrapper'>
-        <select className='select_component_task'>
-          {
-            taskArr.map((item,i) => (
-              <option key={i}>{item}</option>
-            ))
-          }
-        </select>
+      <div className='select_component_left_part'>
+        <CheckComponent />
+        <div className='select_number_item'>1</div>
+        <div className='select_component_task_wrapper'>
+          <select className='select_component_task'>
+            {
+              taskArr.map((item,i) => (
+                <option key={i}>{item}</option>
+              ))
+            }
+          </select>
+        </div>
       </div>
-      <Button icon={images.del} />
+      <div className='select_component_rigth_part'>
+        <Button icon={images.del} />
+      </div>
     </div>
   );
 }

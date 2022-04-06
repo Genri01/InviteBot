@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MainSettingsComponent from '../settings_components/MainSettingsComponent';
+import TaskSettingsComponent from '../settings_components/TaskSettingsComponent';
 import './style.css';
 
 export default function VisualSettingsComponent (props) {
@@ -14,7 +15,8 @@ export default function VisualSettingsComponent (props) {
   return (
     <div className="visual_settings_wrapper" >
       <div className='visual_settings_container'>
-        <MainSettingsComponent />
+        {/* <MainSettingsComponent /> */}
+        <TaskSettingsComponent />
       </div>
     </div>
   );
