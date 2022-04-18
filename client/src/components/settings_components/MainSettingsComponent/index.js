@@ -27,7 +27,7 @@ export default function MainSettingsComponent (props) {
 
   const lable_network = ["Выключены","Vpn","Proxy"];
   const city_proxy = ["Выбирите страну","Нидерланды","Сингапур","Великобритания","США"];
-  console.log(select_option_city)
+
   return (
     <div className="main_settings_wrapper" >
       <MainTitle  title_acc="" text="Настройки аккаунта:" />

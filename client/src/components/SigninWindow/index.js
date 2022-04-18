@@ -35,8 +35,8 @@ var error_timer = ''
         </div>
         <div className="signinMemberContainer">
           <div className="signinMemberContainerleft">
-            <input type="checkbox" name="membercheck" className="chekbox"></input>
-            <div>запомни меня</div>
+            {/* <input type="checkbox" name="membercheck" className="chekbox"></input>
+            <div>запомни меня</div> */}
           </div>
           <div className="signinMemberContainerRightBox">
             <BlockedSlashLinker to='/forgot'>забыли пароль?</BlockedSlashLinker>
@@ -65,7 +65,7 @@ var error_timer = ''
                     navigate('/main');
                   } else {
                     setErrorInpusts(true);
-                    setErrorText('Подтвердите регистрацию в письме :');
+                    setErrorText('Подтвердите регистрацию в письме!');
                     setEmail('');
                     setPassword('');
                     clearTimeout(error_timer);

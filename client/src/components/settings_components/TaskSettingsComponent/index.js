@@ -12,6 +12,7 @@ import TargetGroupLIstSettingsPage from '../task_settings_pages/TargetGroupLIstS
 import PublicHistorySettingsPage from '../task_settings_pages/PublicHistorySettingsPage';
 import ParsingSettingsPage from '../task_settings_pages/ParsingSettingsPage';
 import SendMessageGroupListSettingsPage from '../task_settings_pages/SendMessageGroupListSettingsPage';
+import ManualSortFriendsSettingsPage from '../task_settings_pages/ManualSortFriendsSettingsPage';
 
 import './style.css';
 
@@ -37,8 +38,8 @@ export default function TaskSettingsComponent (props) {
       {/* <TargetGroupLIstSettingsPage /> */}
       {/* <PublicHistorySettingsPage /> */}
       {/* <ParsingSettingsPage /> */}
-      <SendMessageGroupListSettingsPage />
-      
+      {/* <SendMessageGroupListSettingsPage /> */}
+      <ManualSortFriendsSettingsPage />
     </div>
   );
 }

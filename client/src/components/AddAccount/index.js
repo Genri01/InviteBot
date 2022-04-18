@@ -3,21 +3,16 @@ import images from '../../assets/images';
 import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { accounts_vk } from '../../redux/selectors';
+import { appGetAccountsVK } from '../../redux/actions/api_vk';
 import './style.css';
-import {
-  appGetAccountsVK,
-  appGetAccountsTG,
-  appGetAccountsINST
-} from '../../redux/actions/app.js';
 
 export default function AddAccount (props) {
 
-  const { type } = props;
+  const { type, accounts } = props;
   const { add } = images;
 
   const [name_account_card, changeNameCard] = useState('');
-  const newDataAccountVK = useSelector(accounts_vk.newDataAccountVK);
-  const accounts = newDataAccountVK.accounts;
+
   const dispatch = useDispatch()
   const default_account_setting = {
     id: `${accounts.length + 1}`,
@@ -25,6 +20,32 @@ export default function AddAccount (props) {
       name: name_account_card,
       type_network: type,
       checkbox_state: { eye: false, img: false },
+      btn_state: [
+        { 
+          type: 'social', 
+          disabled: false
+        },
+        { 
+          type: 'acc_settings', 
+          disabled: true
+        },
+        { 
+          type: 'deleted', 
+          disabled: false
+        },
+        { 
+          type: 'play', 
+          disabled: true
+        },
+        { 
+          type: 'task_settings', 
+          disabled: true
+        },
+        { 
+          type: 'help', 
+          disabled: true
+        },
+      ],
       anticapcha: "",
       network: {
         vpn: {
@@ -289,7 +310,7 @@ export default function AddAccount (props) {
         <Button icon={add} onClick={() => { 
             accounts.push(default_account_setting);
             dispatch(appGetAccountsVK(accounts));
-            changeNameCard('')
+            changeNameCard('');
           } } alt='add' />
       </div>
     </div>

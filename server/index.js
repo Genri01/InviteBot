@@ -5,10 +5,8 @@ const config = require('config');
 const cors = require('cors');
 const app = express();
 const { Router } = require('express');
-const axios = require('axios');
 const cookieParser = require('cookie-parser');
 
-const VKAPI = require ('./bot_VK_API/index');
 const SERVER = config.get('Server');
 const PORT = SERVER.port || 4000;
 
@@ -22,6 +20,7 @@ const errorMiddleware = require('./middelwares/error-middleware');
 //   res.header('Access-Control-Allow-Credentials', true);
 //   next();
 // },express.json());
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -31,13 +30,7 @@ app.use(cors({
 app.use('/api',router);
 app.use(errorMiddleware);
 
-app.use('/bot',Router().get('/adminpage',(req,res,next) => {
-  console.log(req,res);
-  res.status(200).send(`ADMINPAGE!`)
-}));
-
 if (process.env.NODE_ENV === 'production') {
-  console.log(__dirname,"!@$@!$");
   app.use('/',express.static(path.join(__dirname,'..','client','build')))
   app.get('*',(req,res)=>{
     res.sendFile(path.resolve(__dirname,'..','client','build','index.html'))

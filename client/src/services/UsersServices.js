@@ -1,9 +1,9 @@
-import $api from "../http";
+import api from "../http";
 
 export default class UsersServices {
 
   static fetchUsers() {
-      return $api.get('/users')
+      return api.main_api.get('/users')
   }
 
 }

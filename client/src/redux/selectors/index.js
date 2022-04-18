@@ -5,7 +5,7 @@ export const users = {
 
 export const popup_login = {
   popup_visible:(state) => state.popup_login.popup_visible,
-  dataRegistredVK:(state) => state.popup_login.dataRegistredVK,
+  login_data:(state) => state.popup_login.login_data,
 }
 
 export const pages = {
@@ -16,6 +16,7 @@ export const pages = {
 export const accounts_vk = {
   newDataAccountVK:(state) => state.accounts_vk.newDataAccountVK,
   oldDataAccountVK:(state) => state.accounts_vk.oldDataAccountVK,
+  data_users_after_login_vk:(state) => state.accounts_vk.data_users_after_login_vk
 }
 
 export const side_menu = {

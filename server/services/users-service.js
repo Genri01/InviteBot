@@ -3,17 +3,19 @@ const uuid = require('uuid');
 const mailService = require('./mail-service');
 const tokenService = require('./token-service');
 const DB = require('../db/index');
-const { Users } = require('../db/models');
-const UserDto = require('../dtos/user-dto');
 
+const { Users, VKs } = require('../db/models');
+
+const UserDto = require('../dtos/user-dto');
 const ApiErr = require('../exeptions/api-error');
 
 const config = require('config');
 const url_api = config.get('Server.URL.API');
 
 const random = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
 
 class UserService {
 
@@ -28,9 +30,9 @@ class UserService {
         const user = await DB.addInTables('users',{ email, password : hashPassword, activationLink,isActivated: false,role: "user" });
         const userDto = new UserDto(user);
         const tokens = tokenService.generateToken({...userDto});
-        console.log(tokens,"tokens")
         await tokenService.saveToken(userDto.userId,tokens.refreshToken);
         mailService.sendAcnivationMail(email,`${url_api}/api/activate/${activationLink}`);
+        const response = await DB.addInTables("vk",{ user_id: userDto.userId, accounts:[] });
         return {
           ...tokens,
           user: userDto
@@ -39,7 +41,6 @@ class UserService {
     } catch(e) {
       throw ApiErr.BadRequest(e.message)
     }
-
   }
 
   async login(email, password) {
@@ -98,11 +99,10 @@ class UserService {
     }
   }
 
-  async getAllUsers() {
-    const usersAll = await Users.findAll();
-    return usersAll;
+  async getUserData(id) {
+    const userData = await DB.searchInTables('vk',{ user_id: id });
+    return userData;
   }
-
 }
 
 module.exports = new UserService();

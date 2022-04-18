@@ -242,8 +242,7 @@ const initialState = {
       }
     ]
   },
-  newDataAccountVK: { accounts: [] },
-  dataRegistredVK: { accounts: [] }
+  newDataAccountVK: { accounts: [] }
 };
 export default function accounts_vk(state = initialState, { type, payload }) {
   switch (type) {
@@ -257,7 +256,7 @@ export default function accounts_vk(state = initialState, { type, payload }) {
     case ActionTypes.COPY_DATA_ACCOUNTS_VK:
       return {
         ...state,
-        oldDataAccountVK: {...state.newDataAccountTG}
+        oldDataAccountVK: { ...state.newDataAccountTG }
       };
     default:
       return state;

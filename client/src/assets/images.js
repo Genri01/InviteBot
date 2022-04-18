@@ -18,7 +18,7 @@ import tgbtn from './images/tgbtn.svg';
 import vkbtn from './images/vkbtn.svg';
 import instbtn from './images/instbtn.svg';
 import check from './images/check.svg';
-import folder from './images/folder.svg';
+// import folder from './images/folder.svg';
 import multicheck from './images/multicheck.svg';
 import multiuncheck from './images/multiuncheck.svg';
 
@@ -42,7 +42,7 @@ export default {
   vkbtn,
   instbtn,
   check,
-  folder,
+  // folder,
   multicheck,
   multiuncheck
 }

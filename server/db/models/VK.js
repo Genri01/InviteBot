@@ -4,20 +4,50 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class VK extends Model {};
+  class VKs extends Model {
+    get = function() {
+      let accounts = JSON.parse(this.getDataValue('accounts'));
+      let user_id = JSON.parse(this.getDataValue('user_id'));
+      return { user_id, accounts };
+    } 
 
-  VK.init({
-    account_id: DataTypes.STRING,
-    account_name: DataTypes.STRING,
-    account_date_conection: DataTypes.DATE,
-    account_settings_visual: DataTypes.STRING,
-    account_settings_schedule: DataTypes.STRING,
-    account_settings_messagelist: DataTypes.STRING,
-    account_settings_parser: DataTypes.STRING,
-    account_settings_answering: DataTypes.STRING,
+    set = function({
+      user_id,
+      vk_user_id,
+      access_token,
+      expires_in,
+      card_id,
+      email,
+      password
+    }) {
+      let accounts = JSON.parse(this.getDataValue('accounts'));
+      let userId = JSON.parse(this.getDataValue('user_id'));
+
+      let obj = {
+        userId,
+        vk_user_id,
+        access_token,
+        expires_in,
+        card_id,
+        email,
+        password
+      }
+
+      accounts.push(obj);
+      // this.setDataValue('accounts', JSON.stringify(accounts))
+      // console.log(temp_accounts,'temp_accountspush');
+      // console.log(val.user_id,'val.user_id');
+        // return { id: 32, accounts: [] };
+        // return {userId, accounts: this.getDataValue('accounts')};
+    }
+  };
+
+  VKs.init({
+    user_id: DataTypes.STRING,
+    accounts:  DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'VK',
+    modelName: 'VKs',
   });
-  return VK;
+  return VKs;
 };

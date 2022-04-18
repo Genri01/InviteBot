@@ -4,7 +4,7 @@ import Button from '../Button';
 import CheckIcon from '../CheckIcon';
 
 import './style.css';
-//https://oauth.vk.com/authorize?client_id=6121396&redirect_uri=https://api.vk.com/blank.html&display=page&scope=notify,friends,photos,audio,video,stories,pages,+256,status,notes,messages,wall,ads,offline,docs,groups,notifications,stats,email,market&response_type=token
+
 function AccCard (props) {
 
   const {
@@ -24,6 +24,7 @@ function AccCard (props) {
     name,
     onClick,
     type,
+    info_account
   } = props;
 
   const [eye_cheked,changeEye] = useState({ check:false, name:'eye' });
@@ -90,16 +91,16 @@ function AccCard (props) {
           <div className='nameAccWrapper'>
             <div className='nameWrapper'>
               <div className='orederNumber'>{id}</div>  
-              <div className='inputName'>{name}</div>  
+              <div style={{ backgroundColor:false  ? '#15b90a2b' : 'rgb(249 0 0 / 21%)'}} className='inputName'>{name}</div> 
             </div>
             <div className='visualSettings'>
               <CheckIcon value={eye_cheked} icon={eye_on} onClick={(e) => { changeEye(e) }} alt='eye'/>
               <CheckIcon value={img_cheked} icon={img} onClick={(e)=>{ changeImg(e) }} name='name' id='id' alt='img'/>
             </div>
             <div className='settingBtnWrapper'>
-              <Button icon={btnIcon} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'social', task: task}) }} alt='social' />
-              <Button icon={setting} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'acc_settings', task: task}) }} alt='settingsAcc' />
-              <Button id={id} icon={del} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'deleted', task: task}) }} alt='deleted' />
+              <Button disabled={info_account.main_settings.btn_state[0].disabled} icon={btnIcon} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'social', task: task}) }} alt='social' />
+              <Button disabled={info_account.main_settings.btn_state[1].disabled} icon={setting} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'acc_settings', task: task}) }} alt='settingsAcc' />
+              <Button disabled={info_account.main_settings.btn_state[2].disabled} id={id} icon={del} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'deleted', task: task}) }} alt='deleted' />
             </div>
           </div>
           <div className='taskAccWrapper'>
@@ -113,9 +114,9 @@ function AccCard (props) {
               </select>
             </div>
             <div className='settingBtnWrapper'>
-              <Button icon={play} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' />
-              <Button icon={setting} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'task_settings', task: task}) }} alt='settings' />
-              <Button icon={info} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'help', task: task}) }} alt='help' />
+              <Button disabled={false} icon={play} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' />
+              <Button disabled={info_account.main_settings.btn_state[4].disabled} icon={setting} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'task_settings', task: task}) }} alt='settings' />
+              <Button disabled={info_account.main_settings.btn_state[5].disabled} icon={info} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'help', task: task}) }} alt='help' />
             </div>
           </div>
           <div className='statusAccWrapper'></div>
@@ -124,3 +125,6 @@ function AccCard (props) {
 }
 
 export default AccCard;
+
+
+/*   <Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' />  */

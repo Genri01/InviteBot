@@ -1,4 +1,4 @@
-const { Users, Tokens, VK, TG, INST } = require('../db/models');
+const { Users, Tokens, VKs, TG, INST } = require('../db/models');
 const db = require('./models/index')
 
 const ApiErr = require('../exeptions/api-error');
@@ -6,19 +6,37 @@ const ApiErr = require('../exeptions/api-error');
 class DB {
 
   async addInTables(table,obj) {
+// console.log( JSON.stringify(obj),typeof(JSON.stringify(obj)))
+
       switch (table) {
         case 'users':
           const user = await Users.create(obj);
+
           if (!user) {
             throw ApiErr.BadRequest(e.message)
           }
           return user;
+          break;
         case 'tokens':
           const token = await Tokens.create(obj);
           if (!token) {
             throw ApiErr.BadRequest(e.message)
           }
-          return token;
+          break;
+        case 'vk':
+          const vk = await VKs.create({ user_id: obj.user_id, accounts: JSON.stringify(obj.accounts) });
+          if (!vk) {
+            throw ApiErr.BadRequest(e.message)
+          }
+          return vk;
+          break;
+        case 'tg':
+          const tg = await TG.create(obj);
+          if (!tg) {
+            throw ApiErr.BadRequest(e.message)
+          }
+          return tg;
+          break;
         default:
           break;
       }
@@ -41,6 +59,12 @@ class DB {
       case 'tokens':
         const token = await Tokens.findOne({ where: key });
         return token;
+      case 'vk':
+        const vk = await VKs.findOne({ where: key });
+        return vk;
+      case 'tg':
+        const tg = await TG.findOne({ where: key });
+        return tg;
       default:
         break;
     }

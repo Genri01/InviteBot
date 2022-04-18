@@ -1,26 +1,5 @@
 import ActionTypes from '../constants';
 
-export function appGetAccountsVK(accounts) {
-  return {
-    type: ActionTypes.APP_REQUEST_GET_ACCOUNTS_VK,
-    payload: accounts
-  }
-}
-
-export function appGetAccountsTG(accounts) {
-  return {
-    type: ActionTypes.APP_REQUEST_GET_ACCOUNTS_TG,
-    accounts
-  }
-}
-
-export function appGetAccountsINST(accounts) {
-  return {
-    type: ActionTypes.APP_REQUEST_GET_ACCOUNTS_INST,
-    accounts
-  }
-}
-
 export function change_page(page) {
   return {
     type: ActionTypes.APP_PAGES_SCREEN,
@@ -48,14 +27,3 @@ export function copyDataVK() {
   }
 }
 
-export function copyDataINST() {
-  return {
-    type: ActionTypes.COPY_DATA_RIG,
-  }
-}
-
-export function copyDataTG() {
-  return {
-    type: ActionTypes.COPY_DATA_INFO,
-  }
-}

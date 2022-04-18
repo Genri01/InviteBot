@@ -1,36 +1,18 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('VK', {
+    await queryInterface.createTable('VKs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      account_id: {
+      user_id: {
         type: Sequelize.STRING
       },
-      account_name: {
+      accounts: {
         type: Sequelize.STRING
-      },
-      account_settings_visual: {
-        type: Sequelize.STRING
-      },
-      account_settings_schedule: {
-        type: Sequelize.STRING
-      },
-      account_settings_messagelist: {
-        type: Sequelize.STRING
-      },
-      account_settings_answering: {
-        type: Sequelize.STRING
-      },
-      account_settings_parser: {
-        type: Sequelize.STRING
-      },
-      account_date_conection: {
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('VK');
+    await queryInterface.dropTable('VKs');
   }
 };

@@ -26,6 +26,7 @@ export default function PossibleFriendsSettingsPage (props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const lable_network = ["Ручной","Автоматический"];
   const check_item_arr = [];
   const weeks_day = ["Все","Пн","Вт","Ср","Чт","Пт","Сб","Вс"];

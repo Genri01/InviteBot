@@ -10,14 +10,15 @@ function SideMenu(props) {
       type:"vk",
       img:vk
     },
-    {
-      type:"tg",
-      img:tg
-    },
-    {
-      type:"inst",
-      img:inst
-    }];
+    // {
+    //   type:"tg",
+    //   img:tg
+    // },
+    // {
+    //   type:"inst",
+    //   img:inst
+    // }
+  ];
   let st = {}
     return (
       <div className="sideMenuWrapper">

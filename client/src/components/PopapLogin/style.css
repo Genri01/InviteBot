@@ -89,7 +89,7 @@
 
 .social_popup_button {
   display: flex;
-  width: 200px;
+  width: 140px;
   height: 40px;
   background-color: cadetblue;
   align-items: center;
@@ -109,7 +109,7 @@
   height: auto;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 
