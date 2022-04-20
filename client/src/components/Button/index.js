@@ -11,7 +11,7 @@ function Button(props) {
     } = props;
     return (
       <div style={{ pointerEvents: disabled ? 'none' : 'all', backgroundColor: disabled ? '#c7c7c7' : null }} className='btnwrapper'>
-        <img id={id} className='settingBtn' onClick={(e) => {onClick(e);e.preventDefault();}} src={icon} alt={alt} />
+        <img id={id} className='settingBtn' onClick={(e) => { onClick(e); e.preventDefault(); }} src={icon} alt={alt} />
       </div>
     );
 }

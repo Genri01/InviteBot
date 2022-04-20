@@ -18,7 +18,7 @@ import './style.css';
 
 export default function TaskSettingsComponent (props) {
 
-  const { accounts, typeScreen } = props;
+  const { accounts, typeScreen, onClose } = props;
   // useInvalidUrlAccess();
 
   const [id_check, setIdCheck] = useState(-1);
@@ -39,7 +39,7 @@ export default function TaskSettingsComponent (props) {
       {/* <PublicHistorySettingsPage /> */}
       {/* <ParsingSettingsPage /> */}
       {/* <SendMessageGroupListSettingsPage /> */}
-      <ManualSortFriendsSettingsPage />
+      <ManualSortFriendsSettingsPage onClose={onClose} />
     </div>
   );
 }

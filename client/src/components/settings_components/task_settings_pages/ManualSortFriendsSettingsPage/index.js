@@ -21,7 +21,7 @@ import './style.css';
 
 export default function ManualSortFriendsSettingsPage (props) {
 
-  const { accounts, typeScreen } = props;
+  const { accounts, typeScreen, onClose } = props;
   // useInvalidUrlAccess();
 
   const [id_check, setIdCheck] = useState(-1);
@@ -63,7 +63,7 @@ export default function ManualSortFriendsSettingsPage (props) {
         <TitleComponent title="Пользователи, которые импортировали те же контакты, что и текущий пользователь" />
       </RadialBtnComponent>
       <RandomizeComponentArea title={`Список возможных друзей будет отсортирован согласно настройкам задания!`} text={list} onChange={(e) => { setList(e) }} />
-      <AccountSettingsCopy styles={{marginTop:'30px'}}>
+      <AccountSettingsCopy onClose={onClose} styles={{marginTop:'30px'}}>
         {
           lable_network?.map((item,key) =>( <ItemDisplayComponent checked={id_check === key ? true : false} key={key} name='asdas' id={key} onClick={(id) => { setIdCheck(id) }} />))
         }

@@ -6,7 +6,7 @@ import './style.css';
 export default function VisualAccountsComponent (props) {
 
   const { accounts, typeScreen, onClick, } = props;
-console.log(accounts,'accounts!@')
+  
   return (
     <div className="account_wrapper" >
       <div className='account_active_wrapper'>
@@ -15,7 +15,7 @@ console.log(accounts,'accounts!@')
           <AddAccount type={typeScreen} accounts={accounts} />
           {
             accounts.map((item,i) => (
-              <AccCard onClick={e => onClick(e)} key={i} info_account={item} id={item.id} name={item.main_settings.name} type={typeScreen} />
+              <AccCard onClick={e => onClick(e)} key={i} active={item.isLogining} info_account={item} id={item.id} name={item.main_settings.name} type={typeScreen} />
             ))
           }
         </div>

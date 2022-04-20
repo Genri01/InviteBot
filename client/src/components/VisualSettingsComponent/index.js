@@ -7,7 +7,7 @@ import './style.css';
 
 export default function VisualSettingsComponent (props) {
 
-  const { accounts, typeScreen } = props;
+  const { accounts, type_settings, onClose } = props;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,8 +15,11 @@ export default function VisualSettingsComponent (props) {
   return (
     <div className="visual_settings_wrapper" >
       <div className='visual_settings_container'>
-        {/* <MainSettingsComponent /> */}
-        <TaskSettingsComponent />
+        {
+          type_settings.type === 'main' ?
+          <MainSettingsComponent id_acc={type_settings.id_acc} accounts={accounts} onClose={onClose} /> : 
+          <TaskSettingsComponent id_acc={type_settings.id_acc} accounts={accounts} onClose={onClose} />
+        }
       </div>
     </div>
   );

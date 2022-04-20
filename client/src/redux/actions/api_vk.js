@@ -3,23 +3,23 @@ import VkApiServices from '../../services/VkApiServices';
 import ActionTypes from '../constants';
 import { API_URL } from '../../http';
 
-export function appGetAccountsVK(accounts) {
+export function appPutAccountsVK(accounts) {
   return {
-    type: ActionTypes.APP_REQUEST_GET_ACCOUNTS_VK,
+    type: ActionTypes.APP_REQUEST_PUT_ACCOUNTS_VK,
     payload: accounts
   }
 }
 
-export async function sendMessages (dispatch) {
-  try {
-    const response = await VkApiServices.sendMessages();
-    console.log(response,"посылает сообщения");
-    // dispatch(setDataUserVk({}));
-    // dispatch(set_user_isauth(false));
-  } catch (error) {
-    console.log(error.response?.data?.message)
-  }
-}
+// export async function sendMessages (dispatch) {
+//   try {
+//     const response = await VkApiServices.sendMessages();
+//     console.log(response,"посылает сообщения");
+//     // dispatch(setDataUserVk({}));
+//     // dispatch(set_user_isauth(false));
+//   } catch (error) {
+//     console.log(error.response?.data?.message)
+//   }
+// }
 
 export async function addSuggestionsFriends (dispatch) {
   try {

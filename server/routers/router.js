@@ -11,6 +11,8 @@ router.post('/registration'
 
 router.post('/writecardsvk',userController.registration_accounts_network);
 
+router.post('/deletedcardvk',userController.deleted_accounts);
+
 router.post('/login',userController.login);
 
 router.post('/logout',userController.logout);
@@ -23,7 +25,7 @@ router.post('/userAccountsvk',userController.getUserData);
 
 /* VKSERVISES */
 
-router.post('/sendMessages',VKServicesController.sendMessages);
+// router.post('/sendMessages',VKServicesController.sendMessages);
 
 router.post('/addSuggestionsFriends',VKServicesController.addSuggestionsFriends);
 

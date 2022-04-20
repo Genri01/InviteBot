@@ -8,8 +8,7 @@ import './style.css';
 
 export default function AccountSettingsCopy(props) {
 
-  const { styles, children } = props
-  const [check,Switching] = useState(false);
+  const { styles, children, onClose, onSave, onChecked } = props
 
   return (
     <div style={
@@ -23,16 +22,16 @@ export default function AccountSettingsCopy(props) {
           }
         </div>
         <div className='account_settings_copy_btn_padding'>
-          <Button icon={images.multicheck} />
-          <Button icon={images.multiuncheck} />
+          <Button onClick={()=>{ onChecked(true) }} icon={images.multicheck} />
+          <Button onClick={()=>{ onChecked(false) }} icon={images.multiuncheck} />
         </div>
       </div>
       <div className='row_buttons_account_settings'>
-        <div onClick={async () => {}} className="signinBtn">
-          <div onClick={()=>{}} className="signinBtntext">Сохранить</div>
+        <div onClick={async () => { onSave(); }} className="signinBtn">
+          <div className="signinBtntext">Сохранить</div>
         </div>
-        <div onClick={async () => {}} className="signinBtn">
-          <div onClick={()=>{}} className="signinBtntext">Отмена</div>
+        <div onClick={() => { onClose(false); }} className="signinBtn">
+          <div className="signinBtntext">Отмена</div>
         </div>
       </div>
     </div>

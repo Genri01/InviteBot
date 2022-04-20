@@ -5,29 +5,61 @@ const api = require('../http/index');
 const UserDto = require('../dtos/user-dto');
 
 class VKService {
+  // async sendMessages (json, token) {
+  //   const {
+  //     peerId,
+  //     message,
+  //   } = json;
+  //   try {
+  //     const messageData = await api.post('/sendMessages',{ peerId, message }, { token });
+  //     return messageData.statusCode;
+  //   } catch(e) {
+  //     console.log(e)
+  //     throw ApiErr.BadRequest(e.message)
+  //   }
+  // }
 
-  async registration_accounts (type, user_id, email, password,  body) {
+  async registration_accounts (type_network, user_id, body, res) {
     try {
-      const condidate = await DB.searchInTables(type,{ user_id });
-      // let temp_acc = condidate.dataValues.accounts;
-      // let temp_acc_parse = JSON.parse(condidate.dataValues.accounts);
-      // console.log(temp_acc,'temp_acc')
+      const condidate = await DB.searchInTables(type_network,{ id: user_id });
+      let temp_acc = condidate.dataValues.accounts;
+      let temp_acc_parse = JSON.parse(condidate.dataValues.accounts);
+      // console.log(condidate,'condidate')
       // console.log(temp_acc_parse,'temp_acc_parse')
       // console.log(typeof(temp_acc),'typeof(temp_acc)')
       // console.log(typeof(temp_acc_parse),'temp_acc_parse')
-      // temp_acc_parse.push({
-      //   "userId": 1,
-      //   "id": 1,
-      //   "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-      //   "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-      // });
-      // console.log(type, user_id, email, password,  body)
+      temp_acc_parse.push(body);
+      // console.log(temp_acc_parse,'@#!@#')
       // temp_acc.push({ user_id: body.user_id, access_token: body.access_token, expires_in: body.expires_in, card_id: body.card_id, email, password });
 
-      const response = await DB.updateModelTables(condidate,{ user_id, vk_user_id: body.user_id, access_token: body.access_token, expires_in: body.expires_in, card_id: body.card_id, email, password });
+      const response = await DB.updateModelTables(condidate,{ accounts: JSON.stringify(temp_acc_parse)});
       // const response = await DB.updateModelTables(condidate,{ user_id, accounts: temp_acc});
       // console.log(response,'response')
       // const response = await DB.updateModelTables(condidate,{ user_id, accounts: JSON.stringify(temp_acc)});
+      return response;
+    } catch(e) {
+      console.log(e)
+      throw ApiErr.BadRequest(e.message)
+    }
+  }
+
+  async deleted_accounts (type_network, user_id, body, res) {
+    try {
+      const condidate = await DB.searchInTables(type_network,{ id: user_id });
+      // let temp_acc = condidate.dataValues.accounts;
+      // let temp_acc_parse = JSON.parse(condidate.dataValues.accounts);
+      // console.log(condidate,'condidate')
+      // console.log(temp_acc_parse,'temp_acc_parse')
+      // console.log(typeof(temp_acc),'typeof(temp_acc)')
+      // console.log(typeof(temp_acc_parse),'temp_acc_parse')
+      // temp_acc_parse.push(body);
+      // console.log(temp_acc_parse,'@#!@#')
+      // temp_acc.push({ user_id: body.user_id, access_token: body.access_token, expires_in: body.expires_in, card_id: body.card_id, email, password });
+
+      // const response = await DB.updateModelTables(condidate,{ accounts: JSON.stringify(temp_acc_parse)});
+      // const response = await DB.updateModelTables(condidate,{ user_id, accounts: temp_acc});
+      // console.log(response,'response')
+      const response = await DB.updateModelTables(condidate,{ user_id, accounts: JSON.stringify(body)});
       return response;
     } catch(e) {
       console.log(e)
@@ -41,22 +73,6 @@ class VKService {
       const friends = await api.post('/filterSuggestionsFriends',{ count, suggestFriendsFilterType }, { token });
       console.log(friends);
       return friends;
-    } catch(e) {
-      console.log(e)
-      throw ApiErr.BadRequest(e.message)
-    }
-  }
-
-  async sendMessages (json, token, res) {
-    const {
-      domain,
-      title,
-      message,
-    } = json;
-    try {
-      const messageData = await api.post('/sendMessages',{ domain, title, message }, { token });
-      console.log(messageData);
-      return messageData;
     } catch(e) {
       console.log(e)
       throw ApiErr.BadRequest(e.message)

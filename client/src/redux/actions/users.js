@@ -3,7 +3,6 @@ import AuthServices from '../../services/AuthServices';
 import VkApiServices from '../../services/VkApiServices';
 import ActionTypes from '../constants';
 import { API_URL } from '../../http';
-import { appGetAccountsVK } from '../../redux/actions/api_vk';
 
 export function set_user(user) {
   return {
@@ -82,45 +81,43 @@ export async function logout (dispatch) {
     }
 }
 
-export async function login_vk (social_login, social_password, id, id_acc, accounts, dispatch) {
+export async function login_vk (social_login, social_password, id, id_acc, accounts) {
   const url = `https://oauth.vk.com/token?grant_type=password&client_id=2274003&client_secret=hHbZxrka2uZ6jB1inYsH&username=${social_login}&password=${social_password}&v=5.131&2fa_supported=1`;
+  const account = accounts[id_acc - 1];
+  let lock = false;
   try {
-    const response = await axios.get(url);
-    console.log(id_acc,'id_acc login')
-    console.log(accounts,'accounts login')
-    console.log(response,'response')
+    accounts.map((item) => {
+      if(item.user_accounts_info.social_login !== undefined) {
+        if(item.user_accounts_info.social_login === social_login) { 
+          lock = true
+        }
+      }
+    })
+    if(!lock) {
+      const response = await axios.get(url);
+      const { user_id, access_token, expires_in } = response.data;
 
-    const vk_res = await VkApiServices.writeCardsVk({ 
-      type:'vk',
-      user_id: id, 
-      email:social_login, 
-      password:social_password,
-      acc_obj:{ 
-        user_id: response.data.user_id, 
-        access_token: response.data.access_token, 
-        expires_in: response.data.expires_in, 
-        card_id: id, 
+      let temp = account;
+      temp.isLogining = true;
+      temp.main_settings.btn_state.map((item)=>(item.disabled = false))
+      temp.user_accounts_info = { 
+        user_id: id, 
+        card_id: id_acc, 
+        user_vk_id: user_id, 
+        access_token_vk: access_token, 
+        expires_in: expires_in, 
         social_login, 
         social_password 
       } 
-    })
+  
+      const vk_res = await VkApiServices.writeCardsVk(temp);
+  
+      return vk_res;
 
-    // dispatch(appGetAccountsVK(vk_res.data.accounts));
-    // let temp_accounts = [];
-    // if(localStorage.getItem('brtk')) {
-    //   temp_accounts = JSON.parse(localStorage.getItem('brtk'));
-    //   temp_accounts.push({brtk: response.data.access_token, i:id});
-    //   let string = JSON.stringify(temp_accounts);
-    //   localStorage.setItem('brtk',string)
-    // } else {
-    //   localStorage.setItem('brtk',JSON.stringify([{brtk: response.data.access_token, i:id}]));
-    // }
+    } else {
+      return 401;
+    }
 
-    // temp_accounts = login_data.accounts;
-    // temp_accounts.push({ login: social_login,password: social_password, id })
-    // dispatch(set_popup_data(temp_accounts));
-    // dispatch(setDataUserVk(response.data));
-    return vk_res;
   } catch (error) {
     console.log(error)
     console.log(error.response?.data?.message)

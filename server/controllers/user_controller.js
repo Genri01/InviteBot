@@ -22,8 +22,20 @@ class UserController  {
   
   async registration_accounts_network(req,res,next) {
     try {
-      const { type, user_id, email, password, acc_obj } = req.body;
-      const userData = await VKService.registration_accounts(type, user_id, email ,password, acc_obj,res);
+      console.log(req.body,'@!# main_settings type_network')
+      const { main_settings: { type_network }, user_accounts_info: { user_id } } = req.body;
+      const userData = await VKService.registration_accounts(type_network, user_id, req.body, res);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+  
+  async deleted_accounts(req,res,next) {
+    try {
+      console.log(req.body,'@!# main_settings type_network')
+      const { accounts, user_id } = req.body;
+      const userData = await VKService.deleted_accounts("vk", user_id, accounts, res);
       return res.json(userData);
     } catch (e) {
       next(e);

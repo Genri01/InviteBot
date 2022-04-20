@@ -246,7 +246,7 @@ const initialState = {
 };
 export default function accounts_vk(state = initialState, { type, payload }) {
   switch (type) {
-    case ActionTypes.APP_REQUEST_GET_ACCOUNTS_VK:
+    case ActionTypes.APP_REQUEST_PUT_ACCOUNTS_VK:
       return {
         ...state,
         newDataAccountVK: {

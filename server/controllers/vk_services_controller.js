@@ -5,16 +5,15 @@ const  ApiErr = require('../exeptions/api-error');
 
 class VKServicesController  {
  
-  async sendMessages(req,res,next) {
-    try {
-      const { json, token } = req.body; 
-      const messageData = await VKService.sendMessages(json, token, res);
-      console.log(messageData,'messageData');
-      return res.json(messageData);
-    } catch (e) {
-      next(e);
-    }
-  }
+  // async sendMessages(req,res,next) {
+  //   try {
+  //     const { json, token } = req.body; 
+  //     const messageData = await VKService.sendMessages(json, token);
+  //     return res.json(messageData);
+  //   } catch (e) {
+  //     next(e);
+  //   }
+  // }
 
   async addSuggestionsFriends(req,res,next) {
     try {

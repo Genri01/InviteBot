@@ -10,8 +10,7 @@ import TitleComponent from '../TitleComponent';
 
 export default function ManualSelect(props) {
 
-  const { title , disabled, children, styles, optionsState, onClick } = props
-  const [check, Switching] = useState(false);
+  const { title , disabled, children, styles, optionsState, onClick } = props;
   return (
     <div className="manual_select_wrapper" >
       <TitleComponent title={title} />

@@ -3,7 +3,7 @@ import images from '../../assets/images';
 import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { accounts_vk } from '../../redux/selectors';
-import { appGetAccountsVK } from '../../redux/actions/api_vk';
+import { appPutAccountsVK } from '../../redux/actions/api_vk';
 import './style.css';
 
 export default function AddAccount (props) {
@@ -299,6 +299,8 @@ export default function AddAccount (props) {
       ],
       status_tasks: { initial_state: '', previous_launch: '' }
     },
+    isLogining: false,
+    user_accounts_info: {}
   }
 
   return (
@@ -309,7 +311,7 @@ export default function AddAccount (props) {
       <div className='addBtnWrapper'>
         <Button icon={add} onClick={() => { 
             accounts.push(default_account_setting);
-            dispatch(appGetAccountsVK(accounts));
+            dispatch(appPutAccountsVK(accounts));
             changeNameCard('');
           } } alt='add' />
       </div>

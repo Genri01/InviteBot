@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { accounts_vk } from '../../redux/selectors'
-import { login_vk,change_visible_popup } from '../../redux/actions/users'
+import { useDispatch } from 'react-redux';
+import { login_vk, change_visible_popup } from '../../redux/actions/users'
 
 import './style.css';
 
@@ -10,18 +9,17 @@ export default function PopapLogin (props) {
   const [social_login,setSocialLogin] = useState('');
   const [social_password,setSocialPassword] = useState('');
   const [err,setErr] = useState(false);
+  const [duble_acc,setDduble] = useState(false);
 
   const dispatch = useDispatch();
-  const newDataAccountVK = useSelector(accounts_vk.newDataAccountVK);
-  const accounts = newDataAccountVK.accounts;
 
-  const { id_acc,user_id } = props; 
+  const { accounts, id_acc, user_id } = props; 
   
   var error_timer = '';
   return (
     <div className="social_popup_modal">
       <div className='social_popup_wrapper'>
-        <div style={{ color: `${err?'red': ''}`}} className='social_popup_text_container' > {`${err ? 'Неверная пара Логин/Пароль' : 'Введите данные аккаунта для работы:' }`}</div>
+        <div style={{ color: `${err?'red': ''}`}} className='social_popup_text_container' > {`${err ?  duble_acc ? 'Вы уже вошли в этот акканут': 'Неверная пара Логин/Пароль' : 'Введите данные аккаунта для работы:' }`}</div>
         <div className='social_popup_input_container'>
           <div className="social_popup_login_container">
             <div className="social_popup_text" >LOGIN</div>
@@ -34,16 +32,18 @@ export default function PopapLogin (props) {
         </div>
         <div className='social_popup_button_container'>
           <div onClick={async () => { 
-            // const response = await login_vk('+79994650565','fhvbz170291',user_id,login_data,dispatch);
-            const response = await login_vk(social_login,social_password,user_id,id_acc,accounts,dispatch);
+            // const response = await login_vk('+79626339565','misha07072013',user_id,id_acc,accounts);
+            const response = await login_vk(social_login,social_password,user_id,id_acc,accounts);
             if (response !== 401) {
               dispatch(change_visible_popup({ state:false, id_acc: id_acc }));
             } else {
               setErr(true);
+              // setDduble(true);
               clearTimeout(error_timer);
               error_timer = setTimeout(() => {
                 setSocialLogin('')
                 setSocialPassword('')
+                setDduble(false);
                 setErr(false);
               },1600);
             }
