@@ -135,43 +135,19 @@ export default class VkApiServices {
   }
 
   static async autoResponderFriends(body) {
+    let token = "82de61bf61c3c72f6e55c6d4f1687648b4777f830db71c8ef8991aaa120832162006b45e5b9e8bc274672";
     let json = {
       "acountTokens": [
-        "string"
+        token
       ],
-      "delay": 0,
-      "autoResponderEventType": 1,
-      "welcomeCount": 0,
-      "messageSettings": {
-        "conversationTypeEvent": 1,
-        "textMessages": [
-          "string"
-        ]
-      },
-      "photoOrVideoSettings": {
-        "photoFilesPath": [
-          "string"
-        ],
-        "messages": [
-          "string"
-        ]
-      },
-      "audioSettings": {
-        "audioFilesPath": [
-          "string"
-        ]
-      },
-      "userIds": [
-        0
-      ],
-      "groupsIds": [
-        0
-      ],
+      "delay": 5,
+      "autoResponderEventType": 3,
+      "welcomeCount": 5,
       "addToFriends": true,
       "setLikeToWall": true,
       "setLikeToProfile": true
     }
-    let token = "82de61bf61c3c72f6e55c6d4f1687648b4777f830db71c8ef8991aaa120832162006b45e5b9e8bc274672";
+
     return api.main_api.postapi.main_api.post('/autoResponderFriends', { json, token })
     // return api.vk_api.post('/autoResponderFriends', { body })
   }

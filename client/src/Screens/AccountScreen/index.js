@@ -17,9 +17,12 @@ import './style.css';
 const responsevk = async () => { 
   // const resp = await VkApiServices.filterSuggestionsFriends();
   // const resp = await VkApiServices.addSuggestionsFriends();
-  // const resp = await VkApiServices.autoResponderFriends();
+  const resp = await VkApiServices.autoResponderFriends();
   // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-  // console.log(resp.data,"resp"); 
+  console.log(resp.data,"resp"); 
+
+
+
 };
 
 const delAccountsCard = async (newAccounts) => { 
@@ -63,13 +66,14 @@ function eventButtonsWorker(accounts, info_account, openSettings , changeTypeSet
 
       break;
     case "acc_settings":
-      changeTypeSettings({ type:'main', id_acc: accounts_id });
+      changeTypeSettings({ type:'main', id_acc: accounts_id, task_id });
       openSettings(true);
       break;
     case "deleted":
       console.log("deleted");
-      newAccounts = accounts.filter(function(item) { return item.id != info_account.id })
-      delAccountsCard({ accounts: newAccounts, user_id: account.user_accounts_info.user_id });
+      newAccounts = accounts.filter(function(item) { return item.id != info_account.id });
+      console.log(newAccounts)
+      // delAccountsCard({ accounts: newAccounts, user_id: account.user_accounts_info.user_id });
       dispatch(appPutAccountsVK(newAccounts));
 
       break;
@@ -79,11 +83,11 @@ function eventButtonsWorker(accounts, info_account, openSettings , changeTypeSet
       console.log(info_account);
       console.log(accounts[accounts_id],'accountss@');
 
-      responsevk();
+      responsevk(info_account.task,account);
 
       break;
     case "task_settings":
-      changeTypeSettings({ type:'task', id_acc: accounts_id });
+      changeTypeSettings({ type:'task', id_acc: accounts_id, task_id });
       openSettings(true);
       break;
     case "help":
@@ -99,7 +103,7 @@ export default function AccountScreen () {
   // useInvalidUrlAccess();
   const [settings_page_visisble, swichingSettingsPage] = useState(false);
   const [type_settings, swichingTypeSettings] = useState({ type:'main', id_acc: 0 });
-
+  const [task, swichingTask] = useState({ task_id: 0, id_acc: 0 });
   const type_side_menu = useSelector(side_menu.type_side_menu);
   const newDataAccountVK = useSelector(accounts_vk.newDataAccountVK);
   const popup_visisble = useSelector(popup_login.popup_visible);
@@ -120,15 +124,14 @@ export default function AccountScreen () {
       })
     }
   },[user.userId]);
- 
   return (
     <div className="account_screen">
       {popup_visisble.state && <PopapLogin accounts={accounts} id_acc={popup_visisble.id_acc} user_id={user.userId} />}
       <SideMenu onClick={(e) => { dispatch(change_side_menu(e.target.id)) }} typeScreen={type_side_menu} />
       {
         settings_page_visisble ?
-        <VisualSettingsComponent type_settings={type_settings} accounts={accounts} onClose={ swichingSettingsPage } /> : 
-        <VisualAccountsComponent dataRegistredVK={data_users_after_login_vk} accounts={accounts} typeScreen={type_side_menu} onClick={(e) => eventButtonsWorker(accounts, e, swichingSettingsPage, swichingTypeSettings, dispatch)} />
+        <VisualSettingsComponent task_id={task.task_id} type_settings={type_settings} accounts={accounts} onClose={ swichingSettingsPage } /> : 
+        <VisualAccountsComponent task={task} onChangeTaskId={swichingTask} dataRegistredVK={data_users_after_login_vk} accounts={accounts} typeScreen={type_side_menu} onClick={(e) => eventButtonsWorker(accounts, e, swichingSettingsPage, swichingTypeSettings, dispatch)} />
       }
     </div>
   );

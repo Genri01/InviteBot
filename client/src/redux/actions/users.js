@@ -92,6 +92,7 @@ export async function login_vk (social_login, social_password, id, id_acc, accou
           lock = true
         }
       }
+      return false
     })
     if(!lock) {
       const response = await axios.get(url);
@@ -99,7 +100,7 @@ export async function login_vk (social_login, social_password, id, id_acc, accou
 
       let temp = account;
       temp.isLogining = true;
-      temp.main_settings.btn_state.map((item)=>(item.disabled = false))
+      temp.main_settings.btn_state.map((item, key) => { if(key === 3 || key === 4) { item.disabled = true } else { item.disabled = false } return false })
       temp.user_accounts_info = { 
         user_id: id, 
         card_id: id_acc, 
