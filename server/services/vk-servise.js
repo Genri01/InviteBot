@@ -81,14 +81,25 @@ class VKService {
 
   async addSuggestionsFriends (json, token, res) {
     const {
+      acсountToken,
+      delay,
+      requestCount,
       welcomeMessage,
       setLikeToWall,
       setLikeToProfilePhoto
     } = json;
     try {
-      const response = await api.post('/addSuggestionsFriends',{ welcomeMessage, setLikeToWall, setLikeToProfilePhoto }, { token });
-      console.log(response);
-      return response;
+      const response = await api.post('/addSuggestionsFriends',
+      {
+        acсountToken,
+        delay,
+        requestCount,
+        welcomeMessage,
+        setLikeToWall,
+        setLikeToProfilePhoto
+      }
+      , { token });
+      return response.status;
     } catch(e) {
       console.log(e)
       throw ApiErr.BadRequest(e.message)
@@ -97,13 +108,35 @@ class VKService {
 
   async autoResponderFriends (json, token, res) {
     const {
+      acountToken,
+      delay,
       autoResponderEventType,
       welcomeCount,
-      messageSettings
+      messageSettings,
+      photoOrVideoSettings,
+      audioSettings,
+      userNamesOrIds,
+      groupNamesOrIds,
+      addToFriends,
+      setLikeToWall,
+      setLikeToProfile
     } = json;
     try {
-      const response = await api.post('/autoResponderFriends',{ autoResponderEventType, welcomeCount, messageSettings }, { token });
-      console.log(response);
+      const response = await api.post('/autoResponderFriends',
+      {
+        acountToken,
+        delay,
+        autoResponderEventType,
+        welcomeCount,
+        messageSettings,
+        photoOrVideoSettings,
+        audioSettings,
+        userNamesOrIds,
+        groupNamesOrIds,
+        addToFriends,
+        setLikeToWall,
+        setLikeToProfile 
+      }, { token });
       return response;
     } catch(e) {
       console.log(e)

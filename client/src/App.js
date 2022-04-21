@@ -18,7 +18,7 @@ function App () {
 
   // const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(localStorage.getItem('token')) {
       checkAuth(dispatch);
     }

@@ -16,11 +16,14 @@ class VKServicesController  {
   // }
 
   async addSuggestionsFriends(req,res,next) {
+
     try {
       const { json, token } = req.body; 
+      console.log(json)
+      console.log(token)
       const responseData = await VKService.addSuggestionsFriends(json, token, res);
-      console.log(responseData,'responseData addSuggestionsFriends');
-      return res.json(responseData);
+      console.log(responseData)
+      return res.json(responseData.statusCode);
     } catch (e) {
       next(e);
     }
@@ -30,8 +33,7 @@ class VKServicesController  {
     try {
       const { json, token } = req.body; 
       const responseData = await VKService.autoResponderFriends(json, token, res);
-      console.log(responseData,'responseData autoResponderFriends');
-      return res.json(responseData);
+      return res.json(responseData.statusCode);
     } catch (e) {
       next(e);
     }
@@ -49,6 +51,7 @@ class VKServicesController  {
 
   async autoLikingFriendsOrGroups(req,res,next) {
     try {
+      console.log(req.body)
       const { json, token } = req.body; 
       const responseData = await VKService.autoLikingFriendsOrGroups(json, token, res);
       console.log(responseData,'responseData autoLikingFriendsOrGroups');

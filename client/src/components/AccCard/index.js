@@ -22,12 +22,14 @@ function AccCard (props) {
     name,
     onClick,
     info_account,
-    active
+    active,
+    onChangeTaskId,
+    task
   } = props;
 
   const [eye_cheked,changeEye] = useState({ check:false, name:'eye' });
   const [img_cheked,changeImg] = useState({ check:false, name:'img' });
-  const [task,setTask] = useState(0);
+  const [task_local,setTask] = useState(0);
 
   const tasksTitle = [
     "Выбрать задание из списка",
@@ -57,14 +59,14 @@ function AccCard (props) {
               <CheckIcon value={img_cheked} icon={img} onClick={(e)=>{ changeImg(e) }} name='name' id='id' alt='img'/>
             </div>
             <div className='settingBtnWrapper'>
-              <Button disabled={info_account.main_settings.btn_state[0].disabled} icon={vkbtn} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'social', task: task}) }} alt='social' />
-              <Button disabled={info_account.main_settings.btn_state[1].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'acc_settings', task: task}) }} alt='settingsAcc' />
-              <Button disabled={info_account.main_settings.btn_state[2].disabled} id={id} icon={del} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'deleted', task: task}) }} alt='deleted' />
+              <Button disabled={info_account.main_settings.btn_state[0].disabled} icon={vkbtn} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'social', task: task_local}) }} alt='social' />
+              <Button disabled={info_account.main_settings.btn_state[1].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'acc_settings', task: task_local}) }} alt='settingsAcc' />
+              <Button disabled={info_account.main_settings.btn_state[2].disabled} id={id} icon={del} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'deleted', task: task_local}) }} alt='deleted' />
             </div>
           </div>
           <div className='taskAccWrapper'>
             <div className='selectTaskWrapper'>
-              <select onChange={(e)=> { setTask(e.target.value) }} className='selectTask'>
+              <select onChange={(e)=> { onChangeTaskId({ task_id: Number(e.target.value), id_acc: Number(id) }); setTask(Number(e.target.value)) }} className='selectTask'>
                 {
                   tasksTitle.map((item,i) => (
                     <option value={i} key={i}>{item}</option>
@@ -73,9 +75,9 @@ function AccCard (props) {
               </select>
             </div>
             <div className='settingBtnWrapper'>
-              <Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' /> 
-              <Button disabled={info_account.main_settings.btn_state[4].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'task_settings', task: task}) }} alt='settings' />
-              <Button disabled={info_account.main_settings.btn_state[5].disabled} icon={info} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'help', task: task}) }} alt='help' />
+              <Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task_local}) }} alt='play task' /> 
+              <Button disabled={info_account.main_settings.btn_state[4].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'task_settings', task: task_local}) }} alt='settings' />
+              <Button disabled={info_account.main_settings.btn_state[5].disabled} icon={info} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'help', task: task_local}) }} alt='help' />
             </div>
           </div>
           <div className='statusAccWrapper'></div>
