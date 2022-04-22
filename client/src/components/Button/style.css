@@ -10,6 +10,7 @@
   box-shadow: 1px 1px 5px rgb(10 6 144 / 50%);
   cursor: pointer;
   box-sizing: border-box;
+  margin: 0px 8%;
  }
 
  .btnwrapper:hover {

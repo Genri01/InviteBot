@@ -22,3 +22,7 @@ export const accounts_vk = {
 export const side_menu = {
   type_side_menu:(state) => state.side_menu.type_side_menu,
 }
+
+export const loader = {
+  loading:(state) => state.loader.loading,
+}

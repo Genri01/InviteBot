@@ -5,19 +5,6 @@ const api = require('../http/index');
 const UserDto = require('../dtos/user-dto');
 
 class VKService {
-  // async sendMessages (json, token) {
-  //   const {
-  //     peerId,
-  //     message,
-  //   } = json;
-  //   try {
-  //     const messageData = await api.post('/sendMessages',{ peerId, message }, { token });
-  //     return messageData.statusCode;
-  //   } catch(e) {
-  //     console.log(e)
-  //     throw ApiErr.BadRequest(e.message)
-  //   }
-  // }
 
   async registration_accounts (type_network, user_id, body, res) {
     try {
@@ -71,8 +58,7 @@ class VKService {
     const { count, suggestFriendsFilterType } = json;
     try {
       const friends = await api.post('/filterSuggestionsFriends',{ count, suggestFriendsFilterType }, { token });
-      console.log(friends);
-      return friends;
+      return friends.data;
     } catch(e) {
       console.log(e)
       throw ApiErr.BadRequest(e.message)
@@ -97,8 +83,9 @@ class VKService {
         welcomeMessage,
         setLikeToWall,
         setLikeToProfilePhoto
-      }
-      , { token });
+      },
+      { token });
+      console.log(response.status,'response!@!')
       return response.status;
     } catch(e) {
       console.log(e)
@@ -146,14 +133,27 @@ class VKService {
 
   async autoLikingFriendsOrGroups (json, token, res) {
     const {
+      acountToken,
+      delay,
       requestCount,
+      userIds,
+      groupIds,
       setLikeToWall,
       setLikeToProfilePhoto
     } = json;
     try {
-      const response = await api.post('/autoLikingFriendsOrGroups',{ requestCount, setLikeToWall, setLikeToProfilePhoto }, { token });
+      const response = await api.post('/autoLikingFriendsOrGroups',
+      { 
+        acountToken,
+        delay,
+        requestCount,
+        userIds,
+        groupIds,
+        setLikeToWall,
+        setLikeToProfilePhoto 
+      }, { token });
       console.log(response);
-      return response;
+      return response.status;
     } catch(e) {
       console.log(e)
       throw ApiErr.BadRequest(e.message)

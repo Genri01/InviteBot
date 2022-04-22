@@ -1,5 +1,12 @@
 import ActionTypes from '../constants';
 
+export function loader_switch(state) {
+  return {
+    type: ActionTypes.APP_LOADING,
+    payload: state
+  }
+}
+
 export function change_page(page) {
   return {
     type: ActionTypes.APP_PAGES_SCREEN,

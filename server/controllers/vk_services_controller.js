@@ -5,24 +5,11 @@ const  ApiErr = require('../exeptions/api-error');
 
 class VKServicesController  {
  
-  // async sendMessages(req,res,next) {
-  //   try {
-  //     const { json, token } = req.body; 
-  //     const messageData = await VKService.sendMessages(json, token);
-  //     return res.json(messageData);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
-
   async addSuggestionsFriends(req,res,next) {
 
     try {
       const { json, token } = req.body; 
-      console.log(json)
-      console.log(token)
       const responseData = await VKService.addSuggestionsFriends(json, token, res);
-      console.log(responseData)
       return res.json(responseData.statusCode);
     } catch (e) {
       next(e);
@@ -43,7 +30,7 @@ class VKServicesController  {
     try {
       const { json, token } = req.body; 
       const friendsData = await VKService.filterSuggestionsFriends(json, token, res);
-      return res.json(friendsData.data);
+      return res.json(friendsData);
     } catch (e) {
       next(e);
     }
@@ -51,10 +38,8 @@ class VKServicesController  {
 
   async autoLikingFriendsOrGroups(req,res,next) {
     try {
-      console.log(req.body)
       const { json, token } = req.body; 
       const responseData = await VKService.autoLikingFriendsOrGroups(json, token, res);
-      console.log(responseData,'responseData autoLikingFriendsOrGroups');
       return res.json(responseData);
     } catch (e) {
       next(e);

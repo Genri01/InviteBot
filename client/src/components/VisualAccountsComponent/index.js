@@ -36,21 +36,22 @@ export default function VisualAccountsComponent (props) {
                 info_account={item} 
                 id={item.id} 
                 name={item.main_settings.name} 
-                type={typeScreen} 
+                type={typeScreen}
+                status={item.task_settings.status_tasks} 
               />
             })
           }
         </div>
       </div>
-      <div className='account_blocked_wrapper'>
+      {/* <div className='account_blocked_wrapper'>
         <div className='account_title'>Заблокированные:</div>
           <div className='account_blocked_container'>
-            {/* <div className='account_blocked_item'>
+            <div className='account_blocked_item'>
               <div className='account_blocked_oreder'>1</div>
               <div className='account_blocked_name'>vk-inboxwhite</div>
-            </div> */}
+            </div>
           </div>
-      </div>
+      </div> */}
     </div>
   );
 }

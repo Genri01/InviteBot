@@ -6,6 +6,17 @@ import { accounts_vk } from '../../redux/selectors';
 import { appPutAccountsVK } from '../../redux/actions/api_vk';
 import './style.css';
 
+function sortIds (arr) {
+  let ids = [];
+  if(arr.length === 0) { return 0 }
+  arr.map((item) => {
+    ids.push(+item.id);
+    return false
+  });
+  ids.sort((a, b) => a - b);
+  return ids[ids.length-1]
+}
+
 export default function AddAccount (props) {
 
   const { type, accounts } = props;
@@ -13,13 +24,17 @@ export default function AddAccount (props) {
 
   const [name_account_card, changeNameCard] = useState('');
 
-  const dispatch = useDispatch()
+
+
+  console.log(accounts)
+
+  const dispatch = useDispatch();
+
   const default_account_setting = {
-    id: `${accounts.length + 1}`,
+    id: `${accounts.length === 0 ? accounts.length + 1 : sortIds(accounts) + 1}`,
     main_settings: {
       name: name_account_card,
       type_network: type,
-      checkbox_state: { eye: false, img: false },
       btn_state: [
         { 
           type: 'social', 
@@ -297,7 +312,7 @@ export default function AddAccount (props) {
           }
         }
       ],
-      status_tasks: { initial_state: '', previous_launch: '' }
+      status_tasks: { initial_state: 'Задание не выбрано:', previous_launch: '' }
     },
     isLogining: false,
     user_accounts_info: {}

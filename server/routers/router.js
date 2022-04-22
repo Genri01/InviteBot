@@ -25,8 +25,6 @@ router.post('/userAccountsvk',userController.getUserData);
 
 /* VKSERVISES */
 
-// router.post('/sendMessages',VKServicesController.sendMessages);
-
 router.post('/addSuggestionsFriends',VKServicesController.addSuggestionsFriends);
 
 router.post('/autoResponderFriends',VKServicesController.autoResponderFriends);

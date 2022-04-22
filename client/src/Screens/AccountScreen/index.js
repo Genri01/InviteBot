@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { change_header_visible,change_page,change_side_menu } from '../../redux/actions/app';
 import { appPutAccountsVK } from '../../redux/actions/api_vk';
 import { change_visible_popup } from '../../redux/actions/users';
+import { loader_switch } from '../../redux/actions/app';
 import { side_menu, accounts_vk, popup_login, users } from '../../redux/selectors/index';
 import { useInvalidUrlAccess, BlockedSlashLinker } from '../../routes/costomNavigation';
 import { useNavigate } from 'react-router-dom';
@@ -13,25 +14,10 @@ import VisualSettingsComponent from '../../components/VisualSettingsComponent';
 import VkApiServices from '../../services/VkApiServices'
 import './style.css';
 
-
-const responsevk = async (task_id,account) => { 
+const filterSuggestionsFriends = async (task_id,account) => { // возвращает количество возможных друзей
 
 const token = account.user_accounts_info.access_token_vk;
 const task = account.task_settings;
-
-let json = {
-  "acсountToken": token,
-  "delay": 10,
-  "requestCount": 2,
-  "welcomeMessage": "Приветствую",
-  "setLikeToWall": true,
-  "setLikeToProfilePhoto": true
-}
-
-const tests =  await VkApiServices.addSuggestionsFriends(json,token);
-console.log(tests,"tests"); 
-
-
 // const shedule = task.tasks[task_id-1].shedule
 // const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
 // const autosecretary = task.tasks[task_id-1].autosecretary
@@ -43,107 +29,244 @@ console.log(tests,"tests");
 // const publishingStories = task.tasks[task_id-1].publishingStories
 // const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
 // const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let filterSuggestionsFriends = {
+    "count": 4,
+    "suggestFriendsFilterType": 0
+  }
 
-// switch (task_id) {
-//   case 1:
+  const resp_8 =  await VkApiServices.filterSuggestionsFriends(filterSuggestionsFriends,token);
+  console.log(resp_8,"resp"); 
 
+};
 
-//     // let resp_1 = await VkApiServices.autoResponderFriends(json);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_1.data,"resp"); 
-//     break;
-//   case 2:
+const autoresponderСonfirmFriends = async (task_id,account) => { // пишет только что принятым друзьям и ставит лайки
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let autoresponderСonfirmFriends = {
+    "acountToken": token,
+    "delay": 5,
+    "autoResponderEventType": 1,
+    "welcomeCount": 5,
+    "messageSettings": {
+      "conversationTypeEvent": 1,
+      "textMessages": [
+        "Гавно!"
+      ]
+    },
+    "addToFriends": true,
+    "setLikeToWall": true,
+    "setLikeToProfile": true
+  }
 
-//     // let resp_2 = await VkApiServices.autoResponderFriends(json,token);
-//   // const resp = await VkApiServices.filterSuggestionsFriends();
+  const resp = await VkApiServices.autoResponderFriends(autoresponderСonfirmFriends,token);
+  console.log(resp,"resp"); 
 
-//   // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//     // console.log(resp_2.data,"resp"); 
-//     break;
-//   case 3:
-//     // let resp_3 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_3.data,"resp"); 
-//     break;
-//   case 4:
-//     // let resp_4 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_4.data,"resp"); 
-//     break;
-//   case 5:
-//     // json = {
-//     //   "count": 5,
-//     //   "suggestFriendsFilterType": 0
-//     // }
-//     // let resp_5 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_5.data,"resp"); 
-//     break;
-//   case 6:
-//     let jsdon = {
-//       "acountTokens": [
-//         "string"
-//       ],
-//       "delay": 0,
-//       "requestCount": 0,
-//       "userIds": [
-//         0
-//       ],
-//       "groupIds": [
-//         0
-//       ],
-//       "setLikeToWall": true,
-//       "setLikeToProfilePhoto": true
-//     }
-//     // let resp_6 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_6.data,"resp"); 
-//     break;
-//   case 7:
+};
 
+const autoresponderIncomingRequestsFriends = async (task_id,account) => { // автоответчик на входящие заявки в друзья
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let autoresponderСonfirmFriends = {
+    "acountToken": token,
+    "delay": 0,
+    "autoResponderEventType": 2,
+    "welcomeCount": 5,
+    "addToFriends": true,
+    "setLikeToWall": true,
+    "setLikeToProfile": true
+  }
 
-//     break;
-//   case 8:
-//     // let resp_8 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_8.data,"resp"); 
-//     break;
-//   case 9:
-//     // let resp_9 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_9.data,"resp"); 
-//     break;
-//   case 10:
-//     // let resp_10 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_10.data,"resp"); 
-//     break;
-//   case 11:
-//     // let resp_11 = await VkApiServices.autoResponderFriends(json,token);
-//     // const resp = await VkApiServices.filterSuggestionsFriends();
-//     // const resp = await VkApiServices.addSuggestionsFriends();
-//     // const resp = await VkApiServices.autoLikingFriendsOrGroups();
-//       // console.log(resp_11.data,"resp"); 
-//     break;
-//   default:
-//     break;
-// }
+  const resp = await VkApiServices.autoResponderFriends(autoresponderСonfirmFriends,token);
+  console.log(resp,"resp!@!"); 
+
+};
+
+const likingViewingStories = async (task_id,account) => { 
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  // let likingViewingStories = {
+  //   "acountToken": token,
+  //   "delay": 5,
+  //   "requestCount": 5,
+  //   "userIds": [
+  //     0
+  //   ],
+  //   "groupIds": [
+  //     0
+  //   ],
+  //   "setLikeToWall": true,
+  //   "setLikeToProfilePhoto": true
+  // }
+
+  // const resp = await VkApiServices.autoLikingFriendsOrGroups(likingViewingStories,token);
+  // console.log(resp,"resp"); 
+  let sendingMessagesUserList = {
+    "acountToken": token,
+    "delay": 5,
+    "autoResponderEventType": 3,
+    "welcomeCount": 10,
+  }
+
+  const resp = await VkApiServices.autoResponderFriends(sendingMessagesUserList,token);
+};
+
+const sendingMessagesUserList = async (task_id,account) => { 
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let sendingMessagesUserList = {
+    "acountToken": token,
+    "delay": 5,
+    "autoResponderEventType": 3,
+    "welcomeCount": 10,
+    "messageSettings": {
+      "conversationTypeEvent": 3,
+      "textMessages": [
+        "goodbye "
+      ]
+    },
+    "userNamesOrIds": [
+      "agolowin"
+    ]
+  }
+
+  const resp = await VkApiServices.autoResponderFriends(sendingMessagesUserList,token);
+  console.log(resp,"resp"); 
+
+};
+
+const targetAudienceFromList = async (task_id,account) => { 
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let targetAudienceFromList = {
+    "acountToken": token,
+    "delay": 0,
+    "autoResponderEventType": 3,
+    "welcomeCount": 10,
+    "userNamesOrIds": [
+      "aspektpak","agolowin"
+    ],
+    "addToFriends": true,
+    "setLikeToWall": true,
+    "setLikeToProfile": true
+  }
+
+  const resp = await VkApiServices.autoResponderFriends(targetAudienceFromList,token);
+  console.log(resp,"resp"); 
+
+};
+
+const sendMessagesCommunityList = async (task_id,account) => { 
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let sendMessagesCommunityList = {
+    "acountToken": token,
+    "delay": 0,
+    "autoResponderEventType": 3,
+    "welcomeCount": 10,
+    "userNamesOrIds": [
+      "aspektpak","agolowin"
+    ],
+    "addToFriends": true,
+    "setLikeToWall": true,
+    "setLikeToProfile": true
+  }
+
+  const resp = await VkApiServices.autoResponderFriends(sendMessagesCommunityList,token);
+  console.log(resp,"resp"); 
+
+};
+
+const possibleFriends = async (task_id,account) => { 
+const token = account.user_accounts_info.access_token_vk;
+const task = account.task_settings;
+// const shedule = task.tasks[task_id-1].shedule
+// const autoresponderСonfirmFriends = task.tasks[task_id-1].autoresponderСonfirmFriends
+// const autosecretary = task.tasks[task_id-1].autosecretary
+// const likingViewingStories = task.tasks[task_id-1].likingViewingStories
+// const autoresponderIncomingRequestsFriends = task.tasks[task_id-1].autoresponderIncomingRequestsFriends
+// const sendingMessagesUserList = task.tasks[task_id-1].sendingMessagesUserList
+// const possibleFriends = task.tasks[task_id-1].possibleFriends
+// const targetAudienceFromList = task.tasks[task_id-1].targetAudienceFromList
+// const publishingStories = task.tasks[task_id-1].publishingStories
+// const parserTargetAudience = task.tasks[task_id-1].parserTargetAudience
+// const sendMessagesCommunityList = task.tasks[task_id-1].sendMessagesCommunityList
+  let possibleFriends = {
+    "acсountToken":token,
+    "delay":5,
+    "requestCount":4,
+    "welcomeMessage":"Приветствую",
+    "setLikeToWall":true,
+    "setLikeToProfilePhoto":true
+    }
+
+  const resp = await VkApiServices.addSuggestionsFriends(possibleFriends,token);
+  console.log(resp,"resp"); 
 
 };
 
@@ -154,18 +277,14 @@ const delAccountsCard = async (newAccounts) => {
 function eventButtonsWorker(accounts, info_account, openSettings , changeTypeSettings , dispatch) {
 
   let titleTask = [
-    "Выбрать задание из списка",
-    "Расписание",
-    "Автоответчик на подтвержденные заявки в друзья",
-    "Автосекретарь",
-    "Лайкинг и просмотр Stories друзей",
+    "Выбрать задание из списка", 
+    "Автоответчик на подтвержденные заявки в друзья", 
+    "Лайкинг друзей",
     "Автоответчик на входящие заявки в друзья",
     "Отправка сообщение вКонтакте по списку пользователей",
     "Работа по возможным друзьям",
     "Ручная сортировка возможных друзей",
-    "Работа по целевой аудитории из списка",
-    "Публикация историй",
-    "Поиск целевой аудитории (парсер)",
+    "Работа по целевой аудитории из списка",  
     "Отправка сообщений в сообщества из списка",
   ]
   
@@ -203,7 +322,45 @@ function eventButtonsWorker(accounts, info_account, openSettings , changeTypeSet
       console.log(info_account);
       console.log(accounts[accounts_id],'accounts@');
 
-      responsevk(info_account.task,account);
+      if(task_id === 1) {
+        console.log("Автоответчик на подтвержденные заявки в друзья");
+        // autoresponderСonfirmFriends(info_account.task,account);
+      }
+
+      if(task_id === 2) {
+        console.log("Лайкинг и просмотр Stories друзей");
+        // likingViewingStories(info_account.task,account);
+      }
+
+      if(task_id === 3) {
+        console.log("Автоответчик на входящие заявки в друзья");
+        // autoresponderIncomingRequestsFriends(info_account.task,account);
+      }
+
+      if(task_id === 4) {
+        console.log("Отправка сообщение вКонтакте по списку пользователей");
+        // sendingMessagesUserList(info_account.task,account);
+      }
+
+      if(task_id === 5) {
+        console.log("Работа по возможным друзьям");
+        // possibleFriends(info_account.task,account);
+      }
+
+      if(task_id === 6) {
+        console.log("Ручная сортировка возможных друзей");
+        // filterSuggestionsFriends(info_account.task,account);
+      }
+
+      if(task_id === 7) {
+        console.log("Работа по целевой аудитории из списка");
+        // targetAudienceFromList(info_account.task,account);
+      }
+
+      if(task_id === 8) {
+        console.log("Отправка сообщений в сообщества из списка");
+        // sendMessagesCommunityList(info_account.task,account);
+      }
 
       break;
     case "task_settings":
@@ -235,15 +392,19 @@ export default function AccountScreen () {
 
   useEffect(() => {
     if(user.userId !== undefined) {
+      dispatch(loader_switch(true));
       VkApiServices.getAccountsData(user.userId)
       .then((res) => { 
+        dispatch(loader_switch(false));
         console.log(JSON.parse(res.data.accounts),'res.data.accounts')
         dispatch(appPutAccountsVK(JSON.parse(res.data.accounts))) 
       }).catch((e)=>{
+        dispatch(loader_switch(false));
         console.log(e)
       })
     }
   },[user.userId]);
+
   return (
     <div className="account_screen">
       {popup_visisble.state && <PopapLogin accounts={accounts} id_acc={popup_visisble.id_acc} user_id={user.userId} />}

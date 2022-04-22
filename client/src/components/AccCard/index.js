@@ -1,7 +1,6 @@
 import React,{ useState } from 'react';
 import images from '../../assets/images';
 import Button from '../Button';
-import CheckIcon from '../CheckIcon';
 
 import './style.css';
 
@@ -9,8 +8,6 @@ function AccCard (props) {
 
   const {
     info,
-    eye_on,
-    img,
     del,
     play,
     setting,
@@ -24,26 +21,21 @@ function AccCard (props) {
     info_account,
     active,
     onChangeTaskId,
-    task
+    task,
+    status            
   } = props;
 
-  const [eye_cheked,changeEye] = useState({ check:false, name:'eye' });
-  const [img_cheked,changeImg] = useState({ check:false, name:'img' });
   const [task_local,setTask] = useState(0);
 
   const tasksTitle = [
     "Выбрать задание из списка",
-    "Расписание",
     "Автоответчик на подтвержденные заявки в друзья",
-    "Автосекретарь",
-    "Лайкинг и просмотр Stories друзей",
+    "Лайкинг друзей",
     "Автоответчик на входящие заявки в друзья",
     "Отправка сообщение вКонтакте по списку пользователей",
     "Работа по возможным друзьям",
     "Ручная сортировка возможных друзей",
     "Работа по целевой аудитории из списка",
-    "Публикация историй",
-    "Поиск целевой аудитории (парсер)",
     "Отправка сообщений в сообщества из списка",
   ]
 
@@ -54,19 +46,25 @@ function AccCard (props) {
               <div className='orederNumber'>{id}</div>  
               <div style={{ backgroundColor: active  ? '#15b90a2b' : 'rgb(249 0 0 / 21%)'}} className='inputName'>{name}</div> 
             </div>
-            <div className='visualSettings'>
-              <CheckIcon value={eye_cheked} icon={eye_on} onClick={(e) => { changeEye(e) }} alt='eye'/>
-              <CheckIcon value={img_cheked} icon={img} onClick={(e)=>{ changeImg(e) }} name='name' id='id' alt='img'/>
-            </div>
             <div className='settingBtnWrapper'>
-              <Button disabled={info_account.main_settings.btn_state[0].disabled} icon={vkbtn} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'social', task: task_local}) }} alt='social' />
-              <Button disabled={info_account.main_settings.btn_state[1].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'acc_settings', task: task_local}) }} alt='settingsAcc' />
-              <Button disabled={info_account.main_settings.btn_state[2].disabled} id={id} icon={del} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'deleted', task: task_local}) }} alt='deleted' />
+              <Button disabled={info_account.main_settings.btn_state[0].disabled} icon={vkbtn} onClick={() => { onClick({ id: id, event: 'social', task: task_local}) }} alt='social' />
+              <Button disabled={info_account.main_settings.btn_state[1].disabled} icon={setting} onClick={() => { onClick({ id: id, event: 'acc_settings', task: task_local}); info_account.task_settings.status_tasks.initial_state = 'Задание не выбрано:'}} alt='settingsAcc' />
+              <Button disabled={info_account.main_settings.btn_state[2].disabled} id={id} icon={del} onClick={() => { onClick({ id: id, event: 'deleted', task: task_local}) }} alt='deleted' />
             </div>
           </div>
           <div className='taskAccWrapper'>
             <div className='selectTaskWrapper'>
-              <select onChange={(e)=> { onChangeTaskId({ task_id: Number(e.target.value), id_acc: Number(id) }); setTask(Number(e.target.value)) }} className='selectTask'>
+              <select 
+                onChange={(e)=> {
+                   onChangeTaskId({
+                    task_id: Number(e.target.value), 
+                    id_acc: Number(id) 
+                   }); 
+                   info_account.task_settings.status_tasks.initial_state = `${e.target.value !== '0' ?  'Задание: ' + tasksTitle[e.target.value] + ' готово к запуску' : 'Задание не выбрано:'}`
+                   setTask(Number(e.target.value)) 
+                }} 
+                className='selectTask'
+              > 
                 {
                   tasksTitle.map((item,i) => (
                     <option value={i} key={i}>{item}</option>
@@ -75,20 +73,16 @@ function AccCard (props) {
               </select>
             </div>
             <div className='settingBtnWrapper'>
-              <Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task_local}) }} alt='play task' /> 
-              <Button disabled={info_account.main_settings.btn_state[4].disabled} icon={setting} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'task_settings', task: task_local}) }} alt='settings' />
-              <Button disabled={info_account.main_settings.btn_state[5].disabled} icon={info} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'help', task: task_local}) }} alt='help' />
+              <Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, event: 'play', task: task_local}) }} alt='play task' /> 
+              <Button disabled={info_account.main_settings.btn_state[4].disabled} icon={setting} onClick={() => { onClick({ id: id, event: 'task_settings', task: task_local}) }} alt='settings' />
+              <Button disabled={info_account.main_settings.btn_state[5].disabled} icon={info} onClick={() => { onClick({ id: id, event: 'help', task: task_local}) }} alt='help' />
             </div>
           </div>
-          <div className='statusAccWrapper'></div>
+          <div className='statusAccWrapper'>
+            {status.initial_state}
+          </div>
         </div>
   );
 }
 
 export default AccCard;
-
-
-/*   
-<Button disabled={info_account.main_settings.btn_state[3].disabled} icon={play} onClick={() => { onClick({ id: id, type: type, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' /> 
-<Button disabled={false} icon={play} onClick={() => { onClick({ id: id, checkbox: {eye: eye_cheked,img: img_cheked}, event: 'play', task: task}) }} alt='play task' />
-*/
