@@ -14,7 +14,7 @@ export default function AccountSettingsCopy(props) {
     <div style={
       styles
     } className='account_settings_copy_container'>
-      <TitleComponent  styles={{marginBottom:'20px'}} title="Применить эти настройки к аккаунтам:" />
+      {/* <TitleComponent  styles={{marginBottom:'20px'}} title="Применить эти настройки к аккаунтам:" />
       <div className='account_settings_left_container'>
         <div className='account_settings_item_container'>
           {
@@ -25,7 +25,7 @@ export default function AccountSettingsCopy(props) {
           <Button onClick={()=>{ onChecked(true) }} icon={images.multicheck} />
           <Button onClick={()=>{ onChecked(false) }} icon={images.multiuncheck} />
         </div>
-      </div>
+      </div> */}
       <div className='row_buttons_account_settings'>
         <div onClick={async () => { onSave(); }} className="signinBtn">
           <div className="signinBtntext">Сохранить</div>

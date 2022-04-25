@@ -75,241 +75,132 @@ export default function AddAccount (props) {
     },
     task_settings: {
       tasks: [
-        {
-          shedule: {
-            mode: {
-              auto: {
-                days: {
-                  day:[],
-                  all: false,
-                },
-                start_shedule: "timestamp",
-                stop_shedule: "timestamp",
-              },
-              manual: {
-                stop_shedule: "timestamp",
-              },
-              task:["autoresponderСonfirmFriends"],
-              error_in_TG: false
-            }
-          }
-        },
-        {
-          autoresponderСonfirmFriends: {
+        { // autoresponderСonfirmFriends:  
             welcomeCount: 0,
-            delay: 30,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 1,
+            addingMessages: { 
+              on: { title: "Включить", disabled: false, check: false }, 
+              random: { title: "Случайный порядок", disabled: true, check: false }, 
+              text_areas: [] 
+            },
             messageSettings: {
-              about: true,
-              noanswer: false,
+              conversationTypeEvent: 1,
+              textMessages: []
             },
-            randomizeText:{
-              on:false,
-              text:[""],
-              random: false,
-              username: false
+            photoOrVideoSettings: {
+              photoFilesPath: [],
+              messages: [],
             },
-            linkPhoto:{
-              on:false,
-              link:[""],
-              random: false,
+            audioSettings: {
+              audioFilesPath: [],
+              messages: []
             },
-            audio:{
-              on:false,
-              path:[""],
-              random: false,
-            },
-          }
+            addToFriends: { title: "", disabled: false, check: false },
+            setLikeToWall: { title: "", disabled: false, check: false },
+            setLikeToProfile: { title: "", disabled: false, check: false }, 
         },
-        {
-          autosecretary: {
-            countAnswer: 0,
-            delay: 30,
-            oneOption: {
-              text: "",
-              randomizeText: {
-                on:false,
-                text:[""],
-                random: false,
-                username: false
-              },
-              linkPhoto: {
-                on:false,
-                link:[""],
-                random: false,
-              },
-                audio: {
-                on:false,
-                path:[""],
-                random: false,
-              },
-            },
-            twoOption: {
-              text: "",
-              randomizeText: {
-                on:false,
-                text:[""],
-                random: false,
-                username: false
-              },
-              linkPhoto:{
-                on:false,
-                link:[""],
-                random: false,
-              },
-              audio:{
-                on:false,
-                path:[""],
-                random: false,
-              },
-            },
-            threeOption: {
-              text: "",
-              randomizeText:{
-                on:false,
-                text:[""],
-                random: false,
-                username: false
-              },
-              linkPhoto:{
-                on:false,
-                link:[""],
-                random: false,
-              },
-              audio:{
-                on:false,
-                path:[""],
-                random: false,
-              },
-            },
-          }
+        { // likingViewingStories:
+            welcomeCount: 0,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 1,
+            setLikeToWall: { title: "", disabled: false, check: false },
+            setLikeToProfile: { title: "", disabled: false, check: false }, 
         },
-        {
-          likingViewingStories:{
-            countUser: 0,
-            delay:50,
-            randdomLike: false
-          }
-        },
-        {
-          autoresponderIncomingRequestsFriends: {
-            contGreeting: 0,
-            delay: 30,
-            likeAva: false,
-            likeWall: false,
+        { // autoresponderIncomingRequestsFriends: 
+            welcomeCount: 0,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 2,
             messageSettings: {
-              about: true,
-              noanswer: false
+              conversationTypeEvent: 1,
+              textMessages: []
             },
-            randomizeText:{
-              on:false,
-              text:[""],
-              random: false,
-              username: false
+            addingMessages: { 
+              on: { title: "Включить", disabled: false, check: false }, 
+              random: { title: "Случайный порядок", disabled: true, check: false }, 
+              text_areas: [] 
             },
-            linkPhoto:{
-              on:false,
-              link:[""],
-              random: false,
+            photoOrVideoSettings: {
+              photoFilesPath: [],
+              messages: [],
             },
-            audio:{
-              on:false,
-              path:[""],
-              random: false,
+            audioSettings: {
+              audioFilesPath: [],
+              messages: []
             },
-          }
+            addToFriends: { title: "", disabled: false, check: false },
+            setLikeToWall: { title: "", disabled: false, check: false },
+            setLikeToProfile: { title: "", disabled: false, check: false }, 
         },
-        {
-          sendingMessagesUserList: {
-            countMessage: 0,
-            delay: 30,
-            likeAva: false,
-            likeWall: false,
+        { //  sendingMessagesUserList: 
+            welcomeCount: 0,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 3,
             messageSettings: {
-              anyСase: true,
-              about: false
+              conversationTypeEvent: 2,
+              textMessages: []
             },
-            randomizeText:{
-              on:false,
-              text:[""],
-              random: false,
-              username: false
+            addingMessages: { 
+              on: { title: "Включить", disabled: false, check: false }, 
+              random: { title: "Случайный порядок", disabled: true, check: false }, 
+              text_areas: [] 
             },
-            linkPhoto:{
-              on:false,
-              link:[""],
-              random: false,
+            photoOrVideoSettings: {
+              photoFilesPath: [],
+              messages: [],
             },
-            audio:{
-              on:false,
-              path:[""],
-              random: false,
+            audioSettings: {
+              audioFilesPath: [],
+              messages: []
             },
-            linkList: ["",""]
-          }
+            userNamesOrIds: [], 
         },
-        {
-          possibleFriends: {
-            countFrendsReq: 0,
-            inRequestMax: 200,
-            delay: 30,
-            likeAva: false,
-            likeWall: false,
-          }
-        },
-        {
-          targetAudienceFromList: {
-            countFrendsReq: 0,
-            inRequestMax: 200,
-            delay: 30,
-            addFriends: true,
-            lookStory: false,
-            likeWall:true,
-            likeAva:true,
-            listLink:["",""]
-          }
-        },
-        {
-          publishingStories: {
-            countPublish: 0,
-            delay: 50,
-            linkButtonMore:"",
-            materialHistory:"",
-          }
-        },
-        {
-          parserTargetAudience: {
-            phrases: [""],
-            country:"",
-            cityes: "",
-            linkUserList:[""]
-          }
-        },
-        {
-          sendMessagesCommunityList: {
-            countСommunities: 0,
-            delay:50,
+        { // possibleFriends: 
+            requestCount: 0,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 1,
             messageSettings: {
-              anyСase: true,
-              about: false
+              conversationTypeEvent: 1,
+              textMessages: []
             },
-            randomizeText:{
-              on:false,
-              text:[""],
-              random: false,
-              username: false
+            addingMessages: { 
+              on: { title: "Включить", disabled: false, check: false }, 
+              random: { title: "Случайный порядок", disabled: true, check: false }, 
+              text_areas: [] 
             },
-            linkPhoto:{
-              on:false,
-              link:[""],
-              random: false,
+            photoOrVideoSettings: {
+              photoFilesPath: [],
+              messages: [],
             },
-            audio:{
-              on:false,
-              path:[""],
-              random: false,
+            audioSettings: {
+              audioFilesPath: [],
+              messages: []
             },
-            linkListСommunities: ["",""]
-          }
+            setLikeToWall: { title: "", disabled: false, check: false },
+            setLikeToProfile: { title: "", disabled: false, check: false }, 
+        },
+        { // manualFilters: 
+          count: 0,
+          suggestFriendsFilterType: 0,
+          friends: []
+        },
+        { // targetAudienceFromList: 
+            welcomeCount: 0,
+            delay: { to: 0, from: 0, delay: 0,check: false },
+            autoResponderEventType: 3,
+            addFriends: { title: "", disabled: false, check: false },
+            setLikeToWall: { title: "", disabled: false, check: false },
+            setLikeToProfile: { title: "", disabled: false, check: false }, 
+            userNamesOrIds: [],
+        },
+        { // sendMessagesCommunityList: 
+          welcomeCount: 0,
+          delay: { to: 0, from: 0, delay: 0,check: false },
+          autoResponderEventType: 4,
+          addToFriends: { title: "", disabled: false, check: false },
+          setLikeToWall: { title: "", disabled: false, check: false },
+          setLikeToProfile: { title: "", disabled: false, check: false },
+          groupNamesOrIds: [],
         }
       ],
       status_tasks: { initial_state: 'Задание не выбрано:', previous_launch: '' }

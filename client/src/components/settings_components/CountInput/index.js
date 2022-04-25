@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
-import images from '../../../assets/images';
-import TextArea from '../TextArea';
+import React from 'react';
 import InputNumber from '../InputNumber';
-import CheckComponent from '../CheckComponent';
-import Button from '../../Button';
-import './style.css';
 import TitleComponent from '../TitleComponent';
-
+import './style.css';
 
 export default function CountInput(props) {
 
-  const { title , disabled, children } = props
-  const [check,Switching] = useState(false);
+  const { title , count, setCount } = props;
 
   return (
     <div className="count_input_wrapper" >
       <TitleComponent title={title} />
-      <InputNumber />
+      <InputNumber value={count} onChange={setCount} />
     </div>
   );
 }

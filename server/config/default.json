@@ -2,11 +2,11 @@
   "Server": {
     "dbConfig":  {
       "development":{
-        "username": "admin",
-        "password": "123",
+        "username": "gen_user",
+        "password": "inbox220322",
         "database": "default_db",
-        "host": "localhost",
-        "port":"8889",
+        "host": "92.53.105.38",
+        "port":"3306",
         "dialect": "mysql",
         "connectionLimit" : "1000",
         "connectTimeout"  : "60 * 60 * 1000",
@@ -28,4 +28,3 @@
     }
   }
 }
-

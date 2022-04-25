@@ -1,160 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Input from '../../Input';
 import MainTitle from '../../MainTitle';
 import CountInput from '../../CountInput';
-import ManualSelect from '../../ManualSelect';
 import TitleComponent from '../../TitleComponent';
 import AccountSettingsCopy from '../../AccountSettingsCopy';
-import ItemDisplayComponent from '../../ItemDisplayComponent';
-import TimeSetComponent from '../../TimeSetComponent';
-import AddingComponent from '../../AddingComponent';
-import SelectComponentItem from '../../SelectComponentItem';
-import AnswerComponentArea from '../../AnswerComponentArea';
-import CheckComponent from '../../CheckComponent';
-import RadialBtnComponent from '../../RadialBtnComponent';
-import RandomizeComponentArea from '../../RandomizeComponentArea';
-import AudioComponent from '../../AudioComponent';
+import TextArea from '../../TextArea';
+import RadialBtnsComponent from '../../RadialBtnsComponent';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';
+import { 
+  manual_settings_count,
+  manual_settings_filter
+} from '../../../../redux/actions/manual_settings';
+
+import { manual_settings } from '../../../../redux/selectors';
+
 import './style.css';
+async function onSave( count,suggestFriendsFilterType, accounts, id_acc, task_id, dispatch, onClose ) {
 
-async function onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, checked, dispatch, onClose) {
+  let setings_response = accounts;
+ 
+  setings_response[id_acc].task_settings.tasks[task_id-1].count = count;
+  setings_response[id_acc].task_settings.tasks[task_id-1].suggestFriendsFilterType = suggestFriendsFilterType;
 
-  if(check_all) {
-    accounts.map(item => {
-      if(name_acc !== '') {
-        item.main_settings.name = name_acc;
-      }
-
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        item.main_settings.network.vpn.country = select_option_city;
-      }
-
-      item.main_settings.anticapcha = anticapcha;
-    })
-  } else {
-    if(checked.length > 0) {
-      checked.map(item => {
-        if(name_acc !== '') {
-          item.main_settings.name = name_acc;
-        }
-  
-        if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-          item.main_settings.network.vpn.country = select_option_city;
-        }
-
-        item.main_settings.anticapcha = anticapcha;
-      })
-    } else {
-
-      if(name_acc !== '') {
-        accounts[id_acc].main_settings.name = name_acc;
-      }
-
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        accounts[id_acc].main_settings.network.vpn.country = select_option_city;
-      }
-
-      accounts[id_acc].main_settings.anticapcha = anticapcha;
-
-    }
-  }
-
-  // let save = await 
-  dispatch(appPutAccountsVK(accounts));
+  dispatch(appPutAccountsVK(setings_response));
   onClose(false);
 
 }
 
 export default function ManualSortFriendsSettingsPage (props) {
+ 
+  const { accounts, id_acc, onClose, task_id,titleTask } = props; 
 
-  const { accounts, id_acc, onClose, task_id } = props;
-  // useInvalidUrlAccess();
+  const dispatch = useDispatch(); 
 
-  const [id_check, setIdCheck] = useState([]);
-  const [select_option_value, changeOption] = useState(0);
-  const [select_option_city, changeOptionCity] = useState("0");
-  const [name_acc, changeNameAcc] = useState("");
-  const [anticapcha, changeAnticapcha] = useState("");
-  const [proxy_ip, changeProxyIp] = useState("");
-  const [proxy_log, changeProxyLog] = useState("");
-  const [proxy_pass, changeProxyPass] = useState("");
-  const [check_all, checkedAll] = useState(false);
-  const [text_random,setTextRandom] = useState('фраза 1\nфраза 2');
-  const [list,setList] = useState('тут появится список');
-  
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const count = useSelector(manual_settings.count);
+  const suggestFriendsFilterType = useSelector(manual_settings.suggestFriendsFilterType);
+  const friends = useSelector(manual_settings.friends);
 
-  const lable_network = ["Ручной","Автоматический"];
-  const check_item_text_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false },
-    { title: "Имя пользователя", disabled: false }
-  ];
+  const [text_friends, setFriends] = useState('')
 
-  const check_item_photo_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false } 
-  ];
+  const account = accounts[id_acc];
 
-  const check_item_audio_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false } 
-  ];
+  useEffect(() => {
+    if(friends.length !== 0) {
+      let arrTemp = [];
+      let string = '';
+      arrTemp = friends.map((item) => (`id: ${item.userId} Ф.И.О: ${item.firstName} ${item.lastName}`))
+      string = arrTemp.join('\n');
+      setFriends(string)
+    }
+  },[friends])
 
   return (
     <div className="shedule_settings_page_wrapper" >
-      <TitleComponent title="Выбрать фильтр сортировки" />
-      <RadialBtnComponent >
-        <TitleComponent title="Пользователи, с которыми много общих друзей" />
-      </RadialBtnComponent>
-      <RadialBtnComponent >
-        <TitleComponent title="Пользователи, найденные с помощью импорта контактов с телефона" />
-      </RadialBtnComponent>
-      <RadialBtnComponent >
-        <TitleComponent title="Пользователи, которые импортировали те же контакты, что и текущий пользователь" />
-      </RadialBtnComponent>
-      <RandomizeComponentArea title={`Список возможных друзей будет отсортирован согласно настройкам задания!`} text={list} onChange={(e) => { setList(e) }} />
-      <AccountSettingsCopy onChecked={checkedAll} onClose={onClose} styles={{marginTop:'30px'}} onSave={() => onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, id_check, dispatch,onClose) }>
-        {
+      <MainTitle title_acc={titleTask} text="Настройка задания:" />
+      <MainTitle title_acc={`${account.main_settings.name}`} text="Аккаунт:" />
+      <CountInput count={count} setCount={(counts) => {dispatch(manual_settings_count(counts))}} title="Вывести необходимое кол-во возможных друзей:"/>
+      <TitleComponent title="Настройка фильтра" />
+      <RadialBtnsComponent 
+        title={[
+          "Пользователи, с которыми много общих друзей",
+          "Пользователи, импортированные из контактов",
+          "Пользователи, которые импортировали те же контакты, что и вы"
+        ]}
+        Switching={type => { dispatch(manual_settings_filter(type)) }}
+        checked={suggestFriendsFilterType}
+      />
+      <TitleComponent title={`В этом поле появятся ваши возможные друзья: ${friends.length}`}  />
+      <TextArea text={ text_friends } onChange={(e) => {}} />
+      <AccountSettingsCopy 
+        onClose={onClose} 
+        styles={{ marginTop:'30px' }} 
+        onSave={() => onSave( count, suggestFriendsFilterType, accounts, id_acc, task_id, dispatch, onClose ) }
+      >  
+        {/* {
           accounts.map((item,key) => {
             return <ItemDisplayComponent 
               check_all={check_all}
@@ -164,15 +83,16 @@ export default function ManualSortFriendsSettingsPage (props) {
               id={key} 
               onClick={(id) => { 
               let lock = false;
-              if( id_check.length == 0 ) {
-                id_check.push(id)
+              if( id_check.length === 0 ) {
+                id_check.push(id)x
                 setIdCheck(id_check) 
               } else {
           
                 id_check.map(item => {
-                  if (item == id) {
+                  if (item === id) {
                     lock = true
                   } 
+                  return false
                 })
                 if(!lock) {
                   id_check.push(id)
@@ -183,7 +103,7 @@ export default function ManualSortFriendsSettingsPage (props) {
               }} 
             />
           })
-        }
+        } */}
       </AccountSettingsCopy>
     </div>
   );

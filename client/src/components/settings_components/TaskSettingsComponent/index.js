@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import SheduleSettingsPage from '../task_settings_pages/SheduleSettingsPage';
 import AnswerSettingsPage from '../task_settings_pages/AnswerSettingsPage';
@@ -23,23 +23,17 @@ export default function TaskSettingsComponent (props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(accounts)
-  console.log(id_acc)
-  console.log(task_id)
+
   const taskSettingPage = [];
   let titleTask = [
     "Выбрать задание из списка",
-    "Расписание",
     "Автоответчик на подтвержденные заявки в друзья",
-    "Автосекретарь",
-    "Лайкинг и просмотр Stories друзей",
+    "Лайкинг друзей",
     "Автоответчик на входящие заявки в друзья",
     "Отправка сообщение вКонтакте по списку пользователей",
     "Работа по возможным друзьям",
     "Ручная сортировка возможных друзей",
     "Работа по целевой аудитории из списка",
-    "Публикация историй",
-    "Поиск целевой аудитории (парсер)",
     "Отправка сообщений в сообщества из списка",
   ]
   switch (task_id) {
@@ -47,52 +41,44 @@ export default function TaskSettingsComponent (props) {
       console.log(titleTask[task_id])
       break;
       case 1:
+      // console.log(titleTask[task_id])
+      // taskSettingPage.push(<SheduleSettingsPage key={task_id}  onClose={onClose} />) 
+      // console.log(titleTask[task_id])
+      // taskSettingPage.push(<AutoSecretarySettingsPage key={task_id}  onClose={onClose} />) 
+      // console.log(titleTask[task_id])
+      // taskSettingPage.push(<PublicHistorySettingsPage key={task_id}  onClose={onClose} />)  
+      // console.log(titleTask[task_id])
+      // taskSettingPage.push(<ParsingSettingsPage key={task_id}  onClose={onClose} />)  
       console.log(titleTask[task_id])
-      taskSettingPage.push(<SheduleSettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<AnswerSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id} onClose={onClose} />)  
       break;
     case 2:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<AnswerSettingsPage key={task_id} onClose={onClose} />)  
+      taskSettingPage.push(<LikingLookingSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 3:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<AutoSecretarySettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<AnswerInFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 4:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<LikingLookingSettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<SendMessageListSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 5:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<AnswerInFriendsSettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<PossibleFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />)  
       break;
     case 6:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<SendMessageListSettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<ManualSortFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id} onClose={onClose} />)  
       break;
     case 7:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<PossibleFriendsSettingsPage key={task_id}  onClose={onClose} />)  
+      taskSettingPage.push(<TargetGroupLIstSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 8:
       console.log(titleTask[task_id])
-      taskSettingPage.push(<TargetGroupLIstSettingsPage key={task_id}  onClose={onClose} />)  
-      break;
-    case 9:
-      console.log(titleTask[task_id])
-      taskSettingPage.push(<PublicHistorySettingsPage key={task_id}  onClose={onClose} />)  
-      break;
-    case 10:
-      console.log(titleTask[task_id])
-      taskSettingPage.push(<ParsingSettingsPage key={task_id}  onClose={onClose} />)  
-      break;
-    case 11:
-      console.log(titleTask[task_id])
-      taskSettingPage.push(<SendMessageGroupListSettingsPage key={task_id}  onClose={onClose} />)  
-      break;
-    case 12:
-      console.log(titleTask[task_id])
-      taskSettingPage.push(<ManualSortFriendsSettingsPage key={task_id} onClose={onClose} />)  
+      taskSettingPage.push(<SendMessageGroupListSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />)  
       break;
   
     default:

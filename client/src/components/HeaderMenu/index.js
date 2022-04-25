@@ -32,11 +32,11 @@ function HeaderMenu(props) {
       key:"news",
       rout:'/news'
     },
-    {
-      title:"Настройки",
-      key:"setting",
-      rout:'/settings'
-    }
+    // {
+    //   title:"Настройки",
+    //   key:"setting",
+    //   rout:'/settings'
+    // }
   ];
 
   let st = {}

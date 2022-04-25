@@ -10,9 +10,7 @@ import NewsScreen from '../Screens/NewsScreen/index';
 import SettingsScreen from '../Screens/SettingsScreen/index';
 import { LocationContextProvider } from './costomNavigation';
 
-
 const Main = () => {
-  
   return (
     <main>
       <LocationContextProvider>

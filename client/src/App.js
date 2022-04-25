@@ -5,7 +5,7 @@ import { useInvalidUrlAccess } from './routes/costomNavigation';
 import Main from './routes/index';
 import HeaderMenu from './components/HeaderMenu'
 import Loader from './components/Loader'
-import { change_page, change_header_visible } from './redux/actions/app';
+import { change_page } from './redux/actions/app';
 import { checkAuth } from './redux/actions/users'
 import {pages, users, loader} from './redux/selectors'
 
@@ -26,18 +26,11 @@ function App () {
     }
   },[]);
 
-  if(page === "signin") {
-    dispatch(change_header_visible(false))
-  } else {
-    dispatch(change_header_visible(true))
-  }
-console.log(loading)
   return (
     <div className="App">
     {loading &&  <Loader />}
     <HeaderMenu 
-      headerhim={()=> {
-      dispatch(change_page("signin")) }} 
+      headerhim={()=> {}} 
       userName={user.email} 
       visible={header_visible} 
       page={page} 

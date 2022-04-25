@@ -3,7 +3,7 @@ import AddingComponent from '../../components/settings_components/AddingComponen
 import AnswerComponentArea from '../../components/settings_components/AnswerComponentArea';
 import AudioComponent from '../../components/settings_components/AudioComponent';
 import InputComponentItem from '../../components/settings_components/InputComponentItem';
-import RadialBtnComponent from '../../components/settings_components/RadialBtnComponent';
+import RadialBtnsComponent from '../../components/settings_components/RadialBtnsComponent';
 import SelectComponentItem from '../../components/settings_components/SelectComponentItem';
 import TitleComponent from '../../components/settings_components/TitleComponent';
 import CountInput from '../../components/settings_components/CountInput';
@@ -23,9 +23,9 @@ export default function SettingsScreen() {
           <AudioComponent />
           <InputComponentItem />
           <SelectComponentItem />
-          <RadialBtnComponent >
+          <RadialBtnsComponent >
             <TitleComponent title="dcsdcdcsdc" />
-          </RadialBtnComponent>
+          </RadialBtnsComponent>
           <CountInput />
           <DelayComponent />
           <RandomizeComponentArea />

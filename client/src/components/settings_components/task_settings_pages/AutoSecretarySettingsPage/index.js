@@ -13,7 +13,7 @@ import AddingComponent from '../../AddingComponent';
 import SelectComponentItem from '../../SelectComponentItem';
 import AnswerComponentArea from '../../AnswerComponentArea';
 import CheckComponent from '../../CheckComponent';
-import RadialBtnComponent from '../../RadialBtnComponent';
+import RadialBtnComponent from '../../RadialBtnsComponent';
 import RandomizeComponentArea from '../../RandomizeComponentArea';
 import AudioComponent from '../../AudioComponent';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';

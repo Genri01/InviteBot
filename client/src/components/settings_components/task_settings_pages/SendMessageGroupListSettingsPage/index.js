@@ -1,178 +1,82 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Input from '../../Input';
 import MainTitle from '../../MainTitle';
 import CountInput from '../../CountInput';
-import ManualSelect from '../../ManualSelect';
 import TitleComponent from '../../TitleComponent';
 import AccountSettingsCopy from '../../AccountSettingsCopy';
-import ItemDisplayComponent from '../../ItemDisplayComponent';
 import TimeSetComponent from '../../TimeSetComponent';
-import AddingComponent from '../../AddingComponent';
-import SelectComponentItem from '../../SelectComponentItem';
-import AnswerComponentArea from '../../AnswerComponentArea';
+import TextArea from '../../TextArea';
 import CheckComponent from '../../CheckComponent';
-import RadialBtnComponent from '../../RadialBtnComponent';
-import RandomizeComponentArea from '../../RandomizeComponentArea';
-import AudioComponent from '../../AudioComponent';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';
+import { 
+  group_list_settings_welcomeCount,
+  group_list_settings_delay,
+  group_list_settings_setLikeToWall,
+  group_list_settings_setLikeToProfile,
+} from '../../../../redux/actions/group_list_settings';
+
+import { group_list_settings } from '../../../../redux/selectors';
+
 import './style.css';
-async function onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, checked, dispatch, onClose) {
-
-  if(check_all) {
-    accounts.map(item => {
-      if(name_acc !== '') {
-        item.main_settings.name = name_acc;
-      }
-
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        item.main_settings.network.vpn.country = select_option_city;
-      }
-
-      item.main_settings.anticapcha = anticapcha;
-    })
-  } else {
-    if(checked.length > 0) {
-      checked.map(item => {
-        if(name_acc !== '') {
-          item.main_settings.name = name_acc;
-        }
-  
-        if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-          item.main_settings.network.vpn.country = select_option_city;
-        }
-
-        item.main_settings.anticapcha = anticapcha;
-      })
-    } else {
-
-      if(name_acc !== '') {
-        accounts[id_acc].main_settings.name = name_acc;
-      }
-
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        accounts[id_acc].main_settings.network.vpn.country = select_option_city;
-      }
-
-      accounts[id_acc].main_settings.anticapcha = anticapcha;
-
-    }
-  }
-
-  // let save = await 
+async function onSave( text_userid,welcomeCount,setLikeToWall,setLikeToProfile, delay, accounts, id_acc, task_id, dispatch, onClose ) {
+ 
+  accounts[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
+  accounts[id_acc].task_settings.tasks[task_id-1].delay = delay;
+  accounts[id_acc].task_settings.tasks[task_id-1].groupNamesOrIds = text_userid.split(' ');
+  accounts[id_acc].task_settings.tasks[task_id-1].setLikeToWall = setLikeToWall;
+  accounts[id_acc].task_settings.tasks[task_id-1].setLikeToProfile = setLikeToProfile; 
+ 
   dispatch(appPutAccountsVK(accounts));
   onClose(false);
 
 }
+
 export default function SendMessageGroupListSettingsPage (props) {
+ 
+  const { accounts, id_acc, onClose, task_id,titleTask } = props; 
 
-  const { accounts, id_acc, onClose, task_id } = props;
-  // useInvalidUrlAccess();
+  const dispatch = useDispatch(); 
 
-  const [id_check, setIdCheck] = useState([]);
-  const [select_option_value, changeOption] = useState(0);
-  const [select_option_city, changeOptionCity] = useState("0");
-  const [name_acc, changeNameAcc] = useState("");
-  const [anticapcha, changeAnticapcha] = useState("");
-  const [proxy_ip, changeProxyIp] = useState("");
-  const [proxy_log, changeProxyLog] = useState("");
-  const [proxy_pass, changeProxyPass] = useState("");
-  const [check_all, checkedAll] = useState(false);
-  const [shedule, pushSheduleTask] = useState([]);
-  const [text_random,setTextRandom] =  useState('{Привет!|Здравствуйте!|Приветствую!}');
-  
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const welcomeCount = useSelector(group_list_settings.welcomeCount);
+  const delay = useSelector(group_list_settings.delay);
+  const setLikeToProfile = useSelector(group_list_settings.setLikeToProfile);
+  const setLikeToWall = useSelector(group_list_settings.setLikeToWall);
 
-  const lable_network = ["Ручной","Автоматический"];
-  const check_item_text_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false },
-    { title: "Имя пользователя", disabled: false }
-  ];
-
-  const check_item_photo_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false } 
-  ];
-
-  const check_item_audio_arr = [
-    { title: "Включить", disabled: false },
-    { title: "Случайный порядок", disabled: false } 
-  ];
-  
-  const weeks_day = ["Все","Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+  const [text_userid, setUserId] = useState('');
   const account = accounts[id_acc];
+
   return (
     <div className="shedule_settings_page_wrapper" >
-      <MainTitle title_acc="Отправка сообщений в сообщества из списка" text="Настройка задания:" />
+      <MainTitle title_acc={titleTask} text="Настройка задания:" />
       <MainTitle title_acc={`${account.main_settings.name}`} text="Аккаунт:" />
-      <CountInput title="Количество сообществ которым необходимо написать сообщение"/>
-      <TimeSetComponent title="Случайная задержка между действиями (от : до) секунды" />
-      <TitleComponent title="Ставить лайк на аватар пользователя"/>
-      <CheckComponent />
-      <TitleComponent title="Ставить лайк на стену пользователя"/>
-      <CheckComponent />
-      <TitleComponent title="Настройка отправки сообщений" />
-      <RadialBtnComponent >
-        <TitleComponent title="Писать сообщение в любыых случаях" />
-      </RadialBtnComponent>
-      <RadialBtnComponent >
-        <TitleComponent title="Писать сообщение, когда переписка полностью пустая, а также когда нам написали и мы не ответили" />
-      </RadialBtnComponent>
-      <RandomizeComponentArea title={`Введите текст для рандомизации`} text={text_random} onChange={(e) => { setTextRandom(e) }} />
-      <TitleComponent title={`Текст для приветствия: (Элементов: ${0} Выделено: ${0})`}/>
-      <AddingComponent check_item={check_item_text_arr} onClick={(e) => {pushSheduleTask([1])}}>
-        <AnswerComponentArea styles={{ height: '140px',marginBottom: '20px' }} />
-      </AddingComponent>
-      <TitleComponent title={`Ссылка на фото или видео: (Элементов: ${0} Выделено: ${0})`}/>
-      <AddingComponent check_item={check_item_photo_arr} onClick={(e) => {pushSheduleTask([1])}}>
-        <SelectComponentItem />
-      </AddingComponent>
-      <TitleComponent title={`Аудио запись: (Элементов: ${0} Выделено: ${0})`}/>
-      <AddingComponent check_item={check_item_audio_arr} onClick={(e) => {pushSheduleTask([1])}}>
-        <AudioComponent />
-      </AddingComponent>
-      <RandomizeComponentArea title={`Список ссылок на страницы сообществ (Каждая сылка с новой строки)`} text={text_random} onChange={(e) => { setTextRandom(e) }} />
-      <AccountSettingsCopy onChecked={checkedAll} onClose={onClose} styles={{marginTop:'30px'}} onSave={() => onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, id_check, dispatch,onClose) }>
-        {
+      <CountInput count={welcomeCount} setCount={(count) => {dispatch(group_list_settings_welcomeCount(count))}} title="Количество приветствий"/>
+      <TimeSetComponent delay={delay} title="Случайная задержка между действиями (от : до) секунды" onChange={(del) => {dispatch(group_list_settings_delay(del))}} />
+      <TitleComponent title="Ставить лайк на стену"/>
+      <CheckComponent 
+        check_item={[setLikeToWall]} 
+        Switching={
+          check => { 
+            dispatch(group_list_settings_setLikeToWall({ ...setLikeToWall, check: check[0].check})) 
+          }} 
+      />
+      <TitleComponent title="Ставить лайк на профиль"/>
+      <CheckComponent 
+        check_item={[setLikeToProfile]} 
+        Switching={
+          check => { 
+            dispatch(group_list_settings_setLikeToProfile({ ...setLikeToProfile, check: check[0].check})) 
+          }} 
+      />
+
+      <TitleComponent title={`Введите ID групп ЧЕРЕЗ ПРОБЕЛ: кол-во групп: ${text_userid.split(' ').length-1}`}  />
+      <TextArea text={ text_userid } onChange={setUserId} />
+
+      <AccountSettingsCopy 
+        onClose={onClose} 
+        styles={{ marginTop:'30px' }} 
+        onSave={() => onSave( text_userid,welcomeCount,setLikeToWall,setLikeToProfile, delay, accounts, id_acc, task_id, dispatch, onClose ) }
+      >  
+        {/* {
           accounts.map((item,key) => {
             return <ItemDisplayComponent 
               check_all={check_all}
@@ -182,15 +86,16 @@ export default function SendMessageGroupListSettingsPage (props) {
               id={key} 
               onClick={(id) => { 
               let lock = false;
-              if( id_check.length == 0 ) {
-                id_check.push(id)
+              if( id_check.length === 0 ) {
+                id_check.push(id)x
                 setIdCheck(id_check) 
               } else {
           
                 id_check.map(item => {
-                  if (item == id) {
+                  if (item === id) {
                     lock = true
                   } 
+                  return false
                 })
                 if(!lock) {
                   id_check.push(id)
@@ -201,7 +106,7 @@ export default function SendMessageGroupListSettingsPage (props) {
               }} 
             />
           })
-        }
+        } */}
       </AccountSettingsCopy>
     </div>
   );

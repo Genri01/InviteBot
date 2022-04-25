@@ -1,171 +1,115 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import Input from '../../Input';
 import MainTitle from '../../MainTitle';
-import ManualSelect from '../../ManualSelect';
+import CountInput from '../../CountInput';
 import TitleComponent from '../../TitleComponent';
 import AccountSettingsCopy from '../../AccountSettingsCopy';
-import ItemDisplayComponent from '../../ItemDisplayComponent';
 import TimeSetComponent from '../../TimeSetComponent';
-import AddingComponent from '../../AddingComponent';
-import SelectComponentItem from '../../SelectComponentItem';
 import CheckComponent from '../../CheckComponent';
-import CountInput from '../../CountInput';
-import RandomizeComponentArea from '../../RandomizeComponentArea';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';
+import { 
+  target_list_settings_welcomeCount,
+  target_list_settings_delay,
+  target_list_settings_setLikeToWall,
+  target_list_settings_setLikeToProfile
+} from '../../../../redux/actions/target_list_settings';
+
+import { target_list_settings } from '../../../../redux/selectors';
+
 import './style.css';
-async function onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, checked, dispatch, onClose) {
+async function onSave(welcomeCount, delay,setLikeToWall, setLikeToProfile, accounts, id_acc, task_id, dispatch, onClose ) {
 
-  if(check_all) {
-    accounts.map(item => {
-      if(name_acc !== '') {
-        item.main_settings.name = name_acc;
-      }
+  let setings_response = accounts;
+ 
+  setings_response[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
+  setings_response[id_acc].task_settings.tasks[task_id-1].delay = delay;
+  accounts[id_acc].task_settings.tasks[task_id-1].setLikeToWall = setLikeToWall;
+  accounts[id_acc].task_settings.tasks[task_id-1].setLikeToProfile = setLikeToProfile;
 
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        item.main_settings.network.proxy.ip = proxy_ip;
-        item.main_settings.network.proxy.log = proxy_log;
-        item.main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        item.main_settings.network.vpn.country = select_option_city;
-      }
-
-      item.main_settings.anticapcha = anticapcha;
-    })
-  } else {
-    if(checked.length > 0) {
-      checked.map(item => {
-        if(name_acc !== '') {
-          item.main_settings.name = name_acc;
-        }
-  
-        if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-          item.main_settings.network.proxy.ip = proxy_ip;
-          item.main_settings.network.proxy.log = proxy_log;
-          item.main_settings.network.proxy.pass = proxy_pass;
-        }
-  
-        if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-          item.main_settings.network.vpn.country = select_option_city;
-        }
-
-        item.main_settings.anticapcha = anticapcha;
-      })
-    } else {
-
-      if(name_acc !== '') {
-        accounts[id_acc].main_settings.name = name_acc;
-      }
-
-      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
-        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
-        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
-        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
-      }
-
-      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
-        accounts[id_acc].main_settings.network.vpn.country = select_option_city;
-      }
-
-      accounts[id_acc].main_settings.anticapcha = anticapcha;
-
-    }
-  }
-
-  // let save = await 
   dispatch(appPutAccountsVK(accounts));
   onClose(false);
 
 }
 export default function TargetGroupLIstSettingsPage (props) {
 
-  const { accounts, id_acc, onClose, task_id } = props;
-  // useInvalidUrlAccess();
+  const { accounts, id_acc, onClose, task_id,titleTask } = props; 
 
-  const [id_check, setIdCheck] = useState([]);
-  const [select_option_value, changeOption] = useState(0);
-  const [select_option_city, changeOptionCity] = useState("0");
-  const [name_acc, changeNameAcc] = useState("");
-  const [anticapcha, changeAnticapcha] = useState("");
-  const [proxy_ip, changeProxyIp] = useState("");
-  const [proxy_log, changeProxyLog] = useState("");
-  const [proxy_pass, changeProxyPass] = useState("");
-  const [check_all, checkedAll] = useState(false);
-  const [text_random,setTextRandom] = useState('https://vk.com/id00000000 \nhttps://vk.com/id00000000\n');
-
+  const welcomeCount = useSelector(target_list_settings.welcomeCount);
+  const delay = useSelector(target_list_settings.delay);
+  const setLikeToProfile = useSelector(target_list_settings.setLikeToProfile);
+  const setLikeToWall = useSelector(target_list_settings.setLikeToWall);
+  const addFriends = useSelector(target_list_settings.addFriends);
+  const userNamesOrIds = useSelector(target_list_settings.userNamesOrIds);
+  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const lable_network = ["Ручной","Автоматический"];
-  const check_item_arr = [];
-  const weeks_day = ["Все","Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+
   const account = accounts[id_acc];
+
   return (
     <div className="shedule_settings_page_wrapper" >
-      <MainTitle title_acc="Работа по целевой аудитории из списка:" text="Настройка задания:" />
+      <MainTitle title_acc={titleTask} text="Настройка задания:" />
       <MainTitle title_acc={`${account.main_settings.name}`} text="Аккаунт:" />
-      <CountInput title="Количество заявок (добавлений в вдрузья)"/>
-      <CountInput title="Максимальное допустимое значение исходящих заявок"/>
-      <TimeSetComponent title="Случайная задержка между действиями (от : до) секунды" />
-      <TitleComponent title="Добавлять в друзья"/>
-      <CheckComponent />
-      <TitleComponent title="Просмотр историй(Масслукинг)"/>
-      <CheckComponent />
-      <TitleComponent title="Ставить лайк на аватар пользователя"/>
-      <CheckComponent />
-      <TitleComponent title="Ставить лайк на стену пользователя"/>
-      <CheckComponent />
-      <RandomizeComponentArea nobtn title={`Список ссылок на страницы пользователей (Каждая сылка с новой строки)`} text={text_random} onChange={(e) => { setTextRandom(e) }} />
-      <AccountSettingsCopy onChecked={checkedAll} onClose={onClose} styles={{marginTop:'30px'}} onSave={() => onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, id_check, dispatch,onClose) }>
+      <CountInput count={welcomeCount} setCount={(count) => {dispatch(target_list_settings_welcomeCount(count))}} title="Количество пользователей"/>
+      <TimeSetComponent delay={delay} title="Случайная задержка между действиями (от : до) секунды" onChange={(del) => {dispatch(target_list_settings_delay(del))}} />
+      <TitleComponent title="Ставить лайк на стену"/>
+      <CheckComponent 
+        check_item={[setLikeToWall]} 
+        Switching={
+          check => { 
+            dispatch(target_list_settings_setLikeToWall({ ...setLikeToWall, check: check[0].check})) 
+          }} 
+      />
+      <TitleComponent title="Ставить лайк на профиль"/>
+      <CheckComponent 
+        check_item={[setLikeToProfile]} 
+        Switching={
+          check => { 
+            dispatch(target_list_settings_setLikeToProfile({ ...setLikeToProfile, check: check[0].check})) 
+          }} 
+      />
+      <TitleComponent title="Добавить в друзья"/>
+      <CheckComponent 
+        check_item={[addFriends]} 
+        Switching={
+          check => { 
+            dispatch(target_list_settings_setLikeToProfile({ ...addFriends, check: check[0].check})) 
+          }} 
+      />
+      <AccountSettingsCopy  
+        onClose={onClose} 
+        styles={{ marginTop:'30px' }} 
+        onSave={() => onSave( welcomeCount, delay,setLikeToProfile, setLikeToWall, accounts, id_acc, task_id, dispatch, onClose ) }
+      >  
         {
-          accounts.map((item,key) => {
-            return <ItemDisplayComponent 
-              check_all={check_all}
-              checked={item.id === key ? true : false} 
-              key={key} 
-              name={`${item.main_settings.name}`} 
-              id={key} 
-              onClick={(id) => { 
-              let lock = false;
-              if( id_check.length == 0 ) {
-                id_check.push(id)
-                setIdCheck(id_check) 
-              } else {
+          // accounts.map((item,key) => {
+          //   return <ItemDisplayComponent 
+          //     check_all={check_all}
+          //     checked={item.id === key ? true : false} 
+          //     key={key} 
+          //     name={`${item.main_settings.name}`} 
+          //     id={key} 
+          //     onClick={(id) => { 
+          //     let lock = false;
+          //     if( id_check.length === 0 ) {
+          //       id_check.push(id)x
+          //       setIdCheck(id_check) 
+          //     } else {
           
-                id_check.map(item => {
-                  if (item == id) {
-                    lock = true
-                  } 
-                })
-                if(!lock) {
-                  id_check.push(id)
-                  setIdCheck(id_check) 
-                } 
-              }
-                console.log(id_check)
-              }} 
-            />
-          })
+          //       id_check.map(item => {
+          //         if (item === id) {
+          //           lock = true
+          //         } 
+          //         return false
+          //       })
+          //       if(!lock) {
+          //         id_check.push(id)
+          //         setIdCheck(id_check) 
+          //       } 
+          //     }
+          //       console.log(id_check)
+          //     }} 
+          //   />
+          // })
         }
       </AccountSettingsCopy>
     </div>

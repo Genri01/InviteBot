@@ -6,7 +6,7 @@ import './style.css';
 export default function VisualAccountsComponent (props) {
 
   const { accounts, typeScreen, onClick, onChangeTaskId, task } = props;
-
+ 
   return (
     <div className="account_wrapper" >
       <div className='account_active_wrapper'>
@@ -16,7 +16,7 @@ export default function VisualAccountsComponent (props) {
           {
             accounts.map((item,i) => {
              if(task.id_acc === Number(item.id)) {
-               console.log('task change number '+item.id, item)
+              //  console.log('task change number '+item.id)
                if (task.task_id === 0) {
                 item.main_settings.btn_state[4].disabled = true
                 item.main_settings.btn_state[3].disabled = true

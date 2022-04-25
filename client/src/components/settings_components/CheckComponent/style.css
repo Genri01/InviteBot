@@ -1,3 +1,7 @@
+ .check_item_wrapper {
+  display: flex;
+  flex-direction: row;
+ }
  .check_component_wrapper {
   display: flex;
   width: auto;
