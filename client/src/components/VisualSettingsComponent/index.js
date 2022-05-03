@@ -5,7 +5,7 @@ import './style.css';
 
 export default function VisualSettingsComponent (props) {
 
-  const { accounts, type_settings, onClose, task_id } = props;
+  const { accounts, type_settings, onClose } = props;
 
   return (
     <div className="visual_settings_wrapper" >
@@ -13,10 +13,9 @@ export default function VisualSettingsComponent (props) {
         {
           type_settings.type === 'main' ?
           <MainSettingsComponent id_acc={type_settings.id_acc} accounts={accounts} onClose={onClose} /> : 
-          <TaskSettingsComponent task_id={task_id} id_acc={type_settings.id_acc} accounts={accounts} onClose={onClose} />
+          <TaskSettingsComponent id_acc={type_settings.id_acc} accounts={accounts} onClose={onClose} />
         }
       </div>
     </div>
   );
 }
-

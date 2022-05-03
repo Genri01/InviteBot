@@ -5,7 +5,7 @@ const initialState = {
   delay: { to: 0, from: 0, delay: 0,check: false },
   autoResponderEventType: 3,
   userNamesOrIds: [],
-  addFriends: { title: "", disabled: false, check: false },
+  addToFriends: { title: "", disabled: false, check: false },
   setLikeToWall: { title: "", disabled: false, check: false },
   setLikeToProfile: { title: "", disabled: false, check: false },
 };
@@ -38,10 +38,10 @@ export default function target_list_settings(state = initialState, { type, paylo
           ...state,
           userNamesOrIds: payload,
         };
-      case ActionTypes.TARGET_LIST_SETTINGS_ADDFRIENDS:
+      case ActionTypes.TARGET_LIST_SETTINGS_ADDFRIENDS: 
         return {
           ...state,
-          addFriends: payload,
+          addToFriends: payload,
         };
     default:
       return state;

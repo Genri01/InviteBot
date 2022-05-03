@@ -10,35 +10,71 @@ import AddingComponent from '../../AddingComponent';
 import CheckComponent from '../../CheckComponent';
 import RadialBtnsComponent from '../../RadialBtnsComponent';
 import RandomizeComponentArea from '../../RandomizeComponentArea';
+import InputFile from '../../InputFile';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';
 import { 
   incoming_friends_settings_addingMessages,
   incoming_friends_settings_audioFilesPath,
-  incoming_friends_settings_audioFilesMessages,
   incoming_friends_settings_conversationTypeEvent,
   incoming_friends_settings_delay,
   incoming_friends_settings_setLikeToProfile,
   incoming_friends_settings_setLikeToWall,
-  incoming_friends_settings_photoFilesMessages,
   incoming_friends_settings_photoFilesPath,
-  incoming_friends_settings_welcomeCount
+  incoming_friends_settings_welcomeCount 
 } from '../../../../redux/actions/incoming_friends_settings';
-
+import { 
+  uploadeActionSave
+} from '../../../../redux/actions/confirm_friends';
+import images  from '../../../../assets/images';
 import { incoming_friends_settings } from '../../../../redux/selectors';
 
 import './style.css';
-async function onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoOrVideoSettings, audioSettings, accounts, id_acc, task_id, dispatch, onClose  ) {
-
-  let setings_response = accounts;
+async function onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoFilesPath, audioFilesPath, accounts, id_acc, task_id, dispatch, onClose ) {
  
-  setings_response[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
-  setings_response[id_acc].task_settings.tasks[task_id-1].delay = delay;
+    if (photoFilesPath.length !== 0) {
+      let formDataImg = new FormData();
+      formDataImg.append('imageFile', photoFilesPath);
+      await uploadeActionSave(formDataImg);
+    }
+  
+    if (audioFilesPath.length !== 0)  {
+      let formDataAudio = new FormData();
+      formDataAudio.append('audioFile', audioFilesPath);
+      await uploadeActionSave(formDataAudio);
+    }
+    
+  accounts[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
+  accounts[id_acc].task_settings.tasks[task_id-1].delay = delay;
   accounts[id_acc].task_settings.tasks[task_id-1].messageSettings.conversationTypeEvent = conversationTypeEvent + 1;
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToWall = setLikeToWall;
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToProfile = setLikeToProfile;
   accounts[id_acc].task_settings.tasks[task_id-1].addToFriends = addToFriends;
-  accounts[id_acc].task_settings.tasks[task_id-1].photoOrVideoSettings = photoOrVideoSettings ;
-  accounts[id_acc].task_settings.tasks[task_id-1].audioSettings = audioSettings;
+
+
+  if (photoFilesPath.length !== 0) {
+    let extention = '';
+  
+    switch (photoFilesPath.type) {
+      case 'image/jpeg':
+        extention = 'upload_file.jpeg' 
+         break;
+       case 'image/jpg':
+        extention = 'upload_file.jpg'
+         break;
+       case 'image/png':
+        extention = 'upload_file.png'
+        break;
+      default:
+        break;
+    }
+ 
+    accounts[id_acc].task_settings.tasks[task_id-1].photoOrVideoSettings.photoFilesPath = `/home/inbox/webapps/botinviter.ru/server/uploads/images/${extention}` ;
+  }
+
+  if (audioFilesPath.length !== 0)  {
+    accounts[id_acc].task_settings.tasks[task_id-1].audioSettings.audioFilesPath = `/home/inbox/webapps/botinviter.ru/server/uploads/audio/upload_file.mp3`;
+  }
+
  
   if(addingMessages.on.check && addingMessages.text_areas.length !== 0 && !addingMessages.random.check) {
     for (let idx = 0; idx < addingMessages.text_areas.length; idx++) {
@@ -81,7 +117,9 @@ export default function AnswerInFriendsSettingsPage (props) {
 
   const account = accounts[id_acc];
   const { conversationTypeEvent } = messageSettings;
-
+  const { download } = images;
+  const { photoFilesPath } = photoOrVideoSettings;
+  const { audioFilesPath } = audioSettings;
   let counts = 0;
 
   addingMessages.text_areas.map(item => item.check ? counts++ : false)
@@ -116,6 +154,26 @@ export default function AnswerInFriendsSettingsPage (props) {
           dispatch(incoming_friends_settings_setLikeToProfile({ ...addToFriends, check: check[0].check})) 
           }} 
         />
+              <TitleComponent title="Загрузка фото" />
+      < InputFile
+        id="img__file"
+        icon={download}
+        onChange={ (event) => {
+          if(event.target.files.length !== 0) {
+            dispatch(incoming_friends_settings_photoFilesPath(event.target.files[0]))
+          }
+        }}
+      />
+      <TitleComponent title="Загрузка аудио" />
+      < InputFile
+        id="audio__file"
+        icon={download}
+        onChange={ (event) => {
+          if(event.target.files.length !== 0) {
+            dispatch(incoming_friends_settings_audioFilesPath(event.target.files[0]))
+          }
+        }}
+      />
       <TitleComponent title="Настройка отправки сообщений" />
       <RadialBtnsComponent 
         title={[
@@ -151,7 +209,7 @@ export default function AnswerInFriendsSettingsPage (props) {
       <AccountSettingsCopy 
         onClose={onClose} 
         styles={{ marginTop:'30px' }} 
-        onSave={() => onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoOrVideoSettings, audioSettings, accounts, id_acc, task_id, dispatch, onClose ) }
+        onSave={() => onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoFilesPath, audioFilesPath, accounts, id_acc, task_id, dispatch, onClose ) }
       >  
         {/* {
           accounts.map((item,key) => {

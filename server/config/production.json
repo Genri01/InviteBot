@@ -21,9 +21,10 @@
       "JWT_SECRET_KEY_REFRESH": "JWT_SECRET_KEY_REFRESH"
     },
     "URL" : {
-      "API" : "http://localhost:4000",
-      "CLIENT" : "http://localhost:3000",
-      "ACTIVATIOLINK":"http://botinviter.ru:4000"
+      "API" : "https://botinviter.ru",
+      "CLIENT" : "https://botinviter.ru",
+      "VK" : "https://vkapi.botinviter.ru/VkApi/",
+      "ACTIVATIOLINK":"https://botinviter.ru"
     }
   }
 }

@@ -62,12 +62,12 @@ export default function confirm_friends(state = initialState, { type, payload })
     case ActionTypes.CONFIRM_FRIENDS_SETTINGS_PHOTOFILEPATH:
       return {
         ...state,
-        photoOrVideoSettings: payload,
+        photoOrVideoSettings: { ...state.photoOrVideoSettings, photoFilesPath: payload },
       };
     case ActionTypes.CONFIRM_FRIENDS_SETTINGS_AUDIOFILEPATH:
       return {
         ...state,
-        audioSettings: payload,
+        audioSettings: { ...state.audioSettings, audioFilesPath: payload },
       };
       
     default:

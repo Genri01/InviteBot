@@ -16,9 +16,22 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: config.get('Server.URL.CLIENT')
-}));
+  // origin: 'https://botinviter.ru',
+  origin: 'http://localhost:3000',
+//   methods: "GET, POST, PATCH, DELETE, OPTIONS",
+},
+// // {
+// //   headers: {
+// //     'access-control-allow-credentials': true,
+// //     'access-control-allow-headers': "Origin, X-Requested-With, Content-Type, Accept",
+// //     'access-control-allow-methods': "GET, POST, PATCH, DELETE, OPTIONS",
+// //     'access-control-allow-origin': '*'
+// //   }
+// // }
+)); 
+
 app.use('/api',router);
+
 app.use(errorMiddleware);
 
 if (process.env.NODE_ENV === 'production') {

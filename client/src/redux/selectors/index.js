@@ -69,7 +69,7 @@ export const target_list_settings = {
   delay:(state) => state.target_list_settings.delay,
   setLikeToWall:(state) => state.target_list_settings.setLikeToWall,
   setLikeToProfile:(state) => state.target_list_settings.setLikeToProfile,
-  addFriends:(state) => state.target_list_settings.addFriends,
+  addToFriends:(state) => state.target_list_settings.addToFriends,
   userNamesOrIds:(state) => state.target_list_settings.userNamesOrIds,
 }
 
@@ -93,6 +93,9 @@ export const user_list_settings = {
   messageSettings:(state) => state.user_list_settings.messageSettings,
   photoOrVideoSettings:(state) => state.user_list_settings.photoOrVideoSettings,
   audioSettings:(state) => state.user_list_settings.audioSettings,
+  setLikeToWall:(state) => state.user_list_settings.setLikeToWall,
+  setLikeToProfile:(state) => state.user_list_settings.setLikeToProfile,
+  addToFriends:(state) => state.user_list_settings.addToFriends,
   userNamesOrIds:(state) => state.user_list_settings.userNamesOrIds,
 }
 
@@ -102,4 +105,9 @@ export const group_list_settings = {
   addToFriends:(state) => state.group_list_settings.addToFriends,
   setLikeToWall:(state) => state.group_list_settings.setLikeToWall,
   setLikeToProfile:(state) => state.group_list_settings.setLikeToProfile,
+  addingMessages:(state) => state.group_list_settings.addingMessages,
+  messageSettings:(state) => state.group_list_settings.messageSettings,
+  photoOrVideoSettings:(state) => state.group_list_settings.photoOrVideoSettings,
+  audioSettings:(state) => state.group_list_settings.audioSettings,
+  userNamesOrIds:(state) => state.group_list_settings.userNamesOrIds,
 }

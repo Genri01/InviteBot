@@ -11,6 +11,8 @@ router.post('/registration'
 
 router.post('/writecardsvk',userController.registration_accounts_network);
 
+router.post('/saveaccvk',userController.save_accounts_network);
+
 router.post('/deletedcardvk',userController.deleted_accounts);
 
 router.post('/login',userController.login);
@@ -32,5 +34,9 @@ router.post('/autoResponderFriends',VKServicesController.autoResponderFriends);
 router.post('/filterSuggestionsFriends',VKServicesController.filterSuggestionsFriends);
 
 router.post('/autoLikingFriendsOrGroups',VKServicesController.autoLikingFriendsOrGroups);
+
+/* UPLOADER */
+
+router.post('/uploader',userController.upload);
 
 module.exports = router;

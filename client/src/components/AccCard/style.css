@@ -11,6 +11,7 @@
   margin-bottom: 20px;
   box-sizing: border-box;
   box-shadow: 1px 1px 7px rgb(46 79 217 / 30%);
+  position: relative;
  }
  
  .nameAccWrapper{

@@ -5,8 +5,7 @@ import './style.css';
 
 export default function VisualAccountsComponent (props) {
 
-  const { accounts, typeScreen, onClick, onChangeTaskId, task } = props;
- 
+  const { accounts, typeScreen, onClick, onChangeTaskId } = props; 
   return (
     <div className="account_wrapper" >
       <div className='account_active_wrapper'>
@@ -14,21 +13,18 @@ export default function VisualAccountsComponent (props) {
         <div className='account_active_container'>
           <AddAccount type={typeScreen} accounts={accounts} />
           {
-            accounts.map((item,i) => {
-             if(task.id_acc === Number(item.id)) {
-              //  console.log('task change number '+item.id)
-               if (task.task_id === 0) {
+            accounts.map((item,i) => { 
+               if (item.task_settings.task_value === 0) {
                 item.main_settings.btn_state[4].disabled = true
                 item.main_settings.btn_state[3].disabled = true
                }
 
-               if (task.task_id !== 0 && item.isLogining) {
+               if (item.task_settings.task_value !== 0 && item.isLogining) {
                 item.main_settings.btn_state[4].disabled = false
                 item.main_settings.btn_state[3].disabled = false
                }
-             }
               return <AccCard 
-                task={task} 
+                task={item.task_settings.task_value}
                 onChangeTaskId={onChangeTaskId} 
                 onClick={e => onClick(e)} 
                 key={i} 
@@ -38,6 +34,7 @@ export default function VisualAccountsComponent (props) {
                 name={item.main_settings.name} 
                 type={typeScreen}
                 status={item.task_settings.status_tasks} 
+                accounts={accounts}
               />
             })
           }

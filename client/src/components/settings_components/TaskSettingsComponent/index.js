@@ -18,69 +18,51 @@ import './style.css';
 
 export default function TaskSettingsComponent (props) {
 
-  const { accounts, id_acc, onClose, task_id } = props;
+  const { accounts, id_acc, onClose } = props;
   // useInvalidUrlAccess();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const account = accounts[id_acc];
+  const task_id = account.task_settings.task_value;
   const taskSettingPage = [];
   let titleTask = [
     "Выбрать задание из списка",
     "Автоответчик на подтвержденные заявки в друзья",
     "Лайкинг друзей",
     "Автоответчик на входящие заявки в друзья",
-    "Отправка сообщение вКонтакте по списку пользователей",
+    "Работа по целевой аудитории из списка",
     "Работа по возможным друзьям",
     "Ручная сортировка возможных друзей",
-    "Работа по целевой аудитории из списка",
+    // "Работа по целевой аудитории из списка",
     "Отправка сообщений в сообщества из списка",
   ]
+ 
   switch (task_id) {
     case 0:
-      console.log(titleTask[task_id])
       break;
-      case 1:
-      // console.log(titleTask[task_id])
-      // taskSettingPage.push(<SheduleSettingsPage key={task_id}  onClose={onClose} />) 
-      // console.log(titleTask[task_id])
-      // taskSettingPage.push(<AutoSecretarySettingsPage key={task_id}  onClose={onClose} />) 
-      // console.log(titleTask[task_id])
-      // taskSettingPage.push(<PublicHistorySettingsPage key={task_id}  onClose={onClose} />)  
-      // console.log(titleTask[task_id])
-      // taskSettingPage.push(<ParsingSettingsPage key={task_id}  onClose={onClose} />)  
-      console.log(titleTask[task_id])
+      case 1: 
       taskSettingPage.push(<AnswerSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id} onClose={onClose} />)  
       break;
     case 2:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<LikingLookingSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 3:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<AnswerInFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 4:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<SendMessageListSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
       break;
     case 5:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<PossibleFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />)  
       break;
     case 6:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<ManualSortFriendsSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id} onClose={onClose} />)  
       break;
     case 7:
-      console.log(titleTask[task_id])
-      taskSettingPage.push(<TargetGroupLIstSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />) 
-      break;
-    case 8:
-      console.log(titleTask[task_id])
       taskSettingPage.push(<SendMessageGroupListSettingsPage titleTask={titleTask[task_id]} accounts={accounts} id_acc={id_acc} task_id={task_id} key={task_id}  onClose={onClose} />)  
-      break;
-  
+      break; 
     default:
       break;
   }

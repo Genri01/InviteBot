@@ -24,7 +24,7 @@ export function appPutAccountsVK(accounts) {
 export async function addSuggestionsFriends (dispatch) {
   try {
     const response = await VkApiServices.addSuggestionsFriends();
-    console.log(response,"Добавляет в друзья");
+ 
     // dispatch(setDataUserVk({}));
     // dispatch(set_user_isauth(false));
   } catch (error) {
@@ -34,8 +34,7 @@ export async function addSuggestionsFriends (dispatch) {
 
 export async function autoResponderFriends (dispatch) {
   try {
-    const response = await VkApiServices.autoResponderFriends();
-    console.log(response,"посылает сообщения");
+    const response = await VkApiServices.autoResponderFriends(); 
     // dispatch(setDataUserVk({}));
     // dispatch(set_user_isauth(false));
   } catch (error) {
@@ -45,8 +44,7 @@ export async function autoResponderFriends (dispatch) {
 
 export async function getSuggestionFriends (dispatch) {
   try {
-    const response = await VkApiServices.filterSuggestionsFriends();
-    console.log(response,"фильтр ввозможных друзей");
+    const response = await VkApiServices.filterSuggestionsFriends(); 
     // dispatch(setDataUserVk({}));
     // dispatch(set_user_isauth(false));
   } catch (error) {
@@ -56,8 +54,7 @@ export async function getSuggestionFriends (dispatch) {
 
 export async function autoLikingFriendsOrGroups (dispatch) {
   try {
-    const response = await VkApiServices.autoLikingFriendsOrGroups();
-    console.log(response,"фильтр ввозможных друзей");
+    const response = await VkApiServices.autoLikingFriendsOrGroups(); 
     // dispatch(setDataUserVk({}));
     // dispatch(set_user_isauth(false));
   } catch (error) {
@@ -67,9 +64,8 @@ export async function autoLikingFriendsOrGroups (dispatch) {
 
 export async function get_accounts_vk (id,dispatch) {
   try {
-    console.log(id)
-    const vk_accounts_data = await VkApiServices.getAccountsData(id);
-    console.log(vk_accounts_data,'vk_accounts_data')
+ 
+    const vk_accounts_data = await VkApiServices.getAccountsData(id); 
  
     // let temp_accounts = [];
     // if(localStorage.getItem('brtk')) {

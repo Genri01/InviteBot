@@ -28,6 +28,13 @@ export function user_list_settings_setLikeToProfile(count) {
   }
 }
 
+export function user_list_settings_setAddFriends(count) {
+  return {
+    type: ActionTypes.USERLIST_LIST_SETTINGS_ADDFRIENDS,
+    payload: count
+  }
+}
+
 export function user_list_settings_conversationTypeEvent(count) {
   return {
     type: ActionTypes.USERLIST_SETTINGS_CONVERSATIONTYPE,

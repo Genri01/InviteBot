@@ -75,8 +75,7 @@ export default function AddingComponent(props) {
                   text_areas: check
                 })) 
               }} 
-              onClick={(e) => {
-                console.log(e)
+              onClick={(e) => { 
                 let arr = addingMessages.text_areas;
                 arr = arr.filter(item => { return (item.id !== e)});
                 arr.map((item, key) => { item.id = key; return false;})

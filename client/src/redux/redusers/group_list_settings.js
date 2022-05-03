@@ -7,6 +7,23 @@ const initialState = {
   addToFriends: { title: "", disabled: false, check: false },
   setLikeToWall: { title: "", disabled: false, check: false },
   setLikeToProfile: { title: "", disabled: false, check: false },
+  messageSettings: {
+    conversationTypeEvent: 2,
+    textMessages: []
+  },
+  addingMessages: { 
+    on: { title: "Включить", disabled: false, check: false }, 
+    random: { title: "Случайный порядок", disabled: true, check: false }, 
+    text_areas: [] 
+  },
+  photoOrVideoSettings: {
+    photoFilesPath: [],
+    messages: [],
+  },
+  audioSettings: {
+    audioFilesPath: [],
+    messages: []
+  },
   groupNamesOrIds: [],
 };
 
@@ -33,6 +50,26 @@ export default function group_list_settings(state = initialState, { type, payloa
         ...state,
         setLikeToProfile: payload,
       };
+      case ActionTypes.GROUPLIST_SETTINGS_CONVERSATIONTYPE:
+        return {
+          ...state,
+          messageSettings: { ...state.messageSettings, conversationTypeEvent: payload },
+        };
+      case ActionTypes.GROUPLIST_SETTINGS_ADDINGMESSAGES:
+        return {
+          ...state,
+          addingMessages: payload,
+        };
+      case ActionTypes.GROUPLIST_SETTINGS_PHOTOFILEPATH:
+        return {
+          ...state,
+          photoOrVideoSettings: { ...state.photoOrVideoSettings, photoFilesPath: payload },
+        }; 
+      case ActionTypes.GROUPLIST_SETTINGS_AUDIOFILEPATH:
+        return {
+          ...state,
+          audioSettings: { ...state.audioSettings, audioFilesPath: payload },
+        }; 
     case ActionTypes.GROUPLIST_SETTINGS_USERSID:
       return {
         ...state,

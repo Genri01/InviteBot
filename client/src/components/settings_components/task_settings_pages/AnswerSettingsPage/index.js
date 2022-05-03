@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import MainTitle from '../../MainTitle';
 import CountInput from '../../CountInput';
@@ -17,24 +17,60 @@ import {
   confirm_friends_settings_setLikeToProfile,
   confirm_friends_settings_conversationTypeEvent,
   confirm_friends_settings_addingMessages,
+  confirm_friends_settings_photoFilesPath,
+  confirm_friends_settings_audioFilesPath,
+  uploadeActionSave
 } from '../../../../redux/actions/confirm_friends';
-
+import images  from '../../../../assets/images';
+import InputFile from '../../InputFile';
 import { confirm_friends } from '../../../../redux/selectors';
 
 import './style.css';
-async function onSave(welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoOrVideoSettings, audioSettings, accounts, id_acc, task_id, dispatch, onClose ) {
 
-  let setings_response = accounts;
- 
-  setings_response[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
-  setings_response[id_acc].task_settings.tasks[task_id-1].delay = delay;
+async function onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoFilesPath, audioFilesPath, accounts, id_acc, task_id, dispatch, onClose ) {
+
+  if (photoFilesPath.length !== 0) {
+    let formDataImg = new FormData();
+    formDataImg.append('imageFile', photoFilesPath);
+    await uploadeActionSave(formDataImg);
+  }
+
+  if (audioFilesPath.length !== 0)  {
+    let formDataAudio = new FormData();
+    formDataAudio.append('audioFile', audioFilesPath);
+    await uploadeActionSave(formDataAudio);
+  }
+  
+  accounts[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
+  accounts[id_acc].task_settings.tasks[task_id-1].delay = delay;
   accounts[id_acc].task_settings.tasks[task_id-1].messageSettings.conversationTypeEvent = conversationTypeEvent + 1;
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToWall = setLikeToWall;
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToProfile = setLikeToProfile;
   accounts[id_acc].task_settings.tasks[task_id-1].addToFriends = addToFriends;
-  accounts[id_acc].task_settings.tasks[task_id-1].photoOrVideoSettings = photoOrVideoSettings ;
-  accounts[id_acc].task_settings.tasks[task_id-1].audioSettings = audioSettings;
- 
+
+  if (photoFilesPath.length !== 0) {
+    let extention = ''; 
+    switch (photoFilesPath.type) {
+      case 'image/jpeg':
+        extention = 'upload_file.jpeg' 
+         break;
+       case 'image/jpg':
+        extention = 'upload_file.jpg'
+         break;
+       case 'image/png':
+        extention = 'upload_file.png'
+        break;
+      default:
+        break;
+    }
+   
+    accounts[id_acc].task_settings.tasks[task_id-1].photoOrVideoSettings.photoFilesPath = `/home/inbox/webapps/botinviter.ru/server/uploads/images/${extention}` ;
+  }
+
+  if (audioFilesPath.length !== 0)  {
+    accounts[id_acc].task_settings.tasks[task_id-1].audioSettings.audioFilesPath = `/home/inbox/webapps/botinviter.ru/server/uploads/audio/upload_file.mp3`;
+  }
+
   if(addingMessages.on.check && addingMessages.text_areas.length !== 0 && !addingMessages.random.check) {
     for (let idx = 0; idx < addingMessages.text_areas.length; idx++) {
         if(addingMessages.text_areas[idx].check) {
@@ -61,6 +97,7 @@ async function onSave(welcomeCount, conversationTypeEvent, delay, setLikeToProfi
 export default function AnswerSettingsPage (props) {
 
   const { accounts, id_acc, onClose, task_id,titleTask } = props;
+  const { download } = images;
  
   const dispatch = useDispatch();
 
@@ -76,11 +113,13 @@ export default function AnswerSettingsPage (props) {
 
   const account = accounts[id_acc];
   const { conversationTypeEvent } = messageSettings;
+  const { photoFilesPath } = photoOrVideoSettings;
+  const { audioFilesPath } = audioSettings;
 
   let counts = 0;
 
   addingMessages.text_areas.map(item => item.check ? counts++ : false)
- 
+
   return (
     <div className="shedule_settings_page_wrapper" >
       <MainTitle title_acc={titleTask} text="Настройка задания:" />
@@ -113,6 +152,26 @@ export default function AnswerSettingsPage (props) {
         Switching={type => { dispatch(confirm_friends_settings_conversationTypeEvent(type)) }}
         checked={conversationTypeEvent}
       />
+      <TitleComponent title="Загрузка фото" />
+      < InputFile
+        id="img__file"
+        icon={download}
+        onChange={ (event) => {
+          if(event.target.files.length !== 0) {
+            dispatch(confirm_friends_settings_photoFilesPath(event.target.files[0]))
+          }
+        }}
+      />
+      <TitleComponent title="Загрузка аудио" />
+      < InputFile
+        id="audio__file"
+        icon={download}
+        onChange={ (event) => {
+          if(event.target.files.length !== 0) {
+            dispatch(confirm_friends_settings_audioFilesPath(event.target.files[0]))
+          }
+        }}
+      />
       <RandomizeComponentArea 
         textAreaMessages={addingMessages.text_areas} 
         title={`Введите текст для рандомизации`} 
@@ -138,7 +197,7 @@ export default function AnswerSettingsPage (props) {
       <AccountSettingsCopy 
         onClose={onClose} 
         styles={{ marginTop:'30px' }} 
-        onSave={() => onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoOrVideoSettings, audioSettings, accounts, id_acc, task_id, dispatch, onClose ) }
+        onSave={() => onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoFilesPath, audioFilesPath, accounts, id_acc, task_id, dispatch, onClose ) }
       >  
         {/* {
           accounts.map((item,key) => {

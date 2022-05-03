@@ -151,7 +151,7 @@ export default function ParsingSettingsPage (props) {
       <Input styles={{justifyContent: 'flex-start'}} />
       <RandomizeComponentArea title={`Список целевой аудитории будет заполнен АВТОМАТИЧЕСКИ после выполнения задания!`} text={list} onChange={(e) => { setList(e) }} />
       <AccountSettingsCopy onChecked={checkedAll} onClose={onClose} styles={{marginTop:'30px'}} onSave={() => onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, id_check, dispatch,onClose) }>
-        {
+        {/* {
           accounts.map((item,key) => {
             return <ItemDisplayComponent 
               check_all={check_all}
@@ -180,7 +180,7 @@ export default function ParsingSettingsPage (props) {
               }} 
             />
           })
-        }
+        } */}
       </AccountSettingsCopy>
     </div>
   );

@@ -4,6 +4,9 @@ const initialState = {
   welcomeCount: 0,
   delay: { to: 0, from: 0, delay: 0,check: false },
   autoResponderEventType: 3,
+  addToFriends: { title: "", disabled: false, check: false },
+  setLikeToWall: { title: "", disabled: false, check: false },
+  setLikeToProfile: { title: "", disabled: false, check: false },
   messageSettings: {
     conversationTypeEvent: 2,
     textMessages: []
@@ -47,6 +50,11 @@ export default function user_list_settings(state = initialState, { type, payload
         ...state,
         setLikeToProfile: payload,
       };
+    case ActionTypes.USERLIST_LIST_SETTINGS_ADDFRIENDS:
+      return {
+        ...state,
+        addToFriends: payload,
+      };
     case ActionTypes.USERLIST_SETTINGS_CONVERSATIONTYPE:
       return {
         ...state,
@@ -60,12 +68,12 @@ export default function user_list_settings(state = initialState, { type, payload
     case ActionTypes.USERLIST_SETTINGS_PHOTOFILEPATH:
       return {
         ...state,
-        photoOrVideoSettings: payload,
+        photoOrVideoSettings: { ...state.photoOrVideoSettings, photoFilesPath: payload },
       }; 
     case ActionTypes.USERLIST_SETTINGS_AUDIOFILEPATH:
       return {
         ...state,
-        audioSettings: payload,
+        audioSettings: { ...state.audioSettings, audioFilesPath: payload },
       }; 
     case ActionTypes.USERLIST_SETTINGS_USERSID:
       return {

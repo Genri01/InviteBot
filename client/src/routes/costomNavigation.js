@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation,useNavigate } from "react-router";
+
 const LocationContext = React.createContext(null);
 
 export function LocationContextProvider({ children }) {
@@ -27,7 +28,8 @@ const PUBLIC_ALLOWED_ROUTES = ["/home", "/"];
 export function useInvalidUrlAccess() {
   const currentLocation = useLocation();
   const navigate = useNavigate()
-  const { lastVisitedLocation } = React.useContext(LocationContext);
+  const { lastVisitedLocation } = React.useContext(LocationContext); 
+
   if (
     lastVisitedLocation.current === null &&
     !PUBLIC_ALLOWED_ROUTES.includes(currentLocation.pathname)

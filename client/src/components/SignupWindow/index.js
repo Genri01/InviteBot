@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import images from '../../assets/images';
 import { registration } from '../../redux/actions/users';
-import { useInvalidUrlAccess } from '../../routes/costomNavigation';
+import { useInvalidUrlAccess, BlockedSlashLinker } from '../../routes/costomNavigation';
 import './style.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,9 @@ function validateEmail(email) {
 }
 
 function SignupWindow () {
+
   // useInvalidUrlAccess();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_replay, setPasswordReplay] = useState('');
@@ -105,7 +107,7 @@ function SignupWindow () {
                     setErrorForms(false);
                   }, 2000);
                 }
-               }} style={{ pointerEvents: (errEmail && email != '') ? 'all' : 'none',backgroundColor: (errEmail && email != '') ? '' : '#6e8391' }} className="signUpBtn">
+               }} style={{ pointerEvents: (errEmail && email !== '') ? 'all' : 'none',backgroundColor: (errEmail && email !== '') ? '' : '#6e8391' }} className="signUpBtn">
               <div className="signUpBtntext">Зарегистрироваться</div>
             </div>
           </div>

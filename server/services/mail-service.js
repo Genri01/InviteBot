@@ -33,6 +33,7 @@ class MailService {
   
           const user = await DB.searchInTables('users',{ email: to });
           const tokens = await DB.searchInTables('tokens',{ userId: user.getDataValue('id') });
+          const vk = await DB.searchInTables('vk',{ userId: user.getDataValue('id') });
           await tokens.destroy();
           await user.destroy();
           await DB.resetIncrementTables();

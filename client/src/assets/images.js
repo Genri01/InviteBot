@@ -15,9 +15,12 @@ import tgbtn from './images/tgbtn.svg';
 import vkbtn from './images/vkbtn.svg';
 import instbtn from './images/instbtn.svg';
 import check from './images/check.svg';
-// import folder from './images/folder.svg';
+import folder from './images/folder.png';
+import download from './images/download.png';
 import multicheck from './images/multicheck.svg';
 import multiuncheck from './images/multiuncheck.svg';
+import eye_on from './images/eye_on.png';
+import eye_off from './images/eye_off.png';
 
 export default {
   vk,
@@ -36,7 +39,10 @@ export default {
   vkbtn,
   instbtn,
   check,
-  // folder,
+  folder,
+  download,
   multicheck,
-  multiuncheck
+  multiuncheck,
+  eye_on,
+  eye_off
 }

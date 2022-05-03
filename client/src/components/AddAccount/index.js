@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import images from '../../assets/images';
 import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { accounts_vk } from '../../redux/selectors';
 import { appPutAccountsVK } from '../../redux/actions/api_vk';
 import './style.css';
 
@@ -23,10 +22,6 @@ export default function AddAccount (props) {
   const { add } = images;
 
   const [name_account_card, changeNameCard] = useState('');
-
-
-
-  console.log(accounts)
 
   const dispatch = useDispatch();
 
@@ -132,28 +127,31 @@ export default function AddAccount (props) {
             setLikeToWall: { title: "", disabled: false, check: false },
             setLikeToProfile: { title: "", disabled: false, check: false }, 
         },
-        { //  sendingMessagesUserList: 
-            welcomeCount: 0,
-            delay: { to: 0, from: 0, delay: 0,check: false },
-            autoResponderEventType: 3,
-            messageSettings: {
-              conversationTypeEvent: 2,
-              textMessages: []
-            },
-            addingMessages: { 
-              on: { title: "Включить", disabled: false, check: false }, 
-              random: { title: "Случайный порядок", disabled: true, check: false }, 
-              text_areas: [] 
-            },
-            photoOrVideoSettings: {
-              photoFilesPath: [],
-              messages: [],
-            },
-            audioSettings: {
-              audioFilesPath: [],
-              messages: []
-            },
-            userNamesOrIds: [], 
+        { // sendingMessagesUserList: 
+          welcomeCount: 0,
+          delay: { to: 0, from: 0, delay: 0,check: false },
+          autoResponderEventType: 3,
+          addToFriends: { title: "", disabled: false, check: false },
+          setLikeToWall: { title: "", disabled: false, check: false },
+          setLikeToProfile: { title: "", disabled: false, check: false },
+          messageSettings: {
+            conversationTypeEvent: 2,
+            textMessages: []
+          },
+          addingMessages: { 
+            on: { title: "Включить", disabled: false, check: false }, 
+            random: { title: "Случайный порядок", disabled: true, check: false }, 
+            text_areas: [] 
+          },
+          photoOrVideoSettings: {
+            photoFilesPath: [],
+            messages: [],
+          },
+          audioSettings: {
+            audioFilesPath: [],
+            messages: []
+          },
+          userNamesOrIds: [],
         },
         { // possibleFriends: 
             requestCount: 0,
@@ -184,15 +182,6 @@ export default function AddAccount (props) {
           suggestFriendsFilterType: 0,
           friends: []
         },
-        { // targetAudienceFromList: 
-            welcomeCount: 0,
-            delay: { to: 0, from: 0, delay: 0,check: false },
-            autoResponderEventType: 3,
-            addFriends: { title: "", disabled: false, check: false },
-            setLikeToWall: { title: "", disabled: false, check: false },
-            setLikeToProfile: { title: "", disabled: false, check: false }, 
-            userNamesOrIds: [],
-        },
         { // sendMessagesCommunityList: 
           welcomeCount: 0,
           delay: { to: 0, from: 0, delay: 0,check: false },
@@ -200,12 +189,40 @@ export default function AddAccount (props) {
           addToFriends: { title: "", disabled: false, check: false },
           setLikeToWall: { title: "", disabled: false, check: false },
           setLikeToProfile: { title: "", disabled: false, check: false },
+          messageSettings: {
+            conversationTypeEvent: 2,
+            textMessages: []
+          },
+          addingMessages: { 
+            on: { title: "Включить", disabled: false, check: false }, 
+            random: { title: "Случайный порядок", disabled: true, check: false }, 
+            text_areas: [] 
+          },
+          photoOrVideoSettings: {
+            photoFilesPath: [],
+            messages: [],
+          },
+          audioSettings: {
+            audioFilesPath: [],
+            messages: []
+          },
           groupNamesOrIds: [],
-        }
+        }        // { // targetAudienceFromList: 
+        //   welcomeCount: 0,
+        //   delay: { to: 0, from: 0, delay: 0,check: false },
+        //   autoResponderEventType: 3,
+        //   userNamesOrIds: [],
+        //   addToFriends: { title: "", disabled: false, check: false },
+        //   setLikeToWall: { title: "", disabled: false, check: false },
+        //   setLikeToProfile: { title: "", disabled: false, check: false },
+        // },
       ],
-      status_tasks: { initial_state: 'Задание не выбрано:', previous_launch: '' }
+
+      status_tasks: { initial_state: 'Задание не выбрано:', previous_launch: '' },
+      task_value: 0
     },
     isLogining: false,
+    isLoadingTask: false,
     user_accounts_info: {}
   }
 

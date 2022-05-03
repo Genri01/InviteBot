@@ -9,20 +9,11 @@ class VKService {
   async registration_accounts (type_network, user_id, body, res) {
     try {
       const condidate = await DB.searchInTables(type_network,{ id: user_id });
-      let temp_acc = condidate.dataValues.accounts;
       let temp_acc_parse = JSON.parse(condidate.dataValues.accounts);
-      // console.log(condidate,'condidate')
-      // console.log(temp_acc_parse,'temp_acc_parse')
-      // console.log(typeof(temp_acc),'typeof(temp_acc)')
-      // console.log(typeof(temp_acc_parse),'temp_acc_parse')
+      console.log(temp_acc_parse,'temp_acc_parse')
+      console.log(body,'body')
       temp_acc_parse.push(body);
-      // console.log(temp_acc_parse,'@#!@#')
-      // temp_acc.push({ user_id: body.user_id, access_token: body.access_token, expires_in: body.expires_in, card_id: body.card_id, email, password });
-
       const response = await DB.updateModelTables(condidate,{ accounts: JSON.stringify(temp_acc_parse)});
-      // const response = await DB.updateModelTables(condidate,{ user_id, accounts: temp_acc});
-      // console.log(response,'response')
-      // const response = await DB.updateModelTables(condidate,{ user_id, accounts: JSON.stringify(temp_acc)});
       return response;
     } catch(e) {
       console.log(e)
@@ -30,23 +21,23 @@ class VKService {
     }
   }
 
-  async deleted_accounts (type_network, user_id, body, res) {
+  async save_accounts ( body ) {
+    const { user_id, accounts } = body;
     try {
-      const condidate = await DB.searchInTables(type_network,{ id: user_id });
-      // let temp_acc = condidate.dataValues.accounts;
-      // let temp_acc_parse = JSON.parse(condidate.dataValues.accounts);
-      // console.log(condidate,'condidate')
-      // console.log(temp_acc_parse,'temp_acc_parse')
-      // console.log(typeof(temp_acc),'typeof(temp_acc)')
-      // console.log(typeof(temp_acc_parse),'temp_acc_parse')
-      // temp_acc_parse.push(body);
-      // console.log(temp_acc_parse,'@#!@#')
-      // temp_acc.push({ user_id: body.user_id, access_token: body.access_token, expires_in: body.expires_in, card_id: body.card_id, email, password });
+      const condidate = await DB.searchInTables('vk',{ id: user_id });
+      const response = await DB.updateModelTables(condidate,{ accounts: JSON.stringify(accounts)});
+      return response;
+    } catch(e) {
+      console.log(e)
+      throw ApiErr.BadRequest(e.message)
+    }
+  }
 
-      // const response = await DB.updateModelTables(condidate,{ accounts: JSON.stringify(temp_acc_parse)});
-      // const response = await DB.updateModelTables(condidate,{ user_id, accounts: temp_acc});
-      // console.log(response,'response')
-      const response = await DB.updateModelTables(condidate,{ user_id, accounts: JSON.stringify(body)});
+  async deleted_accounts ( body ) {
+    const { user_id, accounts } = body;
+    try {
+      const condidate = await DB.searchInTables('vk',{ id: user_id });
+      const response = await DB.updateModelTables(condidate,{accounts: JSON.stringify(accounts)});
       return response;
     } catch(e) {
       console.log(e)

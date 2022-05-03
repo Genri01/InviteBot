@@ -67,12 +67,12 @@ export default function incoming_friends_settings(state = initialState, { type, 
     case ActionTypes.INCOMING_FRIENDS_SETTINGS_PHOTOFILEPATH:
       return {
         ...state,
-        photoOrVideoSettings: payload,
+        photoOrVideoSettings: { ...state.photoOrVideoSettings, photoFilesPath: payload },
       };
     case ActionTypes.INCOMING_FRIENDS_SETTINGS_AUDIOFILEPATH:
       return {
         ...state,
-        audioSettings: payload,
+        audioSettings: { ...state.audioSettings, audioFilesPath: payload },
       };
       
     default:

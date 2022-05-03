@@ -196,7 +196,7 @@ export default function AutoSecretarySettingsPage (props) {
         <AudioComponent />
       </AddingComponent>
       <AccountSettingsCopy onChecked={checkedAll} onClose={onClose} styles={{marginTop:'30px'}} onSave={() => onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, id_check, dispatch,onClose) }>
-        {
+        {/* {
           accounts.map((item,key) => {
             return <ItemDisplayComponent 
               check_all={check_all}
@@ -225,7 +225,7 @@ export default function AutoSecretarySettingsPage (props) {
               }} 
             />
           })
-        }
+        } */}
       </AccountSettingsCopy>
     </div>
   );

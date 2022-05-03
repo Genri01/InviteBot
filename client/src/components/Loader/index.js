@@ -5,10 +5,11 @@ import 'react-spinner-animated/dist/index.css'
 import './style.css';
 
 function Loader(props) {
+  const { text, style } = props;
     return (
-      <div className="loader_wrapper">
+      <div style={style} className="loader_wrapper">
         <Spinner 
-        text={"Загрузка ..."} 
+        text={text} 
         bgColor={"#FFF"} 
         center={false} width={"180px"} 
         height={"100px"}/>

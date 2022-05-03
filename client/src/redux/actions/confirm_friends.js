@@ -1,4 +1,5 @@
 import ActionTypes from '../constants';
+import VkApiServices from '../../services/VkApiServices';
 
 export function confirm_friends_settings_welcomeCount(count) {
   return {
@@ -44,6 +45,13 @@ export function confirm_friends_settings_addingMessages(count) {
 
 export function confirm_friends_settings_photoFilesPath(count) {
   return {
+    type: ActionTypes.CONFIRM_FRIENDS_SETTINGS_PHOTOFILEPATH,
+    payload: count
+  }
+}
+
+export function confirm_friends_settings_audioFilesPath(count) {
+  return {
     type: ActionTypes.CONFIRM_FRIENDS_SETTINGS_AUDIOFILEPATH,
     payload: count
   }
@@ -56,16 +64,19 @@ export function confirm_friends_settings_photoFilesMessages(count) {
   }
 }
 
-export function confirm_friends_settings_audioFilesPath(count) {
-  return {
-    type: ActionTypes.CONFIRM_FRIENDS_SETTINGS_AUDIOFILEPATH,
-    payload: count
-  }
-}
-
 export function confirm_friends_settings_audioFilesMessages(count) {
   return {
     type: ActionTypes.CONFIRM_FRIENDS_SETTINGS_AUDIOFILEMESSAGE,
     payload: count
   }
 }
+
+export async function uploadeActionSave(params,dispatch) {
+  try {
+    const file = await VkApiServices.uploadFiles(params); 
+
+  } catch (error) {
+    console.log(error.response?.data?.message)
+  }
+}
+

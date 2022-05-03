@@ -28,7 +28,7 @@ function App () {
 
   return (
     <div className="App">
-    {loading &&  <Loader />}
+    {loading && <Loader text='Загрузка...' />}
     <HeaderMenu 
       headerhim={()=> {}} 
       userName={user.email} 

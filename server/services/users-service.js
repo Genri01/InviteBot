@@ -3,17 +3,59 @@ const uuid = require('uuid');
 const mailService = require('./mail-service');
 const tokenService = require('./token-service');
 const DB = require('../db/index');
-
+const multer = require('multer');
 const UserDto = require('../dtos/user-dto');
 const ApiErr = require('../exeptions/api-error');
+const path = require('path');
 
 const config = require('config');
-const url_api = config.get('Server.URL.API');
+const url_api = config.get('Server.URL.ACTIVATIOLINK');
 
+const filePath = {
+  imageFile: './uploads/images/',
+  audioFile: './uploads/audio/'
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../' + filePath[file.fieldname]))
+  },
+  filename: function (req, file, cb) {
+      let extention = '';
+      switch (file.mimetype) {
+        case 'image/jpeg':
+         extention = 'upload_file.jpeg'
+          break;
+        case 'image/jpg':
+         extention = 'upload_file.jpg'
+          break;
+        case 'image/png':
+         extention = 'upload_file.png'
+          break;
+        case 'audio/mpeg':
+         extention = 'upload_file.mp3'
+          break;
+        default:
+          break;
+      }
+      cb(null, (extention))
+  }
+})
+
+const uploader = multer({storage: storage}).any();
+
+// const Remove = function (path) {
+//   try {
+//       fs.unlinkSync(path);
+//       console.log('successfully deleted' + path);
+//   } catch (err) {
+//       console.log(err);
+//   }
+// }
+ 
 const random = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-
 
 class UserService {
 
@@ -101,6 +143,24 @@ class UserService {
     const userData = await DB.searchInTables('vk',{ user_id: id });
     return userData;
   }
+
+  async upload (body, res, next) {
+    try {
+      const response = await uploader(body, res, next);
+  
+      return response
+    } catch(e) {
+      console.log(e)
+      if (err instanceof multer.MulterError) {
+        throw ApiErr.BadRequest(e.message)
+        // return res.status(500).json(err)
+      } else if (err) {
+        // return res.status(500).json(err)
+        throw ApiErr.BadRequest(e.message)
+      }
+    }
+  }
+
 }
 
 module.exports = new UserService();

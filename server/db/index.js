@@ -77,12 +77,15 @@ class DB {
   }
 
   async resetIncrementTables() {
-    const query = await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 0;");
-    const query1 = await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 0;");
-    const query2 = await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 1;");
-    const query3 = await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 1;");
-    const query4 = await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 0;");
-    const query5 = await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE VKs AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 1;");
+    await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 1;");
+    await db.sequelize.query("ALTER TABLE VKs AUTO_INCREMENT = 1;");
+    await db.sequelize.query("ALTER TABLE Users AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE Tokens AUTO_INCREMENT = 0;");
+    await db.sequelize.query("ALTER TABLE VKs AUTO_INCREMENT = 0;");
   }
 
 }
@@ -93,7 +96,7 @@ module.exports = new DB();
 
 
 
-
+// $2b$04$IDIODeV2jKOVRpABf2LV6OoyCBLXN3miZeSggQp4VY8126LuK428a eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwidXNlcklkIjoxLCJpc0FjdGl2YXRlZCI6dHJ1ZSwicm9sZSI6InVzZXIiLCJpYXQiOjE2NTEyNDIxMjEsImV4cCI6MTY1MzgzNDEyMX0.OSUTp8l6WM6VoNgB9_4rnomW8S8x5yHuG7S8dKGHFWc
 
 
 

@@ -26,12 +26,16 @@ export default class VkApiServices {
     return await api.main_api.post('/writecardsvk', body )
   }
 
-  static async deletedCardVk(body) {
-    return await api.main_api.post('/deletedcardvk', body )
+  static async saveaccvk(body) {
+    return await api.main_api.post('/saveaccvk', body )
   }
 
   static async getAccountsData(body) {
     return await api.main_api.post('/userAccountsvk', { body } )
+  }
+
+  static async uploadFiles(body) {
+    return await api.uploader.post('/uploader',  body )
   }
 
 }

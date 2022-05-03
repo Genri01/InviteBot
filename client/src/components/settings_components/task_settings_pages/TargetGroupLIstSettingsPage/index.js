@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MainTitle from '../../MainTitle';
 import CountInput from '../../CountInput';
@@ -6,25 +6,27 @@ import TitleComponent from '../../TitleComponent';
 import AccountSettingsCopy from '../../AccountSettingsCopy';
 import TimeSetComponent from '../../TimeSetComponent';
 import CheckComponent from '../../CheckComponent';
+import TextArea from '../../TextArea';
 import { appPutAccountsVK } from '../../../../redux/actions/api_vk';
 import { 
   target_list_settings_welcomeCount,
   target_list_settings_delay,
   target_list_settings_setLikeToWall,
-  target_list_settings_setLikeToProfile
+  target_list_settings_setLikeToProfile,
+  target_list_settings_setAddFriends
 } from '../../../../redux/actions/target_list_settings';
 
 import { target_list_settings } from '../../../../redux/selectors';
 
 import './style.css';
-async function onSave(welcomeCount, delay,setLikeToWall, setLikeToProfile, accounts, id_acc, task_id, dispatch, onClose ) {
+async function onSave(text_userid, addToFriends, welcomeCount, delay,setLikeToProfile, setLikeToWall, accounts, id_acc, task_id, dispatch, onClose) {
 
-  let setings_response = accounts;
- 
-  setings_response[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
-  setings_response[id_acc].task_settings.tasks[task_id-1].delay = delay;
+  accounts[id_acc].task_settings.tasks[task_id-1].welcomeCount = welcomeCount;
+  accounts[id_acc].task_settings.tasks[task_id-1].delay = delay;
+  accounts[id_acc].task_settings.tasks[task_id-1].userNamesOrIds = text_userid.split(' ');
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToWall = setLikeToWall;
   accounts[id_acc].task_settings.tasks[task_id-1].setLikeToProfile = setLikeToProfile;
+  accounts[id_acc].task_settings.tasks[task_id-1].addToFriends = addToFriends;
 
   dispatch(appPutAccountsVK(accounts));
   onClose(false);
@@ -38,13 +40,12 @@ export default function TargetGroupLIstSettingsPage (props) {
   const delay = useSelector(target_list_settings.delay);
   const setLikeToProfile = useSelector(target_list_settings.setLikeToProfile);
   const setLikeToWall = useSelector(target_list_settings.setLikeToWall);
-  const addFriends = useSelector(target_list_settings.addFriends);
-  const userNamesOrIds = useSelector(target_list_settings.userNamesOrIds);
-  
+  const addToFriends = useSelector(target_list_settings.addToFriends);
+  const [text_userid, setUserId] = useState('');
   const dispatch = useDispatch();
 
   const account = accounts[id_acc];
-
+ 
   return (
     <div className="shedule_settings_page_wrapper" >
       <MainTitle title_acc={titleTask} text="Настройка задания:" />
@@ -69,16 +70,19 @@ export default function TargetGroupLIstSettingsPage (props) {
       />
       <TitleComponent title="Добавить в друзья"/>
       <CheckComponent 
-        check_item={[addFriends]} 
+        check_item={[addToFriends]} 
         Switching={
           check => { 
-            dispatch(target_list_settings_setLikeToProfile({ ...addFriends, check: check[0].check})) 
+            dispatch(target_list_settings_setAddFriends({ ...addToFriends, check: check[0].check})) 
+ 
           }} 
       />
+      <TitleComponent title={`Введите ID пользователей ЧЕРЕЗ ПРОБЕЛ: кол-во пользователей: ${text_userid.split(' ').length-1}`}  />
+      <TextArea text={ text_userid } onChange={setUserId} />
       <AccountSettingsCopy  
         onClose={onClose} 
         styles={{ marginTop:'30px' }} 
-        onSave={() => onSave( welcomeCount, delay,setLikeToProfile, setLikeToWall, accounts, id_acc, task_id, dispatch, onClose ) }
+        onSave={() => onSave(text_userid, addToFriends, welcomeCount, delay,setLikeToProfile, setLikeToWall, accounts, id_acc, task_id, dispatch, onClose ) }
       >  
         {
           // accounts.map((item,key) => {
