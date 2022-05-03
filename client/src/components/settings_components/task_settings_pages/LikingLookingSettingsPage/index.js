@@ -29,6 +29,87 @@ async function onSave(welcomeCount, delay,setLikeToWall, setLikeToProfile, accou
 
 }
 
+  if(check_all) {
+    accounts.map(item => {
+      if(name_acc !== '') {
+        item.main_settings.name = name_acc;
+      }
+
+      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+        item.main_settings.network.proxy.ip = proxy_ip;
+        item.main_settings.network.proxy.log = proxy_log;
+        item.main_settings.network.proxy.pass = proxy_pass;
+      }
+
+      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+        item.main_settings.network.proxy.ip = proxy_ip;
+        item.main_settings.network.proxy.log = proxy_log;
+        item.main_settings.network.proxy.pass = proxy_pass;
+      }
+
+      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
+        item.main_settings.network.vpn.country = select_option_city;
+      }
+
+      item.main_settings.anticapcha = anticapcha;
+    })
+  } else {
+    if(checked.length > 0) {
+      checked.map(item => {
+        if(name_acc !== '') {
+          item.main_settings.name = name_acc;
+        }
+  
+        if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+          item.main_settings.network.proxy.ip = proxy_ip;
+          item.main_settings.network.proxy.log = proxy_log;
+          item.main_settings.network.proxy.pass = proxy_pass;
+        }
+  
+        if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+          item.main_settings.network.proxy.ip = proxy_ip;
+          item.main_settings.network.proxy.log = proxy_log;
+          item.main_settings.network.proxy.pass = proxy_pass;
+        }
+  
+        if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
+          item.main_settings.network.vpn.country = select_option_city;
+        }
+
+        item.main_settings.anticapcha = anticapcha;
+      })
+    } else {
+
+      if(name_acc !== '') {
+        accounts[id_acc].main_settings.name = name_acc;
+      }
+
+      if((select_option_city === 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
+        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
+        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
+      }
+
+      if((select_option_city !== 0) && (proxy_ip !== '' && proxy_log !== '' && proxy_pass !== '')) {
+        accounts[id_acc].main_settings.network.proxy.ip = proxy_ip;
+        accounts[id_acc].main_settings.network.proxy.log = proxy_log;
+        accounts[id_acc].main_settings.network.proxy.pass = proxy_pass;
+      }
+
+      if((select_option_city !== 0) && (proxy_ip === '' || proxy_log === '' || proxy_pass === '')) {
+        accounts[id_acc].main_settings.network.vpn.country = select_option_city;
+      }
+
+      accounts[id_acc].main_settings.anticapcha = anticapcha;
+
+    }
+  }
+
+  // let save = await 
+  dispatch(appPutAccountsVK(accounts));
+  onClose(false);
+
+}
 export default function LikingLookingSettingsPage (props) {
  
   const { accounts, id_acc, onClose, task_id,titleTask } = props;

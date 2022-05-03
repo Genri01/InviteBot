@@ -26,6 +26,7 @@ import InputFile from '../../InputFile';
 import { confirm_friends } from '../../../../redux/selectors';
 
 import './style.css';
+async function onSave(check_all,name_acc, anticapcha, proxy_ip, proxy_log, proxy_pass, select_option_city, accounts, id_acc, checked, dispatch, onClose) {
 
 async function onSave( welcomeCount, conversationTypeEvent, delay, setLikeToProfile, setLikeToWall, addToFriends, addingMessages, photoFilesPath, audioFilesPath, accounts, id_acc, task_id, dispatch, onClose ) {
 
